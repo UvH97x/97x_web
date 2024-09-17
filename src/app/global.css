@@ -1,0 +1,13 @@
+/* global.css */
+
+/* Reset default margins and paddings */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* TailwindCSS */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
