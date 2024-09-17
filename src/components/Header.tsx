@@ -11,7 +11,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="p-4 text-white text-2xl">
+    <header className="px-4 py-2 text-white text-2xl h-14">
       <span
         className="cursor-pointer"
         onClick={handleTitleClick} // h1要素をクリックするとホームへ遷移

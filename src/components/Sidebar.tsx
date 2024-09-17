@@ -1,18 +1,47 @@
-import React from 'react';
+/*
+  * /src/components/Sidebar.tsx
+*/
+
+'use client';
+
+import React, { useState } from 'react';
 import Link from 'next/link';
-import { PageLink, PageLinks } from "../data/pageLinks" // リンクデータをインポート
+import { PageLink, PageLinks } from '../data/pageLinks';
 
 const Sidebar: React.FC = () => {
+  const [isCollapsed, setIsCollapsed] = useState(true);
+
+  // 折りたたみを切り替える関数
+  const toggleSidebar = () => {
+    setIsCollapsed(!isCollapsed);
+  };
+
   return (
-    <nav className="flex flex-col gap-1">
-      {PageLinks.map((link: PageLink) => (
-        <Link href={link.href} key={link.href}>
-          <div className="px-4 py-2 text-white bg-slate-700 rounded-lg hover:bg-slate-600 text-center">
-            {link.label}
-          </div>
-        </Link>
-      ))}
-    </nav>
+    <div className={`transition-all duration-300 ${isCollapsed ? 'w-10' : 'w-32'} bg-slate-800 h-full flex flex-col`}>
+      {/* サイドバーを折りたたむボタン */}
+      <button
+        onClick={toggleSidebar}
+        className="text-white p-2 h-14 rounded-full focus:outline-none hover:bg-slate-600"
+      >
+        {/* ハンバーガーアイコンや矢印を表示 */}
+        ≡
+      </button>
+
+      {/* ナビゲーションリンク */}
+      <nav className="flex-1 flex flex-col gap-1 mt-4">
+        {PageLinks.map((link: PageLink) => (
+          <Link href={link.href} key={link.href}>
+            <div className="p-2 text-white rounded-lg hover:bg-slate-600 transition-colors flex items-center">
+              {/* アイコンがある場合はアイコンを表示し、ない場合はラベルだけを表示 */}
+              {link.icon && <img src={link.icon} alt={`${link.label} icon`} className="w-6 h-6 mr-2" />}
+              
+              {/* サイドバーが折りたたまれていないときだけラベルを表示 */}
+              {!isCollapsed && <span>{link.label}</span>}
+            </div>
+          </Link>
+        ))}
+      </nav>
+    </div>
   );
 };
 

@@ -14,15 +14,13 @@ type RootLayoutProps = {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="ja" className="h-full w-full">
-      <body className="h-full w-full flex flex-col">
+      <body className="h-full w-full flex flex-row">
         <div className="bg-gray-800 sticky top-0">
-          <Header />
+          <Sidebar />
         </div>
-        <div className="flex-1 bg-gray-800 overflow-auto flex flex-row">
-          <div className="w-32 p-1.5 overflow-y-auto overflow-x-hidden">
-            <Sidebar />
-          </div>
-          <main className="flex-1 bg-gray-200 p-4 h-full overflow-y-auto">
+        <div className="flex-1 bg-gray-800 overflow-auto flex flex-col">
+          <Header />
+          <main className="flex-1 bg-white p-4 h-full overflow-y-auto">
             {children}
           </main>
         </div>
