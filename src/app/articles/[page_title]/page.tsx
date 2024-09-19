@@ -7,11 +7,24 @@ import path from 'path';
 import { ParsedFile, getParsedFile } from '@/src/lib/customParser';
 import { serializeMdx } from '@/src/lib/serializeMdx';
 import dynamic from 'next/dynamic';
+import fs from 'fs';
+
+import { getFilesWithExtensionSync } from '@/src/lib/getFiles';
 
 // MDXRemoteRenderer コンポーネントをクライアントサイドでのみレンダリング
 const MDXRemoteRenderer = dynamic(() => import('@/src/components/MDXRemoteRenderer'), {
   ssr: false, // サーバーサイドレンダリング（SSR）を無効にする
 });
+
+// `generateStaticParams` で動的なパスを生成します
+export async function generateStaticParams() {
+  const articlesDir = path.join(process.cwd(), 'src/data/articles');
+  const filenames = getFilesWithExtensionSync(articlesDir, ".mdx");;
+
+  return filenames.map((filename) => ({
+    page_title: filename.replace(/\.mdx$/, ''),
+  }));
+}
 
 
 // ページコンポーネントでデータをフェッチします
