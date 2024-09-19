@@ -50,3 +50,6 @@ export default async function Page({ params }: { params: { page_title: string } 
     </div>
   );
 }
+
+// ISRの設定を追加
+export const revalidate = 60; // 60秒ごとに再生成
