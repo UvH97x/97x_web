@@ -29,7 +29,7 @@ export default function ArticleHome() {
   `;
 
   return (
-    <div className="flex flex-col items-center p-0">
+    <div className="w-full flex flex-col items-center p-0">
       {/* タイトル */}
       <h1 className="text-4xl font-bold mb-8 text-slate-900">
         Articles on Mathematics and Physics

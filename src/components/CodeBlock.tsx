@@ -1,6 +1,8 @@
 /*
   * src/components/CodeBlock.tsx
   * 一行が長いときに、自動的に折り返せるようにしたい。
+  * 幅を固定できるとなお見栄えが良い。
+  * 今は、できるだけ幅に収まるようにすること。
 */
 
 import React from 'react';
