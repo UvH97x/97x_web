@@ -6,7 +6,7 @@
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  pageExtensions: ['ts', 'tsx', 'mdx'], // MDXファイルをページとして認識
+  pageExtensions: ['ts', 'tsx', "md", 'mdx'], // MDXファイルをページとして認識
 };
 
 export default nextConfig;

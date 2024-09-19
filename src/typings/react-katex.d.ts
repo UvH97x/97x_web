@@ -1,4 +1,7 @@
-/** src/typings/react-katex.d.ts */
+/*
+  * src/typings/react-katex.d.ts
+  * 今のが成功したらいらない。
+*/
 
 declare module 'react-katex' {
   import { ComponentType } from 'react';

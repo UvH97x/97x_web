@@ -23,9 +23,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <Header />
           <main className="flex-1 bg-white p-4 h-full overflow-y-auto">
             {children}
-            <Analytics />
           </main>
         </div>
+        <Analytics />
       </body>
     </html>
   );

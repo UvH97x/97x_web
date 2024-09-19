@@ -20,7 +20,7 @@ export const PageLinks: PageLink[] = [
       { href: "/articles", label: "Articles", sublinks: [] },
       { href: "/applications", label: "Apps", sublinks: [] }
     ],
-    icon: "./home.svg",
+    icon: "/home.svg",
   },
   {
     href: "/applications",
@@ -28,18 +28,18 @@ export const PageLinks: PageLink[] = [
     sublinks: [
       { href: "/applications/todo", label: "Todo", sublinks: [] }
     ],
-    icon: "./apps.svg",
+    icon: "/apps.svg",
   },
   {
     href: "/articles",
     label: "Articles",
     sublinks: [],
-    icon: "./articles.svg",
+    icon: "/articles.svg",
   },
   {
     href: "/simulators",
     label: "Simulators",
     sublinks: [],
-    icon: "./simulators.svg",
+    icon: "/simulators.svg",
   },
 ];
