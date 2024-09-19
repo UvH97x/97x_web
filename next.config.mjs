@@ -2,11 +2,16 @@
   * next.config.mjs
 */
 
-// next.config.js
+import withMDX from '@next/mdx';
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  pageExtensions: ['ts', 'tsx', "md", 'mdx'], // MDXファイルをページとして認識
-};
+const nextConfig = withMDX({
+  extension: /\.mdx?$/, // .mdx または .md ファイルを処理
+  options: {
+    remarkPlugins: [],
+    rehypePlugins: [],
+  },
+})({
+  pageExtensions: ['ts', 'tsx', 'md', 'mdx'], // .mdx ファイルをページとして認識
+});
 
 export default nextConfig;

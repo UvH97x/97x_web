@@ -1,30 +1,38 @@
 /*
-  * src/app/articles/[page.tsx]
+  * src/app/articles/[page.tsx]/page.tsx
   * 
  */
 
-import fs from 'fs';
 import path from 'path';
+import { ParsedFile, getParsedFile } from '@/src/lib/customParser';
 import { serializeMdx } from '@/src/lib/serializeMdx';
-import { getParsedFile } from '@/src/lib/customParser';
-import { ParsedFile } from '@/src/lib/customParser'; // 既存の型定義を利用
-import MDXRemoteRenderer from '@/src/components/MDXRemoteRenderer'; // クライアントコンポーネントをインポート
+import dynamic from 'next/dynamic';
 
+// MDXRemoteRenderer コンポーネントをクライアントサイドでのみレンダリング
+const MDXRemoteRenderer = dynamic(() => import('@/src/components/MDXRemoteRenderer'), {
+  ssr: false, // サーバーサイドレンダリング（SSR）を無効にする
+});
+
+
+// ページコンポーネントでデータをフェッチします
 export default async function Page({ params }: { params: { page_title: string } }) {
   const { page_title } = params;
   const articlePath = path.join(process.cwd(), 'src/data/articles', `${page_title}.mdx`);
 
-  // メタデータを取得
+  // メタデータと記事本文を取得
   const articleData: ParsedFile = getParsedFile(articlePath);
+
+  // 本文をMDXとしてシリアライズ
   const mdxSource = await serializeMdx(articleData.content);
 
   return (
-    <div className="prose">
+    <div className="prose max-w-none">
       <h1>{articleData.title}</h1>
-      <p><span>作成日: {articleData.createdAt}</span></p>
+      <span>作成日: {articleData.createdAt}</span>
+      <span>更新日: {articleData.updatedAt}</span>
       <div>
         <h2>記事本編</h2>
-        <MDXRemoteRenderer source={mdxSource} /> {/* クライアントサイドでMDXをレンダリング */}
+        <MDXRemoteRenderer source={mdxSource} />
       </div>
     </div>
   );

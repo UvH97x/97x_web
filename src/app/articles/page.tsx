@@ -48,17 +48,6 @@ int main() {
       <p className="text-lg text-gray-700 mb-8">
         Explore a collection of in-depth articles on various topics in mathematics and physics.
       </p>
-      <div className='max-w-full'>
-        <h1>コード例</h1>
-        <CodeBlock language="cpp" code={code} />
-      </div>
-      <div>
-        <h1>数式の例</h1>
-        <MathBlock math={equation} />
-        <p>
-          This is an inline math equation: <InlineMath math="E = mc^2" />.
-        </p>
-      </div>
 
       {/* 記事一覧 */}
       <div className="w-full max-w-4xl">

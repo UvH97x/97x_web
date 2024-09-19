@@ -3,7 +3,11 @@
 */
 
 import { Analytics } from '@vercel/analytics/react';
+
 import React from 'react';
+import fs from 'fs';
+import path from 'path';
+
 import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
 import './global.css';
@@ -11,6 +15,17 @@ import './global.css';
 type RootLayoutProps = {
   children: React.ReactNode;
 };
+
+// `generateStaticParams` で動的なパスを生成します
+export async function generateStaticParams() {
+  const articlesDir = path.join(process.cwd(), 'src/data/articles');
+  const filenames = fs.readdirSync(articlesDir);
+
+  return filenames.map((filename) => ({
+    page_title: filename.replace(/\.mdx$/, ''),
+  }));
+}
+
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
