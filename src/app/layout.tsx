@@ -2,7 +2,7 @@
   * /src/app/layout.tsx
 */
 
-import Analytics from "@vercel/analytics";
+import { Analytics } from '@vercel/analytics/react';
 import React from 'react';
 import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
@@ -23,6 +23,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <Header />
           <main className="flex-1 bg-white p-4 h-full overflow-y-auto">
             {children}
+            <Analytics />
           </main>
         </div>
       </body>
