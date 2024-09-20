@@ -17,8 +17,8 @@ type RootLayoutProps = {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="ja" className="h-full w-full">
-      <body className="h-full w-full overflow-hidden flex flex-row">
-        <div className="bg-gray-800 sticky top-0">
+      <body className="h-full w-full overflow-hidden flex flex-col-reverse md:flex-row">
+        <div className="bg-gray-800 sticky top-0 md:static md:block">
           <Sidebar />
         </div>
         <div className="flex-1 bg-gray-800 overflow-auto flex flex-col">

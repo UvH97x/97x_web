@@ -11,14 +11,14 @@ import { getFilesWithExtensionSync } from '@/src/lib/getFiles';
 import { metaData, getMetaData } from "@/src/lib/customParser";
 
 export default function ArticleHome() {
-  const articlePaths: string[] = getFilesWithExtensionSync("src/data/articles/",".mdx");
+  const articlePaths: string[] = getFilesWithExtensionSync("src/data/articles/",".md");
   // console.log(articlePaths);
   const articles: {metaData: metaData, href: string}[] = articlePaths.map((filePath) => {
     const fullPath = path.join('src/data/articles', filePath);  // フルパスを作成
     const metaData = getMetaData(fullPath);  // メタデータを取得
 
     // ファイル名からリンクを生成 (例えば、"/articles/sample" のようにする)
-    const href = `/articles/${filePath.replace(/\.mdx$/, '')}`;
+    const href = `/articles/${filePath.replace(/\.md$/, '')}`;
     return {
       metaData,
       href,

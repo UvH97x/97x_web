@@ -33,7 +33,7 @@ $$
   \mathbf{e}_z = \cos\theta \, \mathbf{e}_r - \sin\theta \, \mathbf{e}_\theta
 \end{cases}
 $$
-$r, \theta, \phi$を$x, y, z$でそれぞれ変微分する。$r$は、
+$r, \theta, \phi$を$x, y, z$でそれぞれ偏微分していく。$r$は、
 $$
   2r\frac{\partial r}{\partial x} = 2x
 $$

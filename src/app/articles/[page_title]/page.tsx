@@ -8,21 +8,20 @@ import path from 'path';
 import dynamic from 'next/dynamic';
 
 import { ParsedFile, getParsedFile } from '@/src/lib/customParser';
-import { serializeMdx } from '@/src/lib/serializeMdx';
 import { getFilesWithExtensionSync } from '@/src/lib/getFiles';
 
-// MDXRemoteRenderer コンポーネントをクライアントサイドでのみレンダリング
-const MDXRemoteRenderer = dynamic(() => import('@/src/components/MDXRemoteRenderer'), {
+// MarkdownRenderer コンポーネントをクライアントサイドでのみレンダリング
+const MarkdownRenderer = dynamic(() => import('@/src/components/MarkdownRenderer'), {
   ssr: false,
 });
 
 // `generateStaticParams` で動的なパスを生成します
 export async function generateStaticParams() {
   const articlesDir = path.join(process.cwd(), "src", "data", "articles");
-  const filenames = getFilesWithExtensionSync(articlesDir, ".mdx");
+  const filenames = getFilesWithExtensionSync(articlesDir, ".md");
 
   return filenames.map((filename) => ({
-    page_title: filename.replace(/\.mdx$/, ''),
+    page_title: filename.replace(/\.md$/, ''),
   }));
 }
 
@@ -32,7 +31,7 @@ interface Params {
 }
 export async function generateMetadata({ params }: { params: Params }) {
   const { page_title } = params;
-  const articlePath = path.join(process.cwd(), 'src/data/articles', `${page_title}.mdx`);
+  const articlePath = path.join(process.cwd(), 'src/data/articles', `${page_title}.md`);
   const articleData = getParsedFile(articlePath);
 
   return {
@@ -45,13 +44,10 @@ export async function generateMetadata({ params }: { params: Params }) {
 // ページコンポーネントでデータをフェッチします
 export default async function Page({ params }: { params: { page_title: string } }) {
   const { page_title } = params;
-  const articlePath = path.join(process.cwd(), 'src/data/articles', `${page_title}.mdx`);
+  const articlePath = path.join(process.cwd(), 'src/data/articles', `${page_title}.md`);
 
   // メタデータと記事本文を取得
   const articleData: ParsedFile = getParsedFile(articlePath);
-
-  // 本文をMDXとしてシリアライズ
-  const mdxSource = await serializeMdx(articleData.content);
 
   // 確認用
   // console.log(articleData);
@@ -77,7 +73,7 @@ export default async function Page({ params }: { params: { page_title: string } 
           <span>筆者: {articleData.author}</span>
         </div>
       </div>
-      <MDXRemoteRenderer source={mdxSource} />
+      <MarkdownRenderer markdownContent={articleData.content} />
       <div className='flex flex-col'>
         {articleData.references.length > 0 && (
           <h2>参考</h2>
