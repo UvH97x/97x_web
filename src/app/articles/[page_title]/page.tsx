@@ -1,8 +1,7 @@
 /*
   * src/app/articles/[page.tsx]/page.tsx
-  [ ]: 記事本編のスタイリング(更新日の有無、記事の小見出しなど。検索エンジンに引っかかりやすくする工夫も。)
-  [ ]: 二回フェッチする問題は、メタデータをデータベースで扱うことにより解決すると思うため、一旦放置。
-  [ ]: og, twitter, canonical, robotsなどメタデータを増やしてもいい。
+  TODO: 二回フェッチする問題は、メタデータをデータベースで扱うことにより解決すると思うため、一旦放置。
+  TODO: og, twitter, canonical, robotsなどメタデータを増やしてもいい。
  */
 
 import path from 'path';
