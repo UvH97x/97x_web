@@ -1,3 +1,10 @@
+/*
+  * src/lib/getFiles.ts
+  * 指定ディレクトリの拡張子フィルタされたファイル一覧を取得
+  * ファイルの中身までは確認しない
+*/
+
+
 import fs from "fs";
 import path from "path";
 

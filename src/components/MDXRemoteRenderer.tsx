@@ -8,6 +8,8 @@ import { useEffect } from 'react';
 import { MDXRemote } from 'next-mdx-remote';
 import { MDXRemoteSerializeResult } from 'next-mdx-remote';
 import Prism from 'prismjs';
+import 'prismjs/components/prism-bash'
+import 'prismjs/components/prism-css'
 import 'prismjs/components/prism-javascript';
 import 'prismjs/components/prism-jsx';
 import 'prismjs/components/prism-typescript';

@@ -9,7 +9,7 @@ import Link from 'next/link';
 import { PageLink, PageLinks } from '../data/pageLinks';
 
 const Sidebar: React.FC = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
 
   // 折りたたみを切り替える関数
   const toggleSidebar = () => {

@@ -1,14 +1,16 @@
 ---
-title: "記事例"
+title: "記事サンプル"
+author: "UvH"
 created_at: "2024-09-19"
 updated_at: "2024-09-20"  # 更新日がない場合はこの行を省略
 references:
-  - "https://example.com/reference1"
-  - "https://example.com/reference2"
+  - "参考文献1, https://example.com/reference1"
+  - "参考文献2, https://example.com/reference2"
 tags:
   - "プログラミング"
   - "物理"
-  - "Next.js"
+  - "数学"
+excerpt: "この記事では、数式やコードを含む内容について説明しています。"
 ---
 
 # 本文開始
@@ -22,23 +24,9 @@ $$
 \int_0^\infty e^{-x^2} dx = \frac{\sqrt{\pi}}{2}
 $$
 
+コードブロック:
 ```js
 function example() {
   console.log("プログラムコードの例");
 }
-```
-
-### メリット
-1. **読みやすさ**: メタデータはYAMLで整理されており、記事の内容部分はMarkdownで書けるため、執筆しやすい。
-2. **解析が容易**: `gray-matter`などのパッケージでYAMLフロントマターを簡単に解析できる。
-3. **拡張性**: YAMLで新しいフィールドを追加するのが簡単。例えば、参考記事やタグなど。
-
-### 解析用コード
-この形式を解析して、TSXでレンダリングするコードを用意します。
-
-#### 1. `gray-matter`を使って解析する
-`gray-matter`は、YAMLフロントマターを含むMarkdownファイルを解析するためのパッケージです。次のようにインストールします。
-
-```bash
-npm install gray-matter
 ```

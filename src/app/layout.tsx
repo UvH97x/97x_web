@@ -6,8 +6,8 @@ import { Analytics } from '@vercel/analytics/react';
 
 import React from 'react';
 
-import Sidebar from '../components/Sidebar';
-import Header from '../components/Header';
+import Sidebar from '@/src/components/Sidebar';
+import Header from '@/src/components/Header';
 import './global.css';
 
 type RootLayoutProps = {
@@ -17,7 +17,7 @@ type RootLayoutProps = {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="ja" className="h-full w-full">
-      <body className="h-full w-full flex flex-row">
+      <body className="h-full w-full overflow-hidden flex flex-row">
         <div className="bg-gray-800 sticky top-0">
           <Sidebar />
         </div>

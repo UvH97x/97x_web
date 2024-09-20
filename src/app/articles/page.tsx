@@ -1,15 +1,11 @@
 /*
   * /src/app/articles/page.tsx
+  [ ]: メタデータをVercel Postgreに保存して、トップに表示する記事リンクの最適化や検索機能の実装を行いたい。
 */
 import path from "path";
 
 import React from 'react';
 import Link from 'next/link';
-
-import { InlineMath } from 'react-katex';
-
-import CodeBlock from '@/src/components/CodeBlock';
-import MathBlock from '@/src/components/MathBlock';
 
 import { getFilesWithExtensionSync } from '@/src/lib/getFiles';
 import { metaData, getMetaData } from "@/src/lib/customParser";
