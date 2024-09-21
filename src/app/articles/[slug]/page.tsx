@@ -21,17 +21,17 @@ export async function generateStaticParams() {
   const filenames = getFilesWithExtensionSync(articlesDir, ".md");
 
   return filenames.map((filename) => ({
-    page_title: filename.replace(/\.md$/, ''),
+    slug: filename.replace(/\.md$/, ''),
   }));
 }
 
 // メタデータの生成
 interface Params {
-  page_title: string;  // 動的ルートパラメータ
+  slug: string;  // 動的ルートパラメータ
 }
 export async function generateMetadata({ params }: { params: Params }) {
-  const { page_title } = params;
-  const articlePath = path.join(process.cwd(), 'src/data/articles', `${page_title}.md`);
+  const { slug } = params;
+  const articlePath = path.join(process.cwd(), 'src/data/articles', `${slug}.md`);
   const articleData = getParsedFile(articlePath);
 
   return {
@@ -42,9 +42,9 @@ export async function generateMetadata({ params }: { params: Params }) {
 }
 
 // ページコンポーネントでデータをフェッチします
-export default async function Page({ params }: { params: { page_title: string } }) {
-  const { page_title } = params;
-  const articlePath = path.join(process.cwd(), 'src/data/articles', `${page_title}.md`);
+export default async function Page({ params }: { params: { slug: string } }) {
+  const { slug } = params;
+  const articlePath = path.join(process.cwd(), 'src/data/articles', `${slug}.md`);
 
   // メタデータと記事本文を取得
   const articleData: ParsedFile = getParsedFile(articlePath);
@@ -98,4 +98,4 @@ export default async function Page({ params }: { params: { page_title: string } 
 
 // ISRの設定を追加(明らかに重くなってからでOK)
 // 単位は秒
-// export const revalidate = 60;
+export const revalidate = 60;

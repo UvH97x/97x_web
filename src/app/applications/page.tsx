@@ -26,6 +26,11 @@ export default function AppHome() {
             Todo List
           </span>
         </Link>
+        <Link href="./applications/markdown-renderer-by-typst">
+          <span className="text-xl text-blue-600 hover:text-blue-800 underline transition duration-300">
+            MarkdownRendererTest
+          </span>
+        </Link>
       </div>
     </div>
   );

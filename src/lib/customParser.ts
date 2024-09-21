@@ -19,25 +19,6 @@ export interface ParsedFile {
   content: string;      // 本文
 }
 
-// メタデータのみの型
-export interface metaData {
-  title: string;
-  createdAt: string;
-  tags: string[];
-}
-
-// メタデータのみを取得。記事の本文はいらないが、タイトルなどが必要なときに使用。
-export function getMetaData(filePath: string): metaData {
-  const fileContent = fs.readFileSync(filePath, 'utf8');
-  const { data } = matter(fileContent);  // YAMLフロントマターのみを解析
-
-  return {
-    title: data.title,
-    createdAt: data.created_at,
-    tags: data.tags || [],
-  };
-}
-
 // パスを指定して、記事のあらゆる情報を解析して返す。
 export function getParsedFile(filePath: string): ParsedFile {
   const fileContent = fs.readFileSync(filePath, 'utf8');
@@ -61,5 +42,24 @@ export function getParsedFile(filePath: string): ParsedFile {
     tags: data.tags || [],
     excerpt,  // 概要を追加
     content: content.trim(),
+  };
+}
+
+// メタデータのみの型
+export interface metaData {
+  title: string;
+  createdAt: string;
+  tags: string[];
+}
+
+// メタデータのみを取得。記事の本文はいらないが、タイトルなどが必要なときに使用。
+export function getMetaData(filePath: string): metaData {
+  const fileContent = fs.readFileSync(filePath, 'utf8');
+  const { data } = matter(fileContent);  // YAMLフロントマターのみを解析
+
+  return {
+    title: data.title,
+    createdAt: data.created_at,
+    tags: data.tags || [],
   };
 }

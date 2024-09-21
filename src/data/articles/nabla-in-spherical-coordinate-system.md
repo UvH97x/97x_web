@@ -12,6 +12,12 @@ excerpt: "球座標系におけるナブラ演算子を直交座標系からの�
 
 ## 直交座標系から球座標系へのナブラ演算子の変換
 
+直交座標系におけるナブラ演算子は以下の通り。
+$$
+\nabla = \mathbf{e}_x \frac{\partial}{\partial x} + \mathbf{e}_y \frac{\partial}{\partial y} + \mathbf{e}_z \frac{\partial}{\partial z}
+$$
+これを球座標系$(r, \theta, \phi)$へ変換する。
+
 二つの座標系との関係は以下の通り。ただし、$\mathbf{e}_i$は$i$軸方向への単位ベクトルを表す。
 $$
 \begin{cases}
@@ -80,7 +86,7 @@ $$
 \end{cases}
 $$
 
-さて、直交座標系 $(x, y, z)$ でのナブラ演算子は次のように定義される。
+さて、改めて、直交座標系 $(x, y, z)$ でのナブラ演算子は次のように定義される。
 $$
 \nabla = \mathbf{e}_x \frac{\partial}{\partial x} + \mathbf{e}_y \frac{\partial}{\partial y} + \mathbf{e}_z \frac{\partial}{\partial z}
 $$
