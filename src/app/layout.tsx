@@ -1,5 +1,7 @@
 /*
   * /src/app/layout.tsx
+  * サイドバーとかヘッダーのレイアウトは、各アプリそれぞれで指定してあげてもいいかも。
+  * コンテンツが増えたら、Google AdSenseを取り入れてみてもいいかも。
 */
 
 import { Analytics } from '@vercel/analytics/react';

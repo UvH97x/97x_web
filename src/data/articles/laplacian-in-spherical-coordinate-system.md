@@ -80,8 +80,7 @@ $$
 \end{cases}
 $$
 
-### まとめ
-一階微分の結果は以下の通り。
+### 一階微分の結果
 $$
 \begin{cases}
   \frac{\partial r}{\partial x} = \sin\theta\,\cos\phi\\

@@ -98,4 +98,4 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
 // ISRの設定を追加(明らかに重くなってからでOK)
 // 単位は秒
-export const revalidate = 60;
+// export const revalidate = 60;
