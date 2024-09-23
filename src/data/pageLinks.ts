@@ -2,15 +2,7 @@
   * /src/data/pageLinks.ts
 */
 
-import { ComponentType } from "react";
-
-export interface PageLink {
-  href: string;
-  label: string;
-  sublinks: PageLink[]; // サブリンクもPageLink型にする
-  icon?: string; // オプションでアイコンを追加
-  isActive?: boolean; // オプションで現在のページをアクティブ表示するフラグ
-}
+import { PageLink } from "../types/UvHTypes";
 
 export const PageLinks: PageLink[] = [
   {

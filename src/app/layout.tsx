@@ -10,7 +10,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import React from 'react';
 
 import Sidebar from '@/src/components/Sidebar';
-import Header from '@/src/components/Header';
+import NewHeader from '@/src/components/NewHeader';
 import './global.css';
 
 type RootLayoutProps = {
@@ -25,7 +25,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <Sidebar />
         </div>
         <div className="flex-1 bg-gray-800 overflow-auto flex flex-col">
-          <Header />
+          <NewHeader />
           <main className="flex-1 bg-white p-4 h-full overflow-y-auto">
             {children}
           </main>
