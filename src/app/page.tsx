@@ -7,6 +7,14 @@ import React from 'react';
 import { PageLink } from '../types/UvHTypes';
 import LinkBlock from '../components/LinkBlock';
 
+// メタデータの生成
+export async function generateMetadata() {
+  return {
+    title: "97x Home",
+    description: "97x Top Page",
+  };
+}
+
 function HomePage() {
   const Links: PageLink[] = [
     {

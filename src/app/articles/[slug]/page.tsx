@@ -9,6 +9,7 @@ import dynamic from 'next/dynamic';
 
 import { ParsedFile, getParsedFile } from '@/src/lib/customParser';
 import { getFilesWithExtensionSync } from '@/src/lib/getFiles';
+import Breadcrumbs from '@/src/components/Breadcrumbs';
 
 // MarkdownRenderer コンポーネントをクライアントサイドでのみレンダリング
 const MarkdownRenderer = dynamic(() => import('@/src/components/MarkdownRenderer'), {
@@ -54,6 +55,8 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
   return (
     <div className="prose max-w-none flex flex-col">
+      {/* パンくずリスト */}
+      <Breadcrumbs path={`articles/${slug}`} title={articleData.title} />
       <h1 className='text-center'>{articleData.title}</h1>
       <div className='px-4 flex justify-between'>
         <div className='flex flex-wrap gap-2 items-center'>

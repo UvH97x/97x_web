@@ -2,15 +2,18 @@
   * src/components/LinkBlock.tsx
   * リンクのpathとiconのpathを受け取り、リンクのブロックを表示する
 */
-import Link from "next/link";
+import React from 'react';
+import Link from 'next/link';
 
 import { PageLink } from "../types/UvHTypes";
 
-interface Props{
+
+interface Props {
   pageLink: PageLink;
 }
 
-function LinkBlock({ pageLink }: Props): JSX.Element{
+// React.FCを使って型を定義
+const LinkBlock: React.FC<Props> = ({ pageLink }) => {
   return (
     <Link href={pageLink.href}>
       <div
@@ -25,6 +28,6 @@ function LinkBlock({ pageLink }: Props): JSX.Element{
       </div>
     </Link>
   );
-}
+};
 
 export default LinkBlock;

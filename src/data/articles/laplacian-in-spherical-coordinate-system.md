@@ -2,7 +2,7 @@
 title: "球座標系におけるラプラシアン"
 author: "UvH"
 created_at: "2024-09-21"
-updated_at: "2024-09-22"  # 更新日がない場合はこの行を省略
+updated_at: "2024-09-24"  # 更新日がない場合はこの行を省略
 tags:
   - "物理"
   - "数学"
@@ -60,7 +60,7 @@ $$
 \iff
 \begin{cases}
   \frac{\partial \theta}{\partial x} = \frac{xz}{r^3 \sin\theta} = \frac{xz}{r^3 \sin\theta} = \frac{r\sin\theta \, \cos\phi \, r\cos\theta}{r^3 \sin\theta} = \frac{\cos\theta \, \cos\phi}{r} \\
-  \frac{\partial \theta}{\partial x} = \frac{xz}{r^3 \sin\theta} = \frac{yz}{r^3 \sin\theta} = \frac{r\sin\theta \, \sin\phi \, r\cos\theta}{r^3 \sin\theta} = \frac{\sin\phi \, \cos\theta}{r} \\
+  \frac{\partial \theta}{\partial y} = \frac{xz}{r^3 \sin\theta} = \frac{yz}{r^3 \sin\theta} = \frac{r\sin\theta \, \sin\phi \, r\cos\theta}{r^3 \sin\theta} = \frac{\cos\theta \, \sin\phi}{r} \\
   \frac{\partial \theta}{\partial z} = -\frac{x^2 + y^2}{r^3 \sin\theta} = -\frac{x^2 + y^2}{r^3 \sin\theta} = -\frac{r^2 \sin^2\theta \, \cos^2\phi + r^2\sin^2\theta \, \sin^2\phi}{r^3 \sin\theta} = -\frac{\sin\theta}{r} \\
 \end{cases}
 $$
