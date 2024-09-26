@@ -9,7 +9,7 @@ interface FileData {
   isDirectory: boolean;
 }
 
-// ディレクトリを再帰的に読み込む関数
+// ディレクトリを再帰的に読み込む関数 
 const readDirectoryRecursively = (dir: string): FileData[] => {
   const result: FileData[] = [];
 
@@ -34,15 +34,35 @@ const readDirectoryRecursively = (dir: string): FileData[] => {
   return result;
 };
 
+// ファイル構造をチェックし、存在しないものを削除する関数
+const cleanFileStructure = (fileStructure: FileData[]): FileData[] => {
+  return fileStructure.filter(file => {
+    const fullPath = path.join(process.cwd(), file.filePath);
+    return fs.existsSync(fullPath); // ファイルやディレクトリが存在するか確認
+  });
+};
 
 // ファイル構造を生成して保存する関数
 const generateFileStructure = () => {
   const targetDirectory = path.join(process.cwd(), "src/data/articles");
-  const fileStructure = readDirectoryRecursively(targetDirectory);
+  const newFileStructure = readDirectoryRecursively(targetDirectory);
 
-  // JSONファイルとして保存
+  // 既存のファイル構造を読み込む（存在しない場合は新規作成）
   const outputPath = path.join(process.cwd(), "src/data/fileStructure.json");
-  fs.writeFileSync(outputPath, JSON.stringify(fileStructure, null, 2));
+  let existingFileStructure: FileData[] = [];
+
+  if (fs.existsSync(outputPath)) {
+    const fileContent = fs.readFileSync(outputPath, 'utf-8');
+    existingFileStructure = JSON.parse(fileContent);
+  }
+
+  // 存在しないファイルやディレクトリを削除
+  const cleanedFileStructure = cleanFileStructure(existingFileStructure);
+
+  // 新しいファイル構造を統合して保存
+  const updatedFileStructure = [...cleanedFileStructure, ...newFileStructure];
+
+  fs.writeFileSync(outputPath, JSON.stringify(updatedFileStructure, null, 2));
 
   console.log("ファイル構造を保存しました:", outputPath);
 };
