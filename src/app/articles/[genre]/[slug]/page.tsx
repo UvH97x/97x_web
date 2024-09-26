@@ -17,17 +17,22 @@
   
   // JSONファイルから記事データを取得する関数
   const getArticleFilesByGenre = (genre: string): any[] => {
-    const filePath = path.resolve('src', 'data', 'fileStructure.json');
+    // プロジェクトのルートから絶対パスを取得
+    const filePath = path.resolve(process.cwd(), 'src', 'data', 'fileStructure.json');
+    
+    if (!fs.existsSync(filePath)) {
+      throw new Error(`File not found: ${filePath}`);
+    }
+  
     const fileContent = fs.readFileSync(filePath, 'utf-8');
     const fileStructure = JSON.parse(fileContent);
-  
+    
     return fileStructure.filter((file: any) =>
       file.filePath.startsWith(`src/data/articles/${genre}`) && file.filePath.endsWith('.md')
     );
   };
   
   // `generateStaticParams` で動的なパスを生成します
-  /*
   export async function generateStaticParams({ params }: { params: { genre: string } }) {
     const articleFiles = getArticleFilesByGenre(params.genre);
   
@@ -35,7 +40,6 @@
       slug: file.fileName.replace(/\.md$/, ''),
     }));
   }
-  */
   
   // メタデータの生成
   export async function generateMetadata({ params }: { params: { genre: string, slug: string } }) {
