@@ -4,7 +4,8 @@
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
-    "noEmit": true,
+    "noEmit": false,  // JavaScriptファイルを生成する
+    "outDir": "./dist", // 出力先ディレクトリを指定
     "esModuleInterop": true,
     "module": "esnext",            // この設定はそのままでOK
     "moduleResolution": "node",    // bundler -> node に変更
