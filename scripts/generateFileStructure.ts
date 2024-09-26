@@ -54,18 +54,14 @@ const generateFileStructure = () => {
   if (fs.existsSync(outputPath)) {
     const fileContent = fs.readFileSync(outputPath, 'utf-8');
     existingFileStructure = JSON.parse(fileContent);
+    // 存在しないファイルやディレクトリを削除
+    existingFileStructure = cleanFileStructure(existingFileStructure);
   }
 
-  // 存在しないファイルやディレクトリを削除
-  const cleanedFileStructure = cleanFileStructure(existingFileStructure);
-
-  // 新しいファイル構造を統合して保存
-  const updatedFileStructure = [...cleanedFileStructure, ...newFileStructure];
-
-  fs.writeFileSync(outputPath, JSON.stringify(updatedFileStructure, null, 2));
+  // 新しいファイル構造で完全に上書き
+  fs.writeFileSync(outputPath, JSON.stringify(newFileStructure, null, 2));
 
   console.log("ファイル構造を保存しました:", outputPath);
 };
 
-// スクリプトを実行
 generateFileStructure();
