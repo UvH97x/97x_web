@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "npm run generate-file-structure && next dev",
     "build": "npm run prebuild && next build",
-    "prebuild": "tsc scripts/generateFileStructure.ts",
+    "prebuild": "tsc scripts/generateFileStructure.ts && node scripts/generateFileStructure.js",
     "start": "next start",
     "lint": "next lint",
     "generate-file-structure": "ts-node scripts/generateFileStructure.ts"
