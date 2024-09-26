@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "npm run generate-file-structure && next dev",
-    "build": "npm run prebuild && next build",
+    "build": "next build",
     "prebuild": "tsc && node dist/scripts/generateFileStructure.js",
     "start": "next start",
     "lint": "next lint",

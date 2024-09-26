@@ -105,5 +105,5 @@
   }
   
   // ISRの設定を追加
-  export const revalidate = 60;
+  // export const revalidate = 60;
   
