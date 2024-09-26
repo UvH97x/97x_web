@@ -1,62 +1,57 @@
-/*
-  * /src/app/articles/page.tsx
-  [ ]: メタデータをVercel Postgreに保存して、トップに表示する記事リンクの最適化や検索機能の実装を行いたい。
-*/
-import path from "path";
+// src/app/articles/page.tsx
 
-import React from 'react';
+import fs from 'fs';
+import path from 'path';
 import Link from 'next/link';
+import Breadcrumbs from '@/src/components/Breadcrumbs';
 
-import { getFilesWithExtensionSync } from '@/src/lib/getFiles';
-import { metaData, getMetaData } from "@/src/lib/customParser";
-import Breadcrumbs from "@/src/components/Breadcrumbs";
+interface FileData {
+  fileName: string;
+  filePath: string;
+  isDirectory: boolean;
+}
 
+// JSONファイルからディレクトリ情報を取得
+const getFileStructure = (): FileData[] => {
+  // プロジェクトのルートディレクトリを基準にパスを解決
+  const filePath = path.resolve('src', 'data', 'fileStructure.json');
+  const fileContent = fs.readFileSync(filePath, 'utf-8');
+  return JSON.parse(fileContent);
+};
+
+// サーバーコンポーネントとしてデータを直接取得
 export default function ArticleHome() {
-  const articlePaths: string[] = getFilesWithExtensionSync("src/data/articles/",".md");
-  // console.log(articlePaths);
-  const articles: {metaData: metaData, href: string}[] = articlePaths.map((filePath) => {
-    const fullPath = path.join('src/data/articles', filePath);  // フルパスを作成
-    const metaData = getMetaData(fullPath);  // メタデータを取得
+  const fileStructure = getFileStructure();
 
-    // ファイル名からリンクを生成 (例えば、"/articles/sample" のようにする)
-    const href = `/articles/${filePath.replace(/\.md$/, '')}`;
-    return {
-      metaData,
-      href,
-    };
-  });
+  // ディレクトリのみを抽出し、パスが 'src/data/articles' で始まるものだけを取得
+  const genreDirs = fileStructure
+    .filter(file => file.isDirectory && file.filePath.startsWith('src/data/articles')) // ディレクトリのみを抽出
+    .map(dir => dir.fileName); // ディレクトリ名を取得
 
-  const code = `#include <iostream>
-int main() {
-  std::cout << "Hello, World!" << std::endl;
-  return 0;
-}`;
-
-  const equation = `\\int_0^\\infty e^{-x^2} dx = \\frac{\\sqrt{\\pi}}{2}`;
+  console.log(genreDirs);
 
   return (
-    <div className="prose w-full flex flex-col p-0">
+    <div className="w-full prose flex flex-col">
       {/* パンくずリスト */}
-      <Breadcrumbs path="articles" title=""/>
-
+      <Breadcrumbs href="articles" title="記事ホーム" />
       <div className="flex flex-col items-center">
         {/* タイトル */}
-        <h1 className="text-4xl font-bold mb-8 text-slate-900">
-          Articles on Mathematics and Physics
+        <h1 className="text^4xl font-bold mb-8 text-slate-900">
+          Articles
         </h1>
         {/* 説明文 */}
         <p className="text-lg text-gray-700 mb-8">
-          Explore a collection of in-depth articles on various topics in mathematics and physics.
+          Explore a collection of in-depth articles on various topics in physics
         </p>
-
-        {/* 記事一覧 */}
+        
+        {/* ジャンル一覧 */}
         <div className="w-full max-w-4xl">
           <ul className="space-y-4">
-            {articles.map((article, index) => (
+            {genreDirs.map((genre, index) => (
               <li key={index}>
-                <Link href={article.href}>
+                <Link href={`/articles/${genre}`}>
                   <span className="text-2xl text-blue-600 hover:text-blue-800 underline transition duration-300 cursor-pointer">
-                    {article.metaData.title}
+                    {genre.charAt(0).toUpperCase() + genre.slice(1)}
                   </span>
                 </Link>
               </li>
