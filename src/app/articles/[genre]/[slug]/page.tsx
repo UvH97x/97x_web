@@ -27,6 +27,7 @@
   };
   
   // `generateStaticParams` で動的なパスを生成します
+  /*
   export async function generateStaticParams({ params }: { params: { genre: string } }) {
     const articleFiles = getArticleFilesByGenre(params.genre);
   
@@ -34,6 +35,7 @@
       slug: file.fileName.replace(/\.md$/, ''),
     }));
   }
+  */
   
   // メタデータの生成
   export async function generateMetadata({ params }: { params: { genre: string, slug: string } }) {
