@@ -1,7 +1,7 @@
 // scripts/generateFileStructure.ts
 
-import fs from 'fs'; // ESモジュール
-import path from 'path'; // ESモジュール
+import * as fs from 'fs';
+import * as path from 'path';
 
 interface FileData {
   fileName: string;

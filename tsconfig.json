@@ -10,6 +10,7 @@
     "esModuleInterop": true,
     "module": "esnext",            // この設定はそのままでOK
     "moduleResolution": "node",    // bundler -> node に変更
+    "target": "es2020",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
