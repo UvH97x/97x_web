@@ -7,7 +7,7 @@
   import path from 'path';
   import dynamic from 'next/dynamic';
   import { ParsedFile, getParsedFile } from '@/src/lib/customParser';
-  import fs from 'fs';
+  import { fileStructure } from '@/src/data/fileStructure';
   
   // MarkdownRenderer コンポーネントをクライアントサイドでのみレンダリング
   const MarkdownRenderer = dynamic(() => import('@/src/components/MarkdownRenderer'), {
@@ -16,16 +16,6 @@
   
   // JSONファイルから記事データを取得する関数
   const getArticleFilesByGenre = (genre: string): any[] => {
-    // プロジェクトのルートから絶対パスを取得
-    const filePath = path.resolve(process.cwd(), 'src', 'data', 'fileStructure.json');
-    
-    if (!fs.existsSync(filePath)) {
-      throw new Error(`File not found: ${filePath}`);
-    }
-  
-    const fileContent = fs.readFileSync(filePath, 'utf-8');
-    const fileStructure = JSON.parse(fileContent);
-    
     return fileStructure.filter((file: any) =>
       file.filePath.startsWith(`src/data/articles/${genre}`) && file.filePath.endsWith('.md')
     );

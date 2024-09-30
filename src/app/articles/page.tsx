@@ -3,7 +3,7 @@
 import fs from 'fs';
 import path from 'path';
 import Link from 'next/link';
-import Breadcrumbs from '@/src/components/Breadcrumbs';
+import { fileStructure } from '@/src/data/fileStructure';
 
 interface FileData {
   fileName: string;
@@ -11,18 +11,8 @@ interface FileData {
   isDirectory: boolean;
 }
 
-// JSONファイルからディレクトリ情報を取得
-const getFileStructure = (): FileData[] => {
-  // プロジェクトのルートディレクトリを基準にパスを解決
-  const filePath = path.resolve('src', 'data', 'fileStructure.json');
-  const fileContent = fs.readFileSync(filePath, 'utf-8');
-  return JSON.parse(fileContent);
-};
-
 // サーバーコンポーネントとしてデータを直接取得
 export default function ArticleHome() {
-  const fileStructure = getFileStructure();
-
   // ディレクトリのみを抽出し、パスが 'src/data/articles' で始まるものだけを取得
   const genreDirs = fileStructure
     .filter(file => file.isDirectory && file.filePath.startsWith('src/data/articles')) // ディレクトリのみを抽出
@@ -47,7 +37,7 @@ export default function ArticleHome() {
               <li key={index}>
                 <Link href={`/articles/${genre}`}>
                   <span className="text-2xl text-blue-600 hover:text-blue-800 underline transition duration-300 cursor-pointer">
-                    {genre.charAt(0).toUpperCase() + genre.slice(1)}
+                    {genre}
                   </span>
                 </Link>
               </li>

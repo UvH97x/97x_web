@@ -1,15 +1,11 @@
 // src/app/articles/[genre]/page.tsx
 
-import path from 'path';
-import fs from 'fs';
 import Link from 'next/link';
+
+import { fileStructure } from '@/src/data/fileStructure';
 
 // JSONファイルから記事データを取得する関数
 const getArticleFilesByGenre = (genre: string): string[] => {
-  const filePath = path.resolve('src', 'data', 'fileStructure.json');
-  const fileContent = fs.readFileSync(filePath, 'utf-8');
-  const fileStructure = JSON.parse(fileContent);
-
   // 該当ジャンルに含まれる.mdファイルを抽出
   return fileStructure
     .filter((file: any) => file.isDirectory === false && file.filePath.startsWith(`src/data/articles/${genre}`) && file.filePath.endsWith('.md'))

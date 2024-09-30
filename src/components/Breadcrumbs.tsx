@@ -1,7 +1,7 @@
 // src/articles/Breadcrumbs.tsx
 import Link from 'next/link';
 
-import fileStructure from "@/src/data/fileStructure.json"
+import { fileStructure } from "@/src/data/fileStructure"
 
 interface BreadcrumbItem {
   href: string;
