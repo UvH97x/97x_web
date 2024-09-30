@@ -10,7 +10,7 @@ export default function ArticlesLayout({ children }: { children: React.ReactNode
   const pathname = usePathname(); // 現在のURLパスを取得
 
   return (
-    <div>
+    <div className="flex flex-col gap-4">
       {/* パンくずリストを表示 */}
       <Breadcrumbs href={pathname} />
       <div>{children}</div>
