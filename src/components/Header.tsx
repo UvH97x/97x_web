@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 
-const NewHeader: React.FC = () => {
+const Header: React.FC = () => {
   return (
     <header className="px-4 py-2 text-white text-2xl h-14">
       {/* サイドバーのトグル */}
@@ -17,4 +17,4 @@ const NewHeader: React.FC = () => {
   );
 };
 
-export default NewHeader;
+export default Header;

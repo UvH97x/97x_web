@@ -10,7 +10,7 @@ import LinkBlock from '../components/LinkBlock';
 // メタデータの生成
 export async function generateMetadata() {
   return {
-    title: "97x Home",
+    title: "97x",
     description: "97x Top Page",
   };
 }
@@ -54,7 +54,7 @@ function HomePage() {
       </div>
 
       {/* ページリンク */}
-      <div className="flex flex-row flex-wrap gap-6">
+      <div className="flex flex-row justify-around flex-wrap gap-6">
         {Links.map((link: PageLink) => (
           <LinkBlock key={link.href} pageLink={link} />
         ))}

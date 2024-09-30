@@ -28,12 +28,8 @@ export default function ArticleHome() {
     .filter(file => file.isDirectory && file.filePath.startsWith('src/data/articles')) // ディレクトリのみを抽出
     .map(dir => dir.fileName); // ディレクトリ名を取得
 
-  console.log(genreDirs);
-
   return (
-    <div className="w-full prose flex flex-col">
-      {/* パンくずリスト */}
-      <Breadcrumbs href="articles" title="記事ホーム" />
+    <div className="w-full prose- flex flex-col">
       <div className="flex flex-col items-center">
         {/* タイトル */}
         <h1 className="text^4xl font-bold mb-8 text-slate-900">

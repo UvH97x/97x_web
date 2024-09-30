@@ -9,7 +9,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 
 import React from 'react';
 
-import NewHeader from '@/src/components/NewHeader';
+import Header from '@/src/components/Header';
 import './global.css';
 
 type RootLayoutProps = {
@@ -21,7 +21,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html lang="ja" className="h-full w-full">
       <body className="h-full w-full">
         <div className="flex-1 bg-gray-800 overflow-auto flex flex-col">
-          <NewHeader />
+          <Header />
           <main className="flex-1 bg-white p-4 h-full overflow-y-auto">
             {children}
           </main>

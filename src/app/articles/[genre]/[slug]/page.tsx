@@ -7,7 +7,6 @@
   import path from 'path';
   import dynamic from 'next/dynamic';
   import { ParsedFile, getParsedFile } from '@/src/lib/customParser';
-  import Breadcrumbs from '@/src/components/Breadcrumbs';
   import fs from 'fs';
   
   // MarkdownRenderer コンポーネントをクライアントサイドでのみレンダリング
