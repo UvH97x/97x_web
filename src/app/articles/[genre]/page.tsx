@@ -8,7 +8,6 @@ import { fileStructure } from '@/src/data/fileStructure';
 export default function GenrePage({ params }: { params: { genre: string } }) {
   // 該当ジャンルの.mdファイルを取得
   const articleFiles = fileStructure.filter((file) => file.isDirectory === false && file.filePath.startsWith(`src/data/articles/${params.genre}`));
-  console.log(articleFiles);
 
   // ジャンル説明を取得、存在しない場合はデフォルトの説明を使用
   const genreDescription = /*genreDescriptions[params.genre] || */'Articles related to this genre.';

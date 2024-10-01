@@ -17,16 +17,14 @@ export default function Breadcrumbs( param: BreadcrumbItem ) {
         {parsedPath.map((path, index) => (
           <span className="flex flex-row gap-2" key={index}>
             {index < (parsedPath.length - 1) ? (
+              <>
               <Link href={path.href}>
                 <span className="text-blue-600 hover:text-blue-800 underline">{path.text}</span>
               </Link>
+              <span className="mx-2">&gt;</span> 
+              </>
             ) : (
               <span>{path.text}</span>
-            )}
-            
-            {/* 最後のアイテムでなければ > を表示 */}
-            {index < parsedPath.length - 1 && (
-              <span className="mx-2">&gt;</span> 
             )}
           </span>
         ))}

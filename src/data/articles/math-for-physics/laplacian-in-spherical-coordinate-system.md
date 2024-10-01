@@ -2,7 +2,7 @@
 title: "球座標系におけるラプラシアン"
 author: "UvH"
 created_at: "2024-09-21"
-updated_at: "2024-09-24"  # 更新日がない場合はこの行を省略
+updated_at: "2024-10-01"  # 更新日がない場合はこの行を省略
 tags:
   - "物理"
   - "数学"
@@ -178,17 +178,3 @@ $$
   \nabla^2 = \frac{\partial^2}{\partial r^2} + \frac{2}{r}\frac{\partial}{\partial r} + \frac{1}{r^2}\left\{\frac{1}{\sin\theta}\frac{\partial}{\partial\theta}\left(\sin\theta\,\frac{\partial}{\partial\theta}\right) + \frac{1}{\sin^2\theta}\frac{\partial^2}{\partial\phi^2}\right\}
 $$
 のようになって、最終的には動径($r$)方向とそのほかの($\theta, \phi$)方向へ分離できる。
-
-## 他の方法
-ナブラ演算子の発散を取る形で、つまり、
-$$
-\begin{aligned}
-  \nabla^2 &= \nabla \cdot \nabla \\ &= 
-  \left(
-    \mathbf{e}_r \frac{\partial}{\partial r} + \mathbf{e}_\theta \frac{1}{r} \frac{\partial}{\partial \theta} + \mathbf{e}_\phi \frac{1}{r\sin\theta}\frac{\partial}{\partial \phi}
-  \right) \cdot \left(
-    \mathbf{e}_r \frac{\partial}{\partial r} + \mathbf{e}_\theta \frac{1}{r} \frac{\partial}{\partial \theta} + \mathbf{e}_\phi \frac{1}{r\sin\theta}\frac{\partial}{\partial \phi}
-  \right)
-\end{aligned}
-$$
-から求めることもできる。気が向いたら追加予定。
