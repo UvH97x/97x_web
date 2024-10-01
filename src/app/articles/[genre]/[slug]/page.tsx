@@ -14,7 +14,7 @@
     ssr: false,
   });
   
-  // JSONファイルから記事データを取得する関数
+  // 記事データを取得する関数
   const getArticleFilesByGenre = (genre: string): any[] => {
     return fileStructure.filter((file: any) =>
       file.filePath.startsWith(`src/data/articles/${genre}`) && file.filePath.endsWith('.md')
