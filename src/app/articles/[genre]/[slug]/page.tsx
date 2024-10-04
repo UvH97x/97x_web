@@ -1,8 +1,6 @@
-/*
-  * src/app/articles/[page.tsx]/page.tsx
-  TODO: 二回フェッチする問題は、メタデータをデータベースで扱うことにより解決すると思うため、一旦放置。
-  TODO: og, twitter, canonical, robotsなどメタデータを増やしてもいい。
- */
+//  src/app/articles/[page.tsx]/page.tsx
+// TODO: 二回フェッチする問題は、メタデータをデータベースで扱うことにより解決すると思うため、一旦放置。
+// TODO: og, twitter, canonical, robotsなどメタデータを増やしてもいい。
 
   import path from 'path';
   import dynamic from 'next/dynamic';

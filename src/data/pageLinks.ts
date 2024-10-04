@@ -1,6 +1,4 @@
-/*
-  * /src/data/pageLinks.ts
-*/
+// /src/data/pageLinks.ts
 
 import { PageLink } from "../types/UvHTypes";
 

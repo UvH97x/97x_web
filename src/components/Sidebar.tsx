@@ -1,6 +1,4 @@
-/*
-  * /src/components/Sidebar.tsx
-*/
+// /src/components/Sidebar.tsx
 
 'use client';
 

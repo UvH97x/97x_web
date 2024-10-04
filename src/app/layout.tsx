@@ -1,8 +1,7 @@
-/*
-  * /src/app/layout.tsx
-  * サイドバーとかヘッダーのレイアウトは、各アプリそれぞれで指定してあげてもいいかも。
-  * コンテンツが増えたら、Google AdSenseを取り入れてみてもいいかも。
-*/
+// /src/app/layout.tsx
+// サイドバーとかヘッダーのレイアウトは、各アプリそれぞれで指定してあげてもいいかも。
+// コンテンツが増えたら、Google AdSenseを取り入れてみてもいいかも。
+
 
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from "@vercel/speed-insights/next"

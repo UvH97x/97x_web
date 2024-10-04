@@ -1,4 +1,5 @@
 // src/articles/Breadcrumbs.tsx
+
 import Link from 'next/link';
 
 import { fileStructure } from "@/src/data/fileStructure"

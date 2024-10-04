@@ -1,7 +1,5 @@
-/*
-  * src/lib/customParser.ts
-  * 指定したMDXファイルを解析し、オブジェクトをかえす
-*/
+// src/lib/customParser.ts
+// 指定したMDXファイルを解析し、オブジェクトをかえす
 
 
 import fs from "fs";

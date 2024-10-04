@@ -1,7 +1,5 @@
-/*
-    * src/app/simulators/page.tsx
-    [ ]:原神のダメージシミュレーターを作る
-*/
+// src/app/simulators/page.tsx
+// [ ]:原神のダメージシミュレーターを作る
 
 export default function SimulatorsHome() {
     return (

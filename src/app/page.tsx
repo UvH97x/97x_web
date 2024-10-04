@@ -1,6 +1,4 @@
-/*
-  * src/app/page.tsx
-*/
+// src/app/page.tsx
 
 import React from 'react';
 

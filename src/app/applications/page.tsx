@@ -1,6 +1,5 @@
-/*
-  * /src/app/applications/page.tsx
-*/
+// /src/app/applications/page.tsx
+
 
 import React from 'react';
 import Link from 'next/link';

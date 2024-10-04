@@ -1,7 +1,5 @@
-/*
-  * src/components/LinkBlock.tsx
-  * リンクのpathとiconのpathを受け取り、リンクのブロックを表示する
-*/
+// src/components/LinkBlock.tsx
+// リンクのpathとiconのpathを受け取り、リンクのブロックを表示する
 import React from 'react';
 import Link from 'next/link';
 

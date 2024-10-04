@@ -1,7 +1,5 @@
-/*
-  * UvHTypes.ts
-  * 自分で作ったデータ型を置いておくファイル。
-*/
+// UvHTypes.ts
+// 自分で作ったデータ型を置いておくファイル。
 
 // アイコン付きのページリンク
 export interface PageLink {

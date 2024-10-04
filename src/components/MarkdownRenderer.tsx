@@ -1,6 +1,4 @@
-/*
-  * /src/components/MarkdownRenderer.tsx
-*/
+// /src/components/MarkdownRenderer.tsx
 
 'use client';
 
