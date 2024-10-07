@@ -5,12 +5,12 @@ export const fileStructure = [
     "isDirectory": true,
     "title": "記事トップ"
   },
-  {
+  /*{
     "fileName": "electro-dynamics",
     "filePath": "src/data/articles/electro-dynamics",
     "isDirectory": true,
     "title": "電磁気学"
-  },
+  },*/
   {
     "fileName": "math-for-physics",
     "filePath": "src/data/articles/math-for-physics",
@@ -29,12 +29,12 @@ export const fileStructure = [
     "isDirectory": false,
     "title": "球座標系におけるナブラ演算子"
   },
-  {
+  /*{
     "fileName": "mechanics",
     "filePath": "src/data/articles/mechanics",
     "isDirectory": true,
     "title": "力学"
-  },
+  },*/
   {
     "fileName": "something-else",
     "filePath": "src/data/articles/something-else",

@@ -3,14 +3,9 @@
 // TODO: og, twitter, canonical, robotsなどメタデータを増やしてもいい。
 
   import path from 'path';
-  import dynamic from 'next/dynamic';
   import { ParsedFile, getParsedFile } from '@/src/lib/customParser';
   import { fileStructure } from '@/src/data/fileStructure';
-  
-  // MarkdownRenderer コンポーネントをクライアントサイドでのみレンダリング
-  const MarkdownRenderer = dynamic(() => import('@/src/components/MarkdownRenderer'), {
-    ssr: false,
-  });
+import UvHMarkdownRenderer from '@/src/components/UvHMarkdownRenderer';
   
   // 記事データを取得する関数
   const getArticleFilesByGenre = (genre: string): any[] => {
@@ -44,10 +39,20 @@
   // ページコンポーネントでデータをフェッチします
   export default async function Page({ params }: { params: { genre: string, slug: string } }) {
     const { genre, slug } = params;
+    const fileName = `${genre}-${slug}`;
     const articlePath = path.join(process.cwd(), 'src/data/articles', genre, `${slug}.md`);
   
     // メタデータと記事本文を取得
     const articleData: ParsedFile = getParsedFile(articlePath);
+
+    // 日付をパースする関数
+    function formatDate(dateString: string): string {
+      // "YYYY-MM-DD" を "-" で分割して [YYYY, MM, DD] のように分ける
+      const [year, month, day] = dateString.split("-");
+    
+      // 結果を組み合わせて "YYYY年MM月DD日" のようにフォーマットする
+      return `${year}年${parseInt(month)}月${parseInt(day)}日`;
+    }
   
     return (
       <div className="prose max-w-none flex flex-col">
@@ -64,12 +69,12 @@
             ))}
           </div>
           <div className="flex flex-col items-end">
-            <span>作成日: {articleData.createdAt}</span>
-            {articleData.updatedAt && <span>更新日: {articleData.updatedAt}</span>}
+            <span>作成日: {formatDate(articleData.createdAt)}</span>
+            {articleData.updatedAt && <span>更新日: {formatDate(articleData.updatedAt)}</span>}
             <span>筆者: {articleData.author}</span>
           </div>
         </div>
-        <MarkdownRenderer markdownContent={articleData.content} />
+        <UvHMarkdownRenderer markdownContent={articleData.content} fileName={fileName} />
         <div className="flex flex-col">
           {articleData.references.length > 0 && (
             <h2>参考</h2>

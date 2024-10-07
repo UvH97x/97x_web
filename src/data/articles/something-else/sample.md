@@ -21,7 +21,7 @@ excerpt: "この記事では、数式やコードを含む内容について説�
 
 ブロック数式:
 $$
-\int_0^\infty e^{-x^2} dx = \frac{\sqrt{\pi}}{2}
+integral_0^infinity e^(-x^2) d x = sqrt(pi)/2
 $$
 
 コードブロック:
