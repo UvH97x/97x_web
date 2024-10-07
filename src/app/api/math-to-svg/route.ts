@@ -30,9 +30,9 @@ function isProductionEnvironment(): boolean {
 }
 
 // 一時ディレクトリの存在確認と作成
-async function ensureDirectory(tmpDir: string): Promise<void> {
-  if (!existsSync(tmpDir)) {
-    await mkdir(tmpDir, { recursive: true });
+async function ensureDirectory(checkDir: string): Promise<void> {
+  if (!existsSync(checkDir)) {
+    await mkdir(checkDir, { recursive: true });
   }
 }
 
@@ -56,11 +56,6 @@ async function executeTypstCompile(typstFile: string, svgFile: string): Promise<
 // SVGファイルを読み込む関数
 async function readSvgFile(svgFile: string): Promise<string> {
   return readFile(svgFile, 'utf-8');
-}
-
-// ファイル名を生成する関数
-function createFileName(genre: string, slug: string, index: number): string {
-  return `${genre}-${slug}-${index}.svg`;
 }
 
 // Typstコンパイルのフロー全体を処理する関数
@@ -120,7 +115,7 @@ export async function POST(req: Request) {
     const svgFile = path.join(publicDir, `${fileName}.svg`);
 
     // 開発環境でのコンパイル処理
-    if (isProductionEnv) {
+    if (!isProductionEnv) {
       // 一時ファイルのパス設定
       const tmpDir = path.join(process.cwd(), 'tmp');
       const typstFile = path.join(tmpDir, `${fileName}.typ`);
