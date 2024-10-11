@@ -3,7 +3,8 @@ export const fileStructure = [
     "fileName": "articles",
     "filePath": "src/data/articles",
     "isDirectory": true,
-    "title": "記事トップ"
+    "title": "記事トップ",
+    "description": "物理・数学に関するメモを残しています。主に院試対策としてまとめなおしているノートを清書しているため、間違い等あるかもしれませんがご容赦ください(時間があるときに訂正を反映させたいと考えています)。"
   },
   /*{
     "fileName": "electro-dynamics",
@@ -15,7 +16,8 @@ export const fileStructure = [
     "fileName": "math-for-physics",
     "filePath": "src/data/articles/math-for-physics",
     "isDirectory": true,
-    "title": "物理数学"
+    "title": "物理数学",
+    "description": "物理学を理解するための準備としての数学"
   },
   {
     "fileName": "laplacian-in-spherical-coordinate-system.md",

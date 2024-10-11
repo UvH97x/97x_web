@@ -5,7 +5,7 @@
   import path from 'path';
   import { ParsedFile, getParsedFile } from '@/src/lib/customParser';
   import { fileStructure } from '@/src/data/fileStructure';
-import UvHMarkdownRenderer from '@/src/components/UvHMarkdownRenderer';
+  import UvHMarkdownRenderer from '@/src/components/UvHMarkdownRenderer';
   
   // 記事データを取得する関数
   const getArticleFilesByGenre = (genre: string): any[] => {
@@ -17,7 +17,6 @@ import UvHMarkdownRenderer from '@/src/components/UvHMarkdownRenderer';
   // `generateStaticParams` で動的なパスを生成します
   export async function generateStaticParams({ params }: { params: { genre: string } }) {
     const articleFiles = getArticleFilesByGenre(params.genre);
-  
     return articleFiles.map((file) => ({
       slug: file.fileName.replace(/\.md$/, ''),
     }));

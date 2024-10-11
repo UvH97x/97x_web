@@ -68,7 +68,6 @@ export function MathRenderer({ expression, fileName, className = "" }: MathRende
   );
 }
 
-// TODO: 以下二つのコンポーネントをしっかりスタイリング
 // インライン数式(コピーの手段が判明するまであんま使わない)
 export function InlineMath({ expression, fileName, className = "" }: MathRendererProps) {
   return (

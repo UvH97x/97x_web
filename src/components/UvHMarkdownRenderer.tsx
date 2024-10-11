@@ -1,6 +1,6 @@
 // src/components/UvHMarkdownRenderer.tsx
-
-import path from "path";
+// [ ]: インライン数式をTypstで表示できるようにする
+// [ ]: 画像やグラフの挿入を可能にする
 
 import MarkdownRenderer from "./MarkdownRenderer";
 import { MathBlock } from "./MathRenderer";

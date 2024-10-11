@@ -14,9 +14,9 @@ export default function Breadcrumbs( param: BreadcrumbItem ) {
 
   return (
     <nav aria-label="breadcrumb">
-      <div className="flex flex-row gap-2">
+      <div className="flex flex-row gap-0">
         {parsedPath.map((path, index) => (
-          <span className="flex flex-row gap-2" key={index}>
+          <span className="flex flex-row gap-0" key={index}>
             {index < (parsedPath.length - 1) ? (
               <>
               <Link href={path.href}>
