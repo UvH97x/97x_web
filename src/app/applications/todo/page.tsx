@@ -72,27 +72,50 @@ export default function Home() {
   }
 
   return (
-    <div className='absolute'>
-      <h1>Todo List</h1>
-      <button onClick={() => {
-        setEditingTodo({} as Todo);
-      }}>Add New Task</button>
-    {isMounted ? (
-      <p>Fetching Tasks...</p>
-    ) : (
-      <>
-        <h4>残りのタスクの数: {todos.length}</h4>
-        <TodoList todos={todos} toggleTodo={toggleTodo} editTodo={editTodo} />
-      </>
-    )}
-      {editingTodo !== null && (
-        <div className='absolute top-10 left-10 w-3/4 h-1/5 bg-slate-600'>
-          <EditForm
-            todo={editingTodo}
-            onSave={saveTodo}
-            onClose={() => setEditingTodo(null)}
-            onDelete={deleteTodo}
+    <div className='relative min-h-full flex flex-col items-center justify-center bg-white'>
+      {/* タイトル */}
+      <h1 className='text-3xl font-bold mb-6'>Todo List</h1>
+  
+      {/* 新しいタスク追加ボタン */}
+      <button 
+        className='mb-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 transition-colors duration-300'
+        onClick={() => setEditingTodo({} as Todo)}>
+        Add New Task
+      </button>
+  
+      {/* タスクの取得ステータス */}
+      {isMounted ? (
+        <p>Fetching Tasks...</p>
+      ) : (
+        <>
+          {/* タスクの数 */}
+          <h4 className='text-xl mb-4'>残りのタスクの数: {todos.length}</h4>
+  
+          {/* Todoリスト */}
+          <TodoList 
+            todos={todos} 
+            toggleTodo={toggleTodo} 
+            editTodo={editTodo} 
           />
+        </>
+      )}
+  
+      {/* 編集モーダル */}
+      {editingTodo !== null && (
+        <div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50'>
+          <div className='relative bg-white rounded-lg p-6 w-3/4 max-w-lg'>
+            <EditForm
+              todo={editingTodo}
+              onSave={saveTodo}
+              onClose={() => setEditingTodo(null)}
+              onDelete={deleteTodo}
+            />
+            <button 
+              className='absolute top-2 right-2 text-gray-500 hover:text-gray-700'
+              onClick={() => setEditingTodo(null)}>
+              ✕
+            </button>
+          </div>
         </div>
       )}
     </div>

@@ -40,46 +40,72 @@ export default function TodoList({ todos, toggleTodo, editTodo }: TodoListProps)
   const completedTodos = sortedTodos.filter(todo => todo.completed);
 
   return (
-    <div className='flex flex-col'>
-      <div className='bg-slate-300'>
-        <span>
-          <label>Sort by: </label>
-          <select value={sortOption} onChange={(e) => setSortOption(e.target.value as 'id' | 'name' | 'dueDate' | 'tag')}>
+    <div className='flex flex-col space-y-4'>
+      {/* ソートおよびフィルタ部分 */}
+      <div className='bg-slate-300 p-4 rounded-md shadow-sm flex items-center justify-between'>
+        <div>
+          <label className='mr-2 font-semibold'>Sort by:</label>
+          <select
+            value={sortOption}
+            onChange={(e) =>
+              setSortOption(e.target.value as 'id' | 'name' | 'dueDate' | 'tag')
+            }
+            className='px-2 py-1 border rounded focus:outline-none focus:ring focus:border-blue-300'
+          >
             <option value="id">ID</option>
             <option value="name">Name</option>
             <option value="dueDate">Due Date</option>
             <option value="tag">Tag</option>
           </select>
-        </span>
-        {/* タグフィルタの入力欄は、tagが選択された場合にのみ表示 */}
+        </div>
+        
+        {/* タグフィルタはタグが選択されたときのみ表示 */}
         {sortOption === 'tag' && (
-          <span>
-            <label>Filter by Tag: </label>
+          <div className='ml-4'>
+            <label className='mr-2 font-semibold'>Filter by Tag:</label>
             <input
               type='text'
               value={filterTag}
               onChange={(e) => setFilterTag(e.target.value)}
               placeholder='Enter tag to filter'
+              className='px-2 py-1 border rounded focus:outline-none focus:ring focus:border-blue-300'
             />
-          </span>
+          </div>
         )}
       </div>
-      <div className='flex flex-col'>
+  
+      {/* タスクリスト */}
+      <div className='space-y-6'>
+        {/* 未完了のタスク */}
         {incompleteTodos.length > 0 ? (
-          incompleteTodos.map((todo) => (
-            <TodoItem key={todo.id} todo={todo} toggleTodo={toggleTodo} editTodo={editTodo} />
-          ))
-        ) : (
-          <p>すべてのタスクが完了しました。お疲れさまでした！</p>
-        )}
-
-        {completedTodos.length > 0 && (
-          <>
-            <p>完了済みのタスク</p>
-            {completedTodos.map((todo) => (
-              <TodoItem key={todo.id} todo={todo} toggleTodo={toggleTodo} editTodo={editTodo} />
+          <div className='space-y-2'>
+            <h3 className='text-lg font-semibold'>未完了のタスク</h3>
+            {incompleteTodos.map((todo) => (
+              <TodoItem
+                key={todo.id}
+                todo={todo}
+                toggleTodo={toggleTodo}
+                editTodo={editTodo}
+              />
             ))}
-          </>
+          </div>
+        ) : (
+          <p className='text-gray-600'>すべてのタスクが完了しました。お疲れさまでした！</p>
+        )}
+  
+        {/* 完了済みのタスク */}
+        {completedTodos.length > 0 && (
+          <div className='space-y-2'>
+            <h3 className='text-lg font-semibold'>完了済みのタスク</h3>
+            {completedTodos.map((todo) => (
+              <TodoItem
+                key={todo.id}
+                todo={todo}
+                toggleTodo={toggleTodo}
+                editTodo={editTodo}
+              />
+            ))}
+          </div>
         )}
       </div>
     </div>

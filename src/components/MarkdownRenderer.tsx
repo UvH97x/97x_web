@@ -3,7 +3,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import ReactMarkdown from 'react-markdown';
+import Markdown from "react-markdown";
 
 import Prism from 'prismjs';
 import 'prismjs/components/prism-bash';
@@ -28,26 +28,26 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ markdownContent }) 
   }, []);
 
   return (
-    <ReactMarkdown
+    <Markdown
       remarkPlugins={[remarkMath]} // remark-mathで数式を解析
-      rehypePlugins={[rehypeKatex]} // rehype-katexで数式をKaTeXでレンダリング
+      rehypePlugins={[[rehypeKatex]]} // カスタマイズしたrehype-sanitizeを適用
       components={{
         img: ({ node, ...props }) => (
-          <div className="flex flex-col items-center my-4">
+          <span className="flex flex-col items-center my-4">
             <img
               {...props}
               className="max-w-full h-auto rounded-lg shadow-md" // 画像のスタイリングにTailwind CSSを使用
               alt={props.alt || ''}
             />
             {props.alt && (
-              <p className="text-sm text-gray-500 mt-2 italic">{props.alt}</p> // altテキストを画像の下に表示
+              <span className="text-sm text-gray-500 mt-2 italic">{props.alt}</span> // altテキストを画像の下に表示
             )}
-          </div>
+          </span>
         )
       }}
     >
       {markdownContent}
-    </ReactMarkdown>
+    </Markdown>
   );
 };
 

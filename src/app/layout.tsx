@@ -19,12 +19,12 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="ja" className="h-full w-full">
       <body className="h-full w-full">
-        <div className="flex-1 bg-gray-800 overflow-auto flex flex-col">
-          <Header />
-          <main className="flex-1 bg-white p-4 h-full overflow-y-auto">
-            {children}
-          </main>
-        </div>
+      <div className="flex flex-col min-h-screen bg-gray-800">
+        <Header />
+        <main className="flex-1 bg-white p-4 overflow-y-auto">
+          {children}
+        </main>
+      </div>
         <Analytics />
         <SpeedInsights />
       </body>

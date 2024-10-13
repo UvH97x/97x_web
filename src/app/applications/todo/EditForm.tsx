@@ -48,31 +48,70 @@ const EditForm: React.FC<EditFormProps> = ({ todo, onSave, onClose, onDelete }) 
   // Add Formの場合、Delete Buttonが出ないようにする
   return (
     <div className="modal">
-      <div className="modal-content">
-        <h2>{todo?.todoName ? 'Edit Task' : 'Add New Task'}</h2>
-        <form onSubmit={handleSubmit}>
+      <div className="modal-content bg-white p-6 rounded-lg shadow-lg">
+        {/* タイトル */}
+        <h2 className="text-2xl font-semibold mb-4">
+          {todo?.todoName ? 'Edit Task' : 'Add New Task'}
+        </h2>
+  
+        {/* フォーム */}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {/* タスク名 */}
           <input
             type="text"
             value={text}
             ref={inputRef}
             onChange={(e) => setText(e.target.value)}
             placeholder="Task Name"
+            className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
           />
+  
+          {/* 期限日 */}
           <input
             type="date"
             value={dueDate}
             onChange={(e) => setDueDate(e.target.value)}
             placeholder="Due Date"
+            className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
           />
+  
+          {/* タグ入力 */}
           <input
-            type='text'
+            type="text"
             value={tags}
             onChange={(e) => setTags(e.target.value)}
             placeholder='Tags ("," separated)'
+            className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
           />
-          <button type="submit">{todo?.todoName ? 'Update' : 'Add'}</button>
-          <button type='button' onClick={handleDelete}>Delete</button>
-          <button type="button" onClick={onClose}>Cancel</button>
+  
+          {/* ボタン群 */}
+          <div className="flex justify-between space-x-2">
+            {/* 追加/更新ボタン */}
+            <button 
+              type="submit"
+              className="flex-1 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700 transition-colors duration-300"
+            >
+              {todo?.todoName ? 'Update' : 'Add'}
+            </button>
+  
+            {/* 削除ボタン */}
+            <button 
+              type="button" 
+              onClick={handleDelete}
+              className="flex-1 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 transition-colors duration-300"
+            >
+              Delete
+            </button>
+  
+            {/* キャンセルボタン */}
+            <button 
+              type="button" 
+              onClick={onClose}
+              className="flex-1 px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-700 transition-colors duration-300"
+            >
+              Cancel
+            </button>
+          </div>
         </form>
       </div>
     </div>

@@ -6,7 +6,7 @@ import { supabase } from '@/src/lib/supabaseClient';
 // GETリクエスト
 export async function GET() {
   // Supabaseのデータベースに存在するテーブルを取得してみる
-  const { data, error } = await supabase.from('articles').select('*');
+  const { data, error } = await supabase.from('test_table').select('*');
 
   if (error) {
     console.error('Database connection error:', error);
@@ -24,7 +24,7 @@ export async function POST(request: Request) {
   const { fileName, isDirectory, title, description, author, tags, references } = body;
 
   // Supabaseにデータを挿入する
-  const { data, error } = await supabase.from('articles').insert([
+  const { data, error } = await supabase.from('test_table').insert([
     {
       fileName,
       isDirectory,
@@ -57,7 +57,7 @@ export async function DELETE(request: Request) {
   }
 
   // Supabaseから特定のIDの記事を削除
-  const { error } = await supabase.from('articles').delete().eq('id', id);
+  const { error } = await supabase.from('test_table').delete().eq('id', id);
 
   if (error) {
     console.error('Error deleting article:', error);
@@ -79,7 +79,7 @@ export async function PUT(request: Request) {
 
   // Supabaseで記事のデータを更新
   const { data, error } = await supabase
-    .from('articles')
+    .from('test_table')
     .update({ fileName, isDirectory, title, description, author, tags, references, updated_at: new Date() })
     .eq('id', id);
 

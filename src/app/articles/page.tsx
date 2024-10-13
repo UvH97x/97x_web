@@ -14,7 +14,7 @@ export default function ArticleHome() {
       <div className="w-full max-w-4xl prose">
         {/* タイトル */}
         <h1 className="text-4xl font-bold mb-8 text-slate-900 text-center">
-          Articles
+          記事トップ
         </h1>
         {/* 説明文 */}
         <p className="text-lg text-gray-700 mb-8 text-center">
