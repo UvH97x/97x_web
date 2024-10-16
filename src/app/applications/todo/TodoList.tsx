@@ -10,7 +10,7 @@ interface TodoListProps {
 }
 
 export default function TodoList({ todos, toggleTodo, editTodo }: TodoListProps) {
-  const [sortOption, setSortOption] = React.useState<'id' | 'name' | 'dueDate' | 'tag'>('id');
+  const [sortOption, setSortOption] = React.useState<'id' | 'name' | 'dueDate' | 'tag'>('dueDate');
   const [filterTag, setFilterTag] = React.useState<string>('');
 
   // 並び替え処理
@@ -44,7 +44,7 @@ export default function TodoList({ todos, toggleTodo, editTodo }: TodoListProps)
       {/* ソートおよびフィルタ部分 */}
       <div className='bg-slate-300 p-4 rounded-md shadow-sm flex items-center justify-between'>
         <div>
-          <label className='mr-2 font-semibold'>Sort by:</label>
+          <label className='mr-2 font-semibold'>並び替え:</label>
           <select
             value={sortOption}
             onChange={(e) =>
@@ -52,10 +52,10 @@ export default function TodoList({ todos, toggleTodo, editTodo }: TodoListProps)
             }
             className='px-2 py-1 border rounded focus:outline-none focus:ring focus:border-blue-300'
           >
-            <option value="id">ID</option>
-            <option value="name">Name</option>
-            <option value="dueDate">Due Date</option>
-            <option value="tag">Tag</option>
+            <option value="id">追加順</option>
+            <option value="name">名前順</option>
+            <option value="dueDate">期限が近い順</option>
+            <option value="tag">タグ一致優先(他は追加順)</option>
           </select>
         </div>
         
@@ -78,7 +78,7 @@ export default function TodoList({ todos, toggleTodo, editTodo }: TodoListProps)
       <div className='space-y-6'>
         {/* 未完了のタスク */}
         {incompleteTodos.length > 0 ? (
-          <div className='space-y-2'>
+          <div className='flex flex-col gap-4'>
             <h3 className='text-lg font-semibold'>未完了のタスク</h3>
             {incompleteTodos.map((todo) => (
               <TodoItem
@@ -95,7 +95,7 @@ export default function TodoList({ todos, toggleTodo, editTodo }: TodoListProps)
   
         {/* 完了済みのタスク */}
         {completedTodos.length > 0 && (
-          <div className='space-y-2'>
+          <div className='flex flex-col gap-4'>
             <h3 className='text-lg font-semibold'>完了済みのタスク</h3>
             {completedTodos.map((todo) => (
               <TodoItem

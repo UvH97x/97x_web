@@ -51,65 +51,74 @@ const EditForm: React.FC<EditFormProps> = ({ todo, onSave, onClose, onDelete }) 
       <div className="modal-content bg-white p-6 rounded-lg shadow-lg">
         {/* タイトル */}
         <h2 className="text-2xl font-semibold mb-4">
-          {todo?.todoName ? 'Edit Task' : 'Add New Task'}
+          {todo?.todoName ? '編集' : '新規'}
         </h2>
   
         {/* フォーム */}
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4 flex flex-col gap-1">
           {/* タスク名 */}
-          <input
-            type="text"
-            value={text}
-            ref={inputRef}
-            onChange={(e) => setText(e.target.value)}
-            placeholder="Task Name"
-            className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
-          />
-  
+          <span className='flex flex-col gap-0'>
+            <label>名前: </label>
+            <input
+              type="text"
+              value={text}
+              ref={inputRef}
+              onChange={(e) => setText(e.target.value)}
+              placeholder="タスク名"
+              className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
+            />
+          </span>
+
           {/* 期限日 */}
-          <input
-            type="date"
-            value={dueDate}
-            onChange={(e) => setDueDate(e.target.value)}
-            placeholder="Due Date"
-            className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
-          />
+          <span className='flex flex-col gap-0'>
+            <label>期限: </label>
+            <input
+              type="date"
+              value={dueDate}
+              onChange={(e) => setDueDate(e.target.value)}
+              placeholder="期限"
+              className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
+            />
+          </span>
   
           {/* タグ入力 */}
-          <input
-            type="text"
-            value={tags}
-            onChange={(e) => setTags(e.target.value)}
-            placeholder='Tags ("," separated)'
-            className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
-          />
+          <span className='flex flex-col gap-0'>
+            <label>タグ: </label>
+            <input
+              type="text"
+              value={tags}
+              onChange={(e) => setTags(e.target.value)}
+              placeholder='タグ ("," で分ければ複数設定できます)'
+              className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
+            />
+          </span>
   
           {/* ボタン群 */}
-          <div className="flex justify-between space-x-2">
+          <div className="flex flex-wrap md:flex-row flex-col gap-2 md:space-x-2">
             {/* 追加/更新ボタン */}
             <button 
               type="submit"
               className="flex-1 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700 transition-colors duration-300"
             >
-              {todo?.todoName ? 'Update' : 'Add'}
+              {todo?.todoName ? '更新' : '追加'}
             </button>
-  
+
             {/* 削除ボタン */}
             <button 
               type="button" 
               onClick={handleDelete}
               className="flex-1 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 transition-colors duration-300"
             >
-              Delete
+              削除
             </button>
-  
+
             {/* キャンセルボタン */}
             <button 
               type="button" 
               onClick={onClose}
               className="flex-1 px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-700 transition-colors duration-300"
             >
-              Cancel
+              キャンセル
             </button>
           </div>
         </form>

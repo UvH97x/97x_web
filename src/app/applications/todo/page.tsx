@@ -74,13 +74,13 @@ export default function Home() {
   return (
     <div className='relative min-h-full flex flex-col items-center justify-center bg-white'>
       {/* タイトル */}
-      <h1 className='text-3xl font-bold mb-6'>Todo List</h1>
+      <h1 className='text-3xl font-bold mb-6'>Todoリスト</h1>
   
       {/* 新しいタスク追加ボタン */}
       <button 
         className='mb-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 transition-colors duration-300'
         onClick={() => setEditingTodo({} as Todo)}>
-        Add New Task
+        タスクを追加
       </button>
   
       {/* タスクの取得ステータス */}
@@ -89,7 +89,7 @@ export default function Home() {
       ) : (
         <>
           {/* タスクの数 */}
-          <h4 className='text-xl mb-4'>残りのタスクの数: {todos.length}</h4>
+          <h4 className='text-xl mb-4'>残りのタスクの数: {todos.filter(todo => !todo.completed).length}</h4>
   
           {/* Todoリスト */}
           <TodoList 
