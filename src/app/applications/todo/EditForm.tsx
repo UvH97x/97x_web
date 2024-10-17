@@ -94,22 +94,13 @@ const EditForm: React.FC<EditFormProps> = ({ todo, onSave, onClose, onDelete }) 
           </span>
   
           {/* ボタン群 */}
-          <div className="flex flex-wrap md:flex-row flex-col gap-2 md:space-x-2">
+          <div className="flex flex-wrap md:flex-row-reverse flex-col gap-2 md:space-x-2">
             {/* 追加/更新ボタン */}
             <button 
               type="submit"
               className="flex-1 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700 transition-colors duration-300"
             >
               {todo?.todoName ? '更新' : '追加'}
-            </button>
-
-            {/* 削除ボタン */}
-            <button 
-              type="button" 
-              onClick={handleDelete}
-              className="flex-1 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 transition-colors duration-300"
-            >
-              削除
             </button>
 
             {/* キャンセルボタン */}
@@ -120,6 +111,21 @@ const EditForm: React.FC<EditFormProps> = ({ todo, onSave, onClose, onDelete }) 
             >
               キャンセル
             </button>
+
+            {todo?.todoName ? (
+              <>
+                {/* 削除ボタン */}
+                <button 
+                  type="button" 
+                  onClick={handleDelete}
+                  className="flex-1 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 transition-colors duration-300"
+                >
+                  削除
+                </button>
+              </>
+            ) : ''}
+
+            
           </div>
         </form>
       </div>

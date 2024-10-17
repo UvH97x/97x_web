@@ -42,7 +42,7 @@ export default function TodoList({ todos, toggleTodo, editTodo }: TodoListProps)
   return (
     <div className='flex flex-col space-y-4'>
       {/* ソートおよびフィルタ部分 */}
-      <div className='bg-slate-300 p-4 rounded-md shadow-sm flex items-center justify-between'>
+      <div className='bg-slate-300 p-2 rounded-md shadow-sm flex items-center justify-between'>
         <div>
           <label className='mr-2 font-semibold'>並び替え:</label>
           <select

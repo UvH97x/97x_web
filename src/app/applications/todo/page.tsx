@@ -72,25 +72,27 @@ export default function Home() {
   }
 
   return (
-    <div className='relative min-h-full flex flex-col items-center justify-center bg-white'>
+    <div className="relative flex flex-col items-center justify-center bg-white">
       {/* タイトル */}
-      <h1 className='text-3xl font-bold mb-6'>Todoリスト</h1>
-  
-      {/* 新しいタスク追加ボタン */}
-      <button 
-        className='mb-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 transition-colors duration-300'
-        onClick={() => setEditingTodo({} as Todo)}>
-        タスクを追加
-      </button>
-  
+      <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-500 to-green-500 text-transparent bg-clip-text">
+        Todo List
+      </h1>
+
       {/* タスクの取得ステータス */}
       {isMounted ? (
         <p>Fetching Tasks...</p>
       ) : (
         <>
-          {/* タスクの数 */}
-          <h4 className='text-xl mb-4'>残りのタスクの数: {todos.filter(todo => !todo.completed).length}</h4>
-  
+          {/* 新しいタスク追加ボタンとタスク数表示を横並びにする */}
+          <div className="flex items-center justify-evenly w-full mb-2">
+            <h4 className='text-lg'>残りのタスク: {todos.filter(todo => !todo.completed).length}</h4>
+
+            <button 
+              className='px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-700 transition-colors duration-300'
+              onClick={() => setEditingTodo({} as Todo)}>
+              タスクを追加
+            </button>
+          </div>
           {/* Todoリスト */}
           <TodoList 
             todos={todos} 
@@ -99,7 +101,7 @@ export default function Home() {
           />
         </>
       )}
-  
+
       {/* 編集モーダル */}
       {editingTodo !== null && (
         <div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50'>
