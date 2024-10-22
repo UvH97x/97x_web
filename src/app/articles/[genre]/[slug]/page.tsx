@@ -6,6 +6,7 @@
   import { ParsedFile, getParsedFile } from '@/src/lib/customParser';
   import { fileStructure } from '@/src/data/fileStructure';
   import UvHMarkdownRenderer from '@/src/components/UvHMarkdownRenderer';
+  import UvHArticleRenderer from '@/src/components/for_articles/UvHArticleRenderer';
   
   // 記事データを取得する関数
   const getArticleFilesByGenre = (genre: string): any[] => {
@@ -74,6 +75,7 @@
           </div>
         </div>
         <UvHMarkdownRenderer markdownContent={articleData.content} fileName={fileName} />
+        {/*<UvHArticleRenderer articleContent={articleData.content} fileName={fileName} />*/}
         <div className="flex flex-col">
           {articleData.references.length > 0 && (
             <h2>参考</h2>

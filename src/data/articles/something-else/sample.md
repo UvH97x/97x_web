@@ -20,7 +20,7 @@ excerpt: "この記事では、数式やコードを含む内容について説�
 画像の例
 ![Example Image](https://via.placeholder.com/150)
 
-インライン数式: $E = mc^2$
+インライン数式: $E = m c^2$
 
 ブロック数式:
 $$

@@ -19,7 +19,13 @@ const EditForm: React.FC<EditFormProps> = ({ todo, onSave, onClose, onDelete }) 
     setText(todo?.todoName || '');
     setDueDate(todo?.dueDate ? new Date(todo.dueDate).toISOString().split('T')[0] : '');
     setTags(todo?.tags?.join(',') || '');
-    if(inputRef.current) {
+  
+    // PCかどうかを判定
+    const isPC = () => {
+      return !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    };
+  
+    if (isPC() && inputRef.current) {
       inputRef.current.focus();
     }
   }, [todo]);
@@ -40,8 +46,16 @@ const EditForm: React.FC<EditFormProps> = ({ todo, onSave, onClose, onDelete }) 
   };
 
   const handleDelete = () => {
-    if (todo?.id) {
-      onDelete(todo);  // onDelete関数を呼び出して削除処理を実行
+    if (todo && !todo?.completed) {
+      const taskName = todo?.todoName || 'このタスク';
+      const confirmDelete = confirm(`本当に「${taskName}」を削除しますか？`); // [ ]確認用フォームを自分で作る
+      
+      if (confirmDelete) {
+        // タスクを削除する処理をここに記述
+        onDelete(todo);
+      } else {
+        onClose();
+      }
     }
   }
 

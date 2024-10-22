@@ -30,7 +30,7 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ markdownContent }) 
   return (
     <Markdown
       remarkPlugins={[remarkMath]} // remark-mathで数式を解析
-      rehypePlugins={[[rehypeKatex]]} // カスタマイズしたrehype-sanitizeを適用
+      rehypePlugins={[[rehypeKatex]]}
       components={{
         img: ({ node, ...props }) => (
           <span className="flex flex-col items-center my-4">

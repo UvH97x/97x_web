@@ -11,7 +11,7 @@ interface MathRendererProps {
   className?: string;
 }
 
-export function MathRenderer({ expression, fileName, className = "" }: MathRendererProps) {
+export default function MathRenderer({ expression, fileName, className = "" }: MathRendererProps) {
   const [svg, setSvg] = useState<string>('');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -60,44 +60,11 @@ export function MathRenderer({ expression, fileName, className = "" }: MathRende
       ) : (
         <span
           ref={svgContainerRef}
-          className={`${className}`}
+          className={`${className} inline-block`}
+          style={{ verticalAlign: "middle" }}
           dangerouslySetInnerHTML={{__html: svg}}
         />
       )}
     </>
-  );
-}
-
-// インライン数式(コピーの手段が判明するまであんま使わない)
-export function InlineMath({ expression, fileName, className = "" }: MathRendererProps) {
-  return (
-    <MathRenderer expression={expression} fileName={fileName} className={`${className} px-1 rounded inline-block`} />
-  );
-}
-// 数式ブロック(こっちメイン)
-export function MathBlock({ expression, fileName, className = "" }: MathRendererProps) {
-  const [copySuccess, setCopySuccess] = useState(false);
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(expression);
-      setCopySuccess(true);
-      setTimeout(() => setCopySuccess(false), 1000);
-    } catch (error) {
-      console.error("Failed to copy text: ", error);
-    }
-  };
-
-  return (
-    <div className="rounded-md shadow flex flex-col py-2 gap-2 text-center">
-      <div className="rounded-tl-md rounded-tr-md flex justify-end bg-gray-200">
-        <button
-          onClick={handleCopy}
-          className="rounded-tl-md rounded-tr-md text-xs bg-gray-300 hover:bg-gray-400 active:bg-gray-500 text-black px-2 py-0.5 min-w-[110px]"
-        >{copySuccess ? "Copied!" : "Copy Typst Code"}</button>
-      </div>
-      <div className="rounded-bl-md rounded-br-md text-center overflow-x-auto"> {/* この div を追加 */}
-        <MathRenderer expression={expression} fileName={fileName} className={`${className} bg-white inline-block `} />
-      </div>
-    </div>
   );
 }
