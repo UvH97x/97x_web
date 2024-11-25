@@ -22,6 +22,14 @@
         "author": "Meta",
         "refDate": "2024-11-24",
         "alt": "Reactに関する詳細なドキュメント"
+      },
+      {
+        "id": "ref2",
+        "title": "React公式ドキュメント2",
+        "href": "https://reactjs.org",
+        "author": "Meta",
+        "refDate": "2024-11-24",
+        "alt": "Reactに関する詳細なドキュメント2"
       }
     ]
   },
@@ -175,19 +183,19 @@
               ["Row4Cell1", "Row4Cell2", "Row4Cell3", "Row4Cell4", "Row4Cell5"]
             ]
           }
-        }
-      ]
-    },
-    {
-      "type": "paragraph",
-      "content": {},
-      "children": [
+        },
         {
-          "type": "link",
-          "content": {
-            "content": "React公式サイト",
-            "href": "https://reactjs.org"
-          }
+          "type": "paragraph",
+          "content": {},
+          "children": [
+            {
+              "type": "link",
+              "content": {
+                "content": "React公式サイト",
+                "href": "https://reactjs.org"
+              }
+            }
+          ]
         }
       ]
     }
