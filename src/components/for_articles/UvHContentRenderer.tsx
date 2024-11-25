@@ -59,13 +59,13 @@ const UvHContentRenderer: React.FC<UvHContentRendererProps> = ({ content, fileNa
         return item.header === "math" ? (
           <UvHMathBlockRenderer expression={item.content} alt={item.alt} fileName={`${fileName}-${index}`}  key={`${fileName}-${index}`}/>
         ) : item.header === "code" ? (
-          <UvHCodeBlockRenderer code={item.content} lang={item.alt} />
+          <div key={index}><UvHCodeBlockRenderer code={item.content} lang={item.alt} /></div>
         ) : item.header === "table" ? (
-          <UvHTableRenderer tableString={item.content} key={`${fileName}-${index}`}/>
+          <UvHTableRenderer tableString={item.content} alt={item.alt} key={`${fileName}-${index}`}/>
         ) : item.header === "text" ? (
-          <p key={index}>{item.content}</p>
+          <div key={index}>{item.content}</div>
         ) : (
-          <div key={index}>Unknown content type</div>
+          <div key={index}>Unknown content type: {item.content}</div>
         );
       })}
     </div>

@@ -56,6 +56,8 @@ const EditForm: React.FC<EditFormProps> = ({ todo, onSave, onClose, onDelete }) 
       } else {
         onClose();
       }
+    } else if (todo) {
+      onDelete(todo);
     }
   }
 
@@ -112,7 +114,7 @@ const EditForm: React.FC<EditFormProps> = ({ todo, onSave, onClose, onDelete }) 
             {/* 追加/更新ボタン */}
             <button 
               type="submit"
-              className="flex-1 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700 transition-colors duration-300"
+              className="flex-1 px-4 py-2 bg-green-500 text-white rounded md:hover:bg-green-700 transition-colors duration-300"
             >
               {todo?.todoName ? '更新' : '追加'}
             </button>
@@ -121,7 +123,7 @@ const EditForm: React.FC<EditFormProps> = ({ todo, onSave, onClose, onDelete }) 
             <button 
               type="button" 
               onClick={onClose}
-              className="flex-1 px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-700 transition-colors duration-300"
+              className="flex-1 px-4 py-2 bg-gray-500 text-white rounded md:hover:bg-gray-700 transition-colors duration-300"
             >
               キャンセル
             </button>
@@ -132,7 +134,7 @@ const EditForm: React.FC<EditFormProps> = ({ todo, onSave, onClose, onDelete }) 
                 <button 
                   type="button" 
                   onClick={handleDelete}
-                  className="flex-1 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700 transition-colors duration-300"
+                  className="flex-1 px-4 py-2 bg-red-500 text-white rounded md:hover:bg-red-700 transition-colors duration-300"
                 >
                   削除
                 </button>

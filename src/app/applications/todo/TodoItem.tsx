@@ -25,7 +25,7 @@ export default function TodoItem({ todo, toggleTodo, editTodo }: TodoItemProps) 
 
   return (
     <div
-      className={`flex items-center gap-2 p-4 rounded-md shadow cursor-pointer hover:shadow-lg ${
+      className={`flex items-center gap-2 p-4 rounded-md shadow cursor-pointer md:hover:shadow-lg ${
         todo.completed
           ? 'bg-green-100'
           : todo.dueDate && new Date(todo.dueDate).toDateString() === new Date().toDateString()

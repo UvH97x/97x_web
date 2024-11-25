@@ -19,11 +19,14 @@
  * />
  * 
  * Tailwind CSS を使用しているため、必要に応じてスタイルをカスタマイズできます。
+ * 
+ * @todo
+ * - レンダリングに伴うapi通信をキャッシュし、状態変化ごとに起こる通信を減らす
  */
 
 "use client";
 
-import { useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 
 import UvHContentRenderer from './UvHContentRenderer';
 
@@ -32,20 +35,32 @@ type UvHFoldedContentRendererProps = {
   content: string;
   fileName: string;
 };
-
-const UvHFoldedContentRenderer = ({ alt, content, fileName }:UvHFoldedContentRendererProps) => {
+const UvHFoldedContentRenderer = ({ alt, content, fileName }: UvHFoldedContentRendererProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [contentHeight, setContentHeight] = useState<number>(0);
 
   const toggleIsOpen = () => {
     setIsOpen(!isOpen);
   };
+
+  useEffect(() => {
+    if (!contentRef.current) return;
+    
+    // isOpenが変更されたときに適切な高さを設定
+    if (isOpen) {
+      setContentHeight(contentRef.current.scrollHeight);
+    } else {
+      setContentHeight(0);
+    }
+  }, [isOpen]);
 
   return (
     <div className="border rounded-lg p-4 mb-4">
       {/* タイトル部分をボタンのように使う */}
       <div
         onClick={toggleIsOpen}
-        className="flex items-center cursor-pointer w-full text-left font-semibold text-lg"
+        className="flex items-center cursor-pointer w-full text-left font-semibold text-sm"
       >
         {/* 三角形のアイコン（折り畳み状態に応じて回転させる） */}
         <span
@@ -59,11 +74,14 @@ const UvHFoldedContentRenderer = ({ alt, content, fileName }:UvHFoldedContentRen
       </div>
       
       {/* 折り畳みの内容部分 */}
-      {isOpen && (
-        <div className="mt-2 transition-all duration-300 ease-in-out">
+      <div 
+        className="overflow-hidden transition-[height] duration-300 ease-in-out"
+        style={{ height: `${contentHeight}px` }}
+      >
+        <div ref={contentRef}>
           <UvHContentRenderer content={content} fileName={fileName} />
         </div>
-      )}
+      </div>
     </div>
   );
 };

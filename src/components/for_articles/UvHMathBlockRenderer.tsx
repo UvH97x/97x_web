@@ -57,15 +57,15 @@ export function UvHMathBlockRenderer({ expression, fileName, alt = "", className
   };
 
   return (
-    <div className="rounded-md shadow flex flex-col py-2 gap-2 text-center">
-      <div className="rounded-tl-md rounded-tr-md flex justify-between bg-gray-200">
-        <span className="text-xs">{alt}</span>
+    <div className="rounded-md shadow flex flex-col gap-2 text-center border border-gray-300">
+      <div className="rounded-tl-md rounded-tr-md bg-gray-200 relative flex justify-end">
+        <span className="text-xs absolute top-0.5 left-3">{alt}</span>
         <button
           onClick={handleCopy}
           className="rounded-tl-md rounded-tr-md text-xs bg-gray-300 hover:bg-gray-400 active:bg-gray-500 text-black px-2 py-0.5 min-w-[110px]"
         >{copySuccess ? "Copied!" : "Copy Typst Code"}</button>
       </div>
-      <div className="rounded-bl-md rounded-br-md text-center overflow-x-auto">
+      <div className="rounded-bl-md rounded-br-md text-center py-2 overflow-x-auto">
         <MathRenderer expression={expression} fileName={fileName} className={`${className} bg-white block`} />
       </div>
     </div>

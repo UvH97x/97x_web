@@ -25,9 +25,10 @@ import React from 'react';
 
 interface UvHTableRendererProps {
   tableString: string;
+  alt?: string;
 }
 
-const UvHTableRenderer: React.FC<UvHTableRendererProps> = ({ tableString }) => {
+const UvHTableRenderer: React.FC<UvHTableRendererProps> = ({ tableString, alt }) => {
   // 文字列を行ごとに分割し、その後カンマで列を分割して2次元配列を生成
   const rows = tableString.trim().split('\n').map(row => row.trim().split(','));
 
@@ -36,22 +37,36 @@ const UvHTableRenderer: React.FC<UvHTableRendererProps> = ({ tableString }) => {
   const contents = rows.slice(1);
 
   return (
-    <div className="overflow-auto">
-      <table className="table-auto border-collapse w-full">
-        <thead>
-          <tr>
+    <div className="overflow-auto rounded-md shadow w-full border border-gray-300">
+      <table className="table-auto border-collapse text-sm text-center text-black rounded-md shadow  w-full">
+        {/* キャプション */}
+        <caption className="text-base font-semibold text-gray-700 mb-2">
+          {alt}
+        </caption>
+        
+        {/* ヘッダー */}
+        <thead className='rounded-md'>
+          <tr className="bg-gray-200 uppercase tracking-wider rounded-md">
             {tableHeader.map((header, index) => (
-              <th key={index} className="border px-4 py-2">
+              <th
+                key={index}
+                className="border border-gray-300 px-6 py-3 font-medium rounded-md"
+              >
                 {header.trim()}
               </th>
             ))}
           </tr>
         </thead>
-        <tbody>
+
+        {/* 表 */}
+        <tbody className=' rounded-md'>
           {contents.map((row, rowIndex) => (
-            <tr key={rowIndex}>
+            <tr key={rowIndex} className="even:bg-gray-50 rounded-md">
               {row.map((cell, colIndex) => (
-                <td key={colIndex} className="border px-4 py-2">
+                <td
+                  key={colIndex}
+                  className="border border-gray-300 px-6 py-3 text-center overflow-x-auto rounded-md"
+                >
                   {cell.trim()}
                 </td>
               ))}

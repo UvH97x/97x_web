@@ -79,8 +79,7 @@ export default function MathRenderer({ expression, fileName, className = "" }: M
       ) : (
         <span
           ref={svgContainerRef}
-          className={`${className} inline-block`}
-          style={{ verticalAlign: "middle" }}
+          className={`inline-block ${className}`}
         />
       )}
     </>
