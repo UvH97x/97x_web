@@ -12,7 +12,12 @@ const TableBlock: React.FC<{ content: any }> = ({ content }) => {
   .join("\n"); // 各行を改行で結合
 
   return (
-    <CopyableBlock alt={alt} content={copyContent} buttonString="Copy CSV">
+    <CopyableBlock id={id} content={copyContent} buttonString="Copy CSV">
+    {alt && (
+      <p className="text-sm text-gray-700">
+        {alt}
+      </p>
+    )}
     <div id={id} className="overflow-x-auto">
       <table className="table-auto border-collapse border border-gray-300 w-full text-sm">
         <thead>

@@ -3,13 +3,13 @@
 import React, { useState } from "react";
 
 interface CopyableBlockProps {
-  alt?: string; // コピー内容の説明
+  id?: string; // 左上の番号
   content: string; // コピー対象の内容
   children: React.ReactNode; // コンテンツの中身
   buttonString?: string; // コピーボタンの文字
 }
 
-const CopyableBlock: React.FC<CopyableBlockProps> = ({ alt, content, children, buttonString }) => {
+const CopyableBlock: React.FC<CopyableBlockProps> = ({ id, content, children, buttonString }) => {
   const [isCopied, setIsCopied] = useState(false);
 
   if (!buttonString) {
@@ -33,7 +33,7 @@ const CopyableBlock: React.FC<CopyableBlockProps> = ({ alt, content, children, b
         {/* ヘッダー部分 */}
         <div className="flex items-center justify-between bg-gray-200 rounded-t-md">
           {/* alt説明 */}
-          {alt && <span className="px-4 text-sm text-gray-600">{alt}</span>}
+          {id && <span className="px-4 text-sm text-gray-600">{id}</span>}
           {/* コピーボタン */}
           <button
           onClick={handleCopy}

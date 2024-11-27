@@ -10,6 +10,7 @@ import Paragraph from "./Lv2/Paragraph";
 import MathBlock from "./Lv3/MathBlock";
 import CodeBlock from "./Lv3/CodeBlock";
 import TableBlock from "./Lv3/TableBlock";
+import ImageBlock from "./Lv3/ImageBlock";
 
 // Level 4
 import TextBlock from "./Lv4/Text";
@@ -40,6 +41,8 @@ const Renderer: React.FC<{ data: any }> = ({ data }) => {
       return <TextBlock content={content} />;
     case "link":
       return <LinkBlock content={content} />;
+    case "image":
+      return <ImageBlock content={content} />;
     default:
       return null;
   }

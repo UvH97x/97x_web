@@ -122,6 +122,14 @@
                 "size": [2, 3],
                 "content": [["Header1", "Header2", "Header3"], ["Cell1", "Cell2", "Cell3"]]
               }
+            },
+            {
+              "type": "image",
+              "content": {
+                "id": "image2",
+                "alt": "サンプル画像2",
+                "content": "https://via.placeholder.com/300x200"
+              }
             }
           ]
         },
@@ -133,7 +141,7 @@
               "type": "text",
               "content": {
                 "content": "これはコーヒーブレイクスタイルのハイライトです。",
-                "style": { "underline": true }
+                "style": {}
               }
             }
           ]
@@ -193,6 +201,14 @@
               "content": {
                 "content": "React公式サイト",
                 "href": "https://reactjs.org"
+              }
+            },
+            {
+              "type": "image",
+              "content": {
+                "id": "image1",
+                "alt": "サンプル画像1",
+                "content": "https://via.placeholder.com/600x400"
               }
             }
           ]

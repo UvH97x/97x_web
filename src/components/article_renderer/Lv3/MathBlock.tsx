@@ -19,7 +19,7 @@ const MathBlock: React.FC<MathBlockProps> = ({ content }) => {
   const fileName = `${id}.svg`;
 
   return (
-    <CopyableBlock alt={alt} content={mathExpression} buttonString="Copy Typst Code">
+    <CopyableBlock id={alt} content={mathExpression} buttonString="Copy Typst Code">
       <div id={id} className="py-4 px-2 text-center">
         <MathRenderer expression={mathExpression} fileName={fileName} className="content-center py-0.5" />
       </div>
