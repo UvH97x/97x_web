@@ -127,8 +127,8 @@
               "type": "image",
               "content": {
                 "id": "image2",
-                "alt": "サンプル画像2",
-                "content": "https://via.placeholder.com/300x200"
+                "alt": "モビリティショーに行ったときに撮ったやつ。結構長めに説明文を書くことができる。できれば画像を左右に二つ並べることもできるようにしたい。この画像は公開データベースへ直接アクセスしているためURLが取得可能なのであるが、サーバーサイドで通信を行ってデータベースのURLを隠すべきか悩み中。",
+                "content": "https://jvphtaiytpzwwanoyqeh.supabase.co/storage/v1/object/public/svg-files/IMG_0963.JPEG"
               }
             }
           ]
@@ -166,6 +166,19 @@
           "type": "text",
           "content": {
             "content": "箇条書き項目3、すっごく長い文章も入れることができるかもしれない。",
+            "style": {}
+          }
+        },
+        {
+          "type": "inline-math",
+          "content": {
+            "expression": "e^{\\pi i} + 1 = 0"
+          }
+        },
+        {
+          "type": "text",
+          "content": {
+            "content": "←こんな感じのインライン数式もかけちゃう。",
             "style": {}
           }
         },

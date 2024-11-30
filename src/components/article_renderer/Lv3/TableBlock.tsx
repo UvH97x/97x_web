@@ -26,7 +26,7 @@ const TableBlock: React.FC<{ content: any }> = ({ content }) => {
             {tableData[0]?.map((header: string, cellIndex: number) => (
               <th
                 key={cellIndex}
-                className="border border-gray-300 px-4 py-2 text-center font-semibold"
+                className="border border-gray-300 py-1 text-center font-serif text-lg"
               >
                 {header}
               </th>

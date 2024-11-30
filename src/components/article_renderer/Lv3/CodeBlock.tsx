@@ -9,7 +9,7 @@ const CodeBlock: React.FC<{ content: any }> = ({ content }) => {
   const { id, alt: language, content: code } = content;
 
   return (
-    <CopyableBlock id={language} content={code} buttonString="Copy Code">
+    <CopyableBlock id={language} content={code} buttonString="Copy Source Code">
       <div id={id} className="bg-black text-white">
         <SyntaxHighlighter language={language} style={darcula} customStyle={{ margin: 0 }}>
           {code}

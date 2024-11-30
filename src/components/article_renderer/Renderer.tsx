@@ -15,6 +15,7 @@ import ImageBlock from "./Lv3/ImageBlock";
 // Level 4
 import TextBlock from "./Lv4/Text";
 import LinkBlock from "./Lv4/LinkBlock";
+import InlineMathComponent from "./Lv4/InlineMathComponent";
 
 
 // Renderer コンポーネント
@@ -43,6 +44,8 @@ const Renderer: React.FC<{ data: any }> = ({ data }) => {
       return <LinkBlock content={content} />;
     case "image":
       return <ImageBlock content={content} />;
+    case "inline-math":
+      return <InlineMathComponent content={content} />;
     default:
       return null;
   }
