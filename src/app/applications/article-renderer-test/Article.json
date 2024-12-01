@@ -39,38 +39,6 @@
       "content": { "title": "はじめに", "id": "section1" },
       "children": [
         {
-          "type": "section",
-          "content": { "title": "サブセクション", "id": "section1-1" },
-          "children": [
-            {
-              "type": "paragraph",
-              "content": {},
-              "children": [
-                {
-                  "type": "text",
-                  "content": {
-                    "content": "これは段落内のテキストです。",
-                    "style": { "bold": true, "color": "blue" }
-                  }
-                },
-                {
-                  "type": "text",
-                  "content": {
-                    "content": " 続けて別のスタイルのテキスト。",
-                    "style": { "italic": true, "underline": true, "color": "red" }
-                  }
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "type": "section",
-      "content": { "title": "詳細", "id": "section2" },
-      "children": [
-        {
           "type": "fold",
           "content": { "alt": "詳細を開く" },
           "children": [
@@ -133,6 +101,38 @@
             }
           ]
         },
+        {
+          "type": "section",
+          "content": { "title": "サブセクション", "id": "section1-1" },
+          "children": [
+            {
+              "type": "paragraph",
+              "content": {},
+              "children": [
+                {
+                  "type": "text",
+                  "content": {
+                    "content": "これは段落内のテキストです。",
+                    "style": { "bold": true, "color": "blue" }
+                  }
+                },
+                {
+                  "type": "text",
+                  "content": {
+                    "content": " 続けて別のスタイルのテキスト。",
+                    "style": { "italic": true, "underline": true, "color": "red" }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "content": { "title": "詳細", "id": "section2" },
+      "children": [
         {
           "type": "highlight",
           "content": { "style": "coffee-break" },
