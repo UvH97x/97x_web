@@ -8,11 +8,18 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 
 import React from 'react';
 
+import { Metadata } from 'next';
+
 import Header from '@/src/components/Header';
 import './global.css';
 
 type RootLayoutProps = {
   children: React.ReactNode;
+};
+
+// メタデータの生成
+export const metadata: Metadata = {
+  title: "97x",
 };
 
 export default function RootLayout({ children }: RootLayoutProps) {

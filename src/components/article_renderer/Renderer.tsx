@@ -13,7 +13,7 @@ import TableBlock from "./Lv3/TableBlock";
 import ImageBlock from "./Lv3/ImageBlock";
 
 // Level 4
-import TextBlock from "./Lv4/Text";
+import TextBlock from "./Lv4/TextBlock";
 import LinkBlock from "./Lv4/LinkBlock";
 import InlineMathComponent from "./Lv4/InlineMathComponent";
 
@@ -38,16 +38,16 @@ const Renderer: React.FC<{ data: any }> = ({ data }) => {
       return <CodeBlock content={content} />;
     case "table":
       return <TableBlock content={content} />;
+    case "image":
+      return <ImageBlock content={content} />;
     case "text":
       return <TextBlock content={content} />;
     case "link":
       return <LinkBlock content={content} />;
-    case "image":
-      return <ImageBlock content={content} />;
     case "inline-math":
       return <InlineMathComponent content={content} />;
     default:
-      return null;
+      return <p>!no such type!</p>;
   }
 };
 

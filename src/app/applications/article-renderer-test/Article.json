@@ -10,37 +10,37 @@
       "tags": ["React", "Next.js", "JSON", "レンダリング"]
     },
     "tocBlock": [
-      { "depth": 1, "id": "section1", "title": "はじめに" },
-      { "depth": 2, "id": "section1-1", "title": "サブセクション" },
-      { "depth": 1, "id": "section2", "title": "詳細" }
+      { "id": "section:1",   "title": "はじめに" },
+      { "id": "section:1-1", "title": "サブセクション" },
+      { "id": "section:2",   "title": "詳細" }
     ],
     "refBlock": [
       {
-        "id": "ref1",
+        "id": "reference:1",
         "title": "React公式ドキュメント",
-        "href": "https://reactjs.org",
+        "src": "https://reactjs.org",
         "author": "Meta",
-        "refDate": "2024-11-24",
-        "alt": "Reactに関する詳細なドキュメント"
+        "refered_at": "2024-11-24",
+        "caption": "Reactに関する詳細なドキュメント"
       },
       {
-        "id": "ref2",
+        "id": "reference:2",
         "title": "React公式ドキュメント2",
-        "href": "https://reactjs.org",
+        "src": "https://reactjs.org",
         "author": "Meta",
-        "refDate": "2024-11-24",
-        "alt": "Reactに関する詳細なドキュメント2"
+        "refered_at": "2024-11-24",
+        "caption": "Reactに関する詳細なドキュメント2"
       }
     ]
   },
   "children": [
     {
       "type": "section",
-      "content": { "title": "はじめに", "id": "section1" },
+      "content": { "id": "section:1", "title": "はじめに" },
       "children": [
         {
-          "type": "fold",
-          "content": { "alt": "詳細を開く" },
+          "type": "section",
+          "content": { "title": "サブセクション", "id": "section:1-1" },
           "children": [
             {
               "type": "paragraph",
@@ -49,61 +49,100 @@
                 {
                   "type": "text",
                   "content": {
-                    "content": "これは折り畳み内の段落です。補足的な情報を、あるいは縦に長すぎる表や途中式などを、分量を気にせずに追加することができます。",
-                    "style": { "italic": true, "color": "gray" }
-                  }
-                }
-              ]
-            },
-            {
-              "type": "list",
-              "content": { "style": "unordered" },
-              "children": [
-                {
-                  "type": "text",
-                  "content": {
-                    "content": "箇条書き項目1",
+                    "expression": "これは段落内のテキストです。太字にもできます。段落始めには、文字を一文字分字下げしてます。",
                     "style": { "bold": true }
                   }
                 },
                 {
                   "type": "text",
                   "content": {
-                    "content": "箇条書き項目2",
-                    "style": {}
+                    "expression": " 続けて別のスタイルのテキスト。イタリックにすることができます。もちろん段落のはじめではないので字下げはされません。同じ段落ながら、文字のスタイルを変更することができることも分かります。",
+                    "style": { "italic": true }
                   }
                 },
                 {
                   "type": "text",
                   "content": {
-                    "content": "箇条書き項目3、すっごく長い文章も入れることができるかもしれない。",
-                    "style": {}
+                    "expression": "い",
+                    "style": { "color": "red" }
+                  }
+                },
+                {
+                  "type": "text",
+                  "content": {
+                    "expression": "ろ",
+                    "style": { "color": "blue" }
+                  }
+                },
+                {
+                  "type": "text",
+                  "content": {
+                    "expression": "も",
+                    "style": { "color": "green" }
+                  }
+                },
+                {
+                  "type": "text",
+                  "content": {
+                    "expression": "か",
+                    "style": { "color": "pink" }
+                  }
+                },
+                {
+                  "type": "text",
+                  "content": {
+                    "expression": "わ",
+                    "style": { "color": "black" }
+                  }
+                },
+                {
+                  "type": "text",
+                  "content": {
+                    "expression": "る",
+                    "style": { "color": "yellow" }
+                  }
+                },
+                {
+                  "type": "text",
+                  "content": {
+                    "expression": "よ。",
+                    "style": { "color": "black" }
                   }
                 }
               ]
             },
             {
-              "type": "table",
-              "content": {
-                "id": "table1",
-                "alt": "サンプルデータ表",
-                "size": [2, 3],
-                "content": [["Header1", "Header2", "Header3"], ["Cell1", "Cell2", "Cell3"]]
-              }
-            },
-            {
-              "type": "image",
-              "content": {
-                "id": "image2",
-                "alt": "モビリティショーに行ったときに撮ったやつ。結構長めに説明文を書くことができる。できれば画像を左右に二つ並べることもできるようにしたい。この画像は公開データベースへ直接アクセスしているためURLが取得可能なのであるが、サーバーサイドで通信を行ってデータベースのURLを隠すべきか悩み中。",
-                "content": "https://jvphtaiytpzwwanoyqeh.supabase.co/storage/v1/object/public/svg-files/IMG_0963.JPEG"
-              }
+              "type": "paragraph",
+              "content": {},
+              "children": [
+                {
+                  "type": "text",
+                  "content": {
+                    "expression": " さて、段落内には数式や画像を配置することが可能です。以下のように数式を書くこともできます。",
+                    "style": {}
+                  }
+                },
+                {
+                  "type": "math",
+                  "content": {
+                    "id": "equation:1",
+                    "content": "  -sin theta (partial theta) / (partial x) &= z ( - 1 / 2 (x^2 + y^2 + z^2)^(- 3 / 2) dot 2x ) \\ &= -x z(x^2 + y^2 + z^2)^(- 3 / 2) \\ -sin theta (partial theta) / (partial y) &=  z ( - 1 / 2 (x^2 + y^2 + z^2)^(- 3 / 2) dot 2y ) \\ &= -y z(x^2 + y^2 + z^2)^(- 3 / 2) \\ -sin theta (partial theta) / (partial z) &= z ( - 1 / 2 (x^2 + y^2 + z^2)^(- 3 / 2) dot 2z ) + (x^2 + y^2 + z^2)^(- 1 / 2) \\ &=  (x^2 + y^2) / ((x^2 + y^2 + z^2)^(3/2)) "
+                  }
+                },
+                {
+                  "type": "text",
+                  "content": {
+                    "expression": " 数式の次に書かれる文章も、もちろん段落が変わっていないため字下げが発生しません。",
+                    "style": {}
+                  }
+                }
+              ]
             }
           ]
         },
         {
           "type": "section",
-          "content": { "title": "サブセクション", "id": "section1-1" },
+          "content": { "title": "サブセクション2", "id": "section:1-2" },
           "children": [
             {
               "type": "paragraph",
@@ -112,15 +151,91 @@
                 {
                   "type": "text",
                   "content": {
-                    "content": "これは段落内のテキストです。",
-                    "style": { "bold": true, "color": "blue" }
+                    "expression": "これは段落内のテキストです。太字にもできます。段落始めには、文字を一文字分字下げしてます。",
+                    "style": { "bold": true }
                   }
                 },
                 {
                   "type": "text",
                   "content": {
-                    "content": " 続けて別のスタイルのテキスト。",
-                    "style": { "italic": true, "underline": true, "color": "red" }
+                    "expression": " 続けて別のスタイルのテキスト。イタリックにすることができます。もちろん段落のはじめではないので字下げはされません。同じ段落ながら、文字のスタイルを変更することができることも分かります。",
+                    "style": { "italic": true }
+                  }
+                },
+                {
+                  "type": "text",
+                  "content": {
+                    "expression": "い",
+                    "style": { "color": "red" }
+                  }
+                },
+                {
+                  "type": "text",
+                  "content": {
+                    "expression": "ろ",
+                    "style": { "color": "blue" }
+                  }
+                },
+                {
+                  "type": "text",
+                  "content": {
+                    "expression": "も",
+                    "style": { "color": "green" }
+                  }
+                },
+                {
+                  "type": "text",
+                  "content": {
+                    "expression": "か",
+                    "style": { "color": "pink" }
+                  }
+                },
+                {
+                  "type": "text",
+                  "content": {
+                    "expression": "わ",
+                    "style": { "color": "black" }
+                  }
+                },
+                {
+                  "type": "text",
+                  "content": {
+                    "expression": "る",
+                    "style": { "color": "yellow" }
+                  }
+                },
+                {
+                  "type": "text",
+                  "content": {
+                    "expression": "よ。",
+                    "style": { "color": "black" }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": {},
+              "children": [
+                {
+                  "type": "text",
+                  "content": {
+                    "expression": " さて、段落内には数式や画像を配置することが可能です。以下のように数式を書くこともできます。",
+                    "style": {}
+                  }
+                },
+                {
+                  "type": "math",
+                  "content": {
+                    "id": "equation:2",
+                    "content": "  -sin theta (partial theta) / (partial x) &= z ( - 1 / 2 (x^2 + y^2 + z^2)^(- 3 / 2) dot 2x ) \\ &= -x z(x^2 + y^2 + z^2)^(- 3 / 2) \\ -sin theta (partial theta) / (partial y) &=  z ( - 1 / 2 (x^2 + y^2 + z^2)^(- 3 / 2) dot 2y ) \\ &= -y z(x^2 + y^2 + z^2)^(- 3 / 2) \\ -sin theta (partial theta) / (partial z) &= z ( - 1 / 2 (x^2 + y^2 + z^2)^(- 3 / 2) dot 2z ) + (x^2 + y^2 + z^2)^(- 1 / 2) \\ &=  (x^2 + y^2) / ((x^2 + y^2 + z^2)^(3/2)) "
+                  }
+                },
+                {
+                  "type": "text",
+                  "content": {
+                    "expression": " 数式の次に書かれる文章も、もちろん段落が変わっていないため字下げが発生しません。",
+                    "style": {}
                   }
                 }
               ]
@@ -131,7 +246,7 @@
     },
     {
       "type": "section",
-      "content": { "title": "詳細", "id": "section2" },
+      "content": { "title": "詳細", "id": "section:2" },
       "children": [
         {
           "type": "highlight",
@@ -140,7 +255,7 @@
             {
               "type": "text",
               "content": {
-                "content": "これはコーヒーブレイクスタイルのハイライトです。",
+                "expression": "これはコーヒーブレイクスタイルのハイライトです。",
                 "style": {}
               }
             }
@@ -149,23 +264,14 @@
         {
           "type": "math",
           "content": {
-            "id": "math1",
-            "alt": "ちょっと複雑な式",
-            "content": "  -sin theta (partial theta) / (partial x) &= z ( - 1 / 2 (x^2 + y^2 + z^2)^(- 3 / 2) dot 2x ) \\ &= -x z(x^2 + y^2 + z^2)^(- 3 / 2) \\ -sin theta (partial theta) / (partial y) &=  z ( - 1 / 2 (x^2 + y^2 + z^2)^(- 3 / 2) dot 2y ) \\ &= -y z(x^2 + y^2 + z^2)^(- 3 / 2) \\ -sin theta (partial theta) / (partial z) &= z ( - 1 / 2 (x^2 + y^2 + z^2)^(- 3 / 2) dot 2z ) + (x^2 + y^2 + z^2)^(- 1 / 2) \\ &=  (x^2 + y^2) / ((x^2 + y^2 + z^2)^(3/2)) "
-          }
-        },
-        {
-          "type": "math",
-          "content": {
-            "id": "math2",
-            "alt": "単純な数式",
-            "content": "E = m c^2"
+            "id": "equation:3",
+            "expression": "E = m c^2"
           }
         },
         {
           "type": "text",
           "content": {
-            "content": "箇条書き項目3、すっごく長い文章も入れることができるかもしれない。",
+            "expression": "すっごく長い文章も入れることができるし、",
             "style": {}
           }
         },
@@ -178,7 +284,7 @@
         {
           "type": "text",
           "content": {
-            "content": "←こんな感じのインライン数式もかけちゃう。",
+            "expression": "のようなインライン数式もかけちゃう。ソースコードは",
             "style": {}
           }
         },
@@ -186,17 +292,16 @@
           "type": "code",
           "content": {
             "id": "code1",
-            "alt": "tsx",
-            "content": "return (\n\t<CopyableBlock alt={language} content={code} buttonString='Copy Code'>\n\t\t<div id={id} className='bg-gray-900 text-white rounded'>\n\t\t\t<SyntaxHighlighter language={language} style={darcula}>\n\t\t\t\t{code}\n\t\t\t</SyntaxHighlighter>\n\t\t</div>\n\t</CopyableBlock>\n);"
+            "language": "tsx",
+            "code": "return (\n  <CopyableBlock alt={language} content={code} buttonString='Copy Code'>\n    <div id={id} className='bg-gray-900 text-white rounded'>\n      <SyntaxHighlighter language={language} style={darcula}>\n        {code}\n      </SyntaxHighlighter>\n    </div>\n  </CopyableBlock>\n);"
           }
         },
         {
           "type": "table",
           "content": {
-            "id": "table1",
-            "alt": "サンプルデータ表",
-            "size": [5, 5], 
-            "content": [
+            "id": "table:1",
+            "caption": "サンプルデータ表",
+            "cells": [
               ["Header1", "Header2", "Header3", "Header4", "Header5"],
               ["Row1Cell1", "Row1Cell2", "Row1Cell3", "Row1Cell4", "Row1Cell5"],
               ["Row2Cell1", "Row2Cell2", "Row2Cell3", "Row2Cell4", "Row2Cell5"],
@@ -212,16 +317,81 @@
             {
               "type": "link",
               "content": {
-                "content": "React公式サイト",
-                "href": "https://reactjs.org"
+                "alt": "React公式サイト",
+                "src": "https://reactjs.org"
               }
             },
             {
               "type": "image",
               "content": {
-                "id": "image1",
-                "alt": "サンプル画像1",
-                "content": "https://via.placeholder.com/600x400"
+                "id": "image:1",
+                "caption": "サンプル画像2",
+                "src": "https://via.placeholder.com/600x400"
+              }
+            }
+          ]
+        },
+        {
+          "type": "fold",
+          "content": { "alt": "詳細" },
+          "children": [
+            {
+              "type": "paragraph",
+              "content": {},
+              "children": [
+                {
+                  "type": "text",
+                  "content": {
+                    "expression": "これは折り畳み内の段落です。補足的な情報を、あるいは縦に長すぎる表や途中式などを、分量を気にせずに追加することができます。",
+                    "style": {}
+                  }
+                }
+              ]
+            },
+            {
+              "type": "list",
+              "content": { "style": "ordered" },
+              "children": [
+                {
+                  "type": "text",
+                  "content": {
+                    "expression": "箇条書き項目1です。たぶん箇条書きの一つ目を書くんだろうね。",
+                    "style": {}
+                  }
+                },
+                {
+                  "type": "text",
+                  "content": {
+                    "expression": "箇条書き項目2です。まさかとは思うけど、箇条書きの二つ目を書くことなんてないよね？",
+                    "style": {}
+                  }
+                },
+                {
+                  "type": "text",
+                  "content": {
+                    "expression": "箇条書き項目3、すっごく長い文章も入れることができるかもしれないけれど、ここには箇条書きの三つ目が入るのかな。",
+                    "style": {}
+                  }
+                }
+              ]
+            },
+            {
+              "type": "table",
+              "content": {
+                "id": "table:2",
+                "caption": "サンプルデータ表",
+                "cells": [
+                  ["Header1", "Header2", "Header3"],
+                  ["Cell1", "Cell2", "Cell3"]
+                ]
+              }
+            },
+            {
+              "type": "image",
+              "content": {
+                "id": "image:2",
+                "caption": "モビリティショーに行ったときに撮ったやつ。結構長めに説明文を書くことができる。できれば画像を左右に二つ並べることもできるようにしたい。この画像は公開データベースへ直接アクセスしているためURLが取得可能なのであるが、サーバーサイドで通信を行ってデータベースのURLを隠すべきか悩み中。",
+                "src": "https://jvphtaiytpzwwanoyqeh.supabase.co/storage/v1/object/public/svg-files/IMG_0963.JPEG"
               }
             }
           ]

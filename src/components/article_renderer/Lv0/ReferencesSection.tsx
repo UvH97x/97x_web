@@ -3,12 +3,11 @@ import React from "react";
 type Reference = {
   id: string;
   title: string;
-  href?: string;
+  src?: string;
   author?: string;
-  refDate?: string;
-  alt?: string;
+  refered_at?: string;
+  caption?: string;
 };
-
 type ReferencesSectionProps = {
   refBlock: Reference[];
 };
@@ -26,7 +25,7 @@ const ReferencesSection: React.FC<ReferencesSectionProps> = ({ refBlock }) => {
           <li key={ref.id} className="">
             <h3 className="text-lg font-semibold">
               <a
-                href={ref.href}
+                href={ref.src}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-600 hover:underline"
@@ -38,9 +37,9 @@ const ReferencesSection: React.FC<ReferencesSectionProps> = ({ refBlock }) => {
               <span className="font-semibold">著者:</span> {ref.author}
             </p>
             <p className="text-sm text-gray-600">
-              <span className="font-semibold">参照日:</span> {ref.refDate}
+              <span className="font-semibold">参照日:</span> {ref.refered_at}
             </p>
-            {ref.alt && <p className="text-sm text-gray-500">{ref.alt}</p>}
+            {ref.caption && <p className="text-sm text-gray-500">{ref.caption}</p>}
           </li>
         ))}
       </ul>
