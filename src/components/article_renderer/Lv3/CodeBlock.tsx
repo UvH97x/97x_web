@@ -6,7 +6,7 @@ import { darcula } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import CopyableBlock from "./CopyableBlock";
 
 const CodeBlock: React.FC<{ content: any }> = ({ content }) => {
-  const { id, alt: language, content: code } = content;
+  const { id, language, code } = content;
 
   return (
     <CopyableBlock id={language} content={code} buttonString="Copy Source Code">

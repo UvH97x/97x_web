@@ -27,7 +27,7 @@ const Fold: React.FC<{ content: any; children: any[] }> = ({ content, children }
   }, [isOpen]);
 
   return (
-    <div className="border rounded-lg p-4 mb-4 shadow-sm bg-white">
+    <div className="border rounded-lg p-4 my-1 shadow-sm bg-white">
       {/* タイトル部分 */}
       <div
         onClick={toggleIsOpen}

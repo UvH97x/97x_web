@@ -1,4 +1,7 @@
 // TocBlock.tsx
+
+"use client";
+
 import React from "react";
 
 import TextBlock from "../Lv4/TextBlock";
@@ -10,6 +13,16 @@ interface TocItem {
 
 const TocBlock: React.FC<{ tocBlock: TocItem[] }> = ({ tocBlock }) => {
 
+  // ハンドラ関数を定義
+  const handleClickTitle = (id: string) => (event: React.MouseEvent<HTMLSpanElement>) => {
+    event.preventDefault(); // デフォルトの動作を抑制
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" }); // スムーズスクロール
+      window.history.pushState(null, "", `#${id}`); // URLを更新
+    }
+  };
+
   return (
     <nav className="my-4 p-4 border rounded bg-gray-50 shadow-md w-auto">
       <h2 className="text-lg font-semibold mb-2">目次</h2>
@@ -19,19 +32,15 @@ const TocBlock: React.FC<{ tocBlock: TocItem[] }> = ({ tocBlock }) => {
           const { id, title } = toc;
           const parsedSection = parseSection(id);
           const sectionDepth = parsedSection.length;
-  
           return (
-            <li key={toc.id}>
-              <a href={`#${id}`}>
-                <span
-                  className={`pl-${(sectionDepth-1) * 2} border-gray-300`}
-                >
-                  <span className="text-blue-500 hover:underline">
-                    {`${parsedSection.join(".")}. `}
-                    <TextBlock content={{ expression: title, style: "" }} />
-                  </span>
-                </span>
-              </a>
+            <li key={id}>
+              <span
+                className={`ml-${(sectionDepth-1) * 2} text-blue-500 hover:underline md:hover:cursor-pointer`}
+                onClick={handleClickTitle(id)}
+              >
+                {`${parsedSection.join(".")}. `}
+                <TextBlock content={{expression: title, style:""}} />
+              </span>
             </li>
           );
         })}

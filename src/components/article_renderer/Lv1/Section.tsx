@@ -1,52 +1,55 @@
 // Section.tsx
 
+"use client";
+
 import React from "react";
 
 import Renderer from "../Renderer";
 
-const Section: React.FC<{ content: any; children: any[]; depth: number }> = ({ content, children, depth }) => {
-  // 深さに応じたスタイル設定
-  const titleStyles = {
-    1: "text-xl font-bold border-b border-gray-400 pb-1 mb-2",
-    2: "text-lg font-semibold border-b border-gray-300 pb-1 mb-2",
-    3: "text-base font-medium text-gray-700 pb-1 mb-1",
-    4: "text-sm font-normal text-gray-600 pb-1 mb-1",
-    5: "text-sm font-light text-gray-500 pb-1",
-    6: "text-xs font-thin text-gray-400 pb-1",
-  };
+const Section: React.FC<{ content: any; children: any[]; }> = ({ content, children }) => {
+  const { id, title } = content;
+  const parsedId = parseSection(id);
 
-  // 深さに応じたマージンやパディングの調整（タイトル周辺のスペース）
-  const containerStyles = {
-    1: "mt-6 mb-4",
-    2: "mt-5 mb-3",
-    3: "mt-4 mb-2",
-    4: "mt-3 mb-2",
-    5: "mt-2 mb-1",
-    6: "mt-2 mb-1",
-  };
-  // デフォルトスタイル設定
-  const defaultTitleStyle = "text-sm font-normal text-gray-600";
-  const defaultContainerStyle = "";
+  // スタイル変数
+  let textStyle = "";
+  // parsedIdの長さに基づいてスタイリングを変更
+  switch (parsedId.length) {
+    case 1: // ネストの深さ1
+      textStyle = "text-2xl font-extrabold";
+      break;
+    case 2: // ネストの深さ2
+      textStyle = "text-xl font-bold";
+      break;
+    case 3: // ネストの深さ3
+      textStyle = "text-lg font-semibold";
+      break;
+    default: // その他のネストの深さ
+      textStyle = "text-md font-medium";
+  }
 
-  // スタイルの適用
-  const appliedTitleStyle = titleStyles[depth as 1 | 2 | 3 | 4 | 5 | 6] || defaultTitleStyle;
-  const appliedContainerStyle = containerStyles[depth as 1 | 2 | 3 | 4 | 5 | 6] || defaultContainerStyle;
+  // ハンドラ関数を定義
+  const handleClickTitle = () => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+      // URLを更新
+      window.history.pushState(null, "", `#${id}`);
+    }
+  };
 
   return (
-    <section id={content.id}>
+    <section id={id}>
       {/* 深さに基づいてタイトルのスタイルを変更 */}
-      <div className={appliedContainerStyle}>
-        <h2 className={appliedTitleStyle}>{content.title}</h2>
+      <div
+        className={`${textStyle} md:hover:text-gray-600 md:hover:cursor-pointer my-1 py-1 border-y border-black`}
+        onClick={handleClickTitle}>
+        {parsedId.join(".")}. {title}
       </div>
+      
 
       {/* 子要素を再帰的にレンダリング */}
       {children &&
         children.map((child, idx) => {
-          if (child.type === "section") {
-            // 子要素が Section の場合、深さを +1 して再帰的にレンダリング
-            return <Section key={idx} content={child.content} children={child.children} depth={depth === 6 ? 6 : depth + 1} />;
-          }
-          // その他の要素は通常のレンダリング
           return <Renderer key={idx} data={child} />;
         })
       }
@@ -55,3 +58,20 @@ const Section: React.FC<{ content: any; children: any[]; depth: number }> = ({ c
 };
 
 export default Section;
+
+/**
+ * "section:<番号>"形式の文字列をパースして配列を返す関数
+ * @param input - "section:1" や "section:4-5-6" のような文字列
+ * @returns number[] - パースされた配列
+ */
+function parseSection(input: string): number[] {
+  // 正規表現で"section:"部分を除去して、番号部分を取得
+  const match = input.match(/^section:([\d-]+)$/);
+
+  if (!match) {
+      throw new Error("Invalid format. Expected format is 'section:<番号>'");
+  }
+
+  // "-"で区切られた番号部分を配列に変換
+  return match[1].split("-").map((num) => parseInt(num, 10));
+}

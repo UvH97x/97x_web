@@ -30,9 +30,12 @@ const Highlight: React.FC<{ content: any; children: any[] }> = ({ content, child
   const selectedStyle = styleMap[content.style] || { container: "", icon: null };
 
   return (
-    <div className={`my-6 p-4 rounded-lg flex items-start ${selectedStyle.container}`}>
-      {/* アイコンを左側に配置 */}
-      {selectedStyle.icon}
+    <div className={`my-6 p-4 rounded-lg flex flex-row items-start ${selectedStyle.container}`}>
+      <div className="w-6">
+        {/* アイコンを左側に配置 */}
+        {selectedStyle.icon}
+      </div>
+      
       {/* コンテンツのレンダリング */}
       <div className="flex-grow">
         {children && children.map((child, idx) => <Renderer key={idx} data={child} />)}

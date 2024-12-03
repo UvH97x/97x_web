@@ -20,7 +20,7 @@ const ReferencesSection: React.FC<ReferencesSectionProps> = ({ refBlock }) => {
   return (
     <section className="references">
       <h2 className="text-xl font-bold mt-8 mb-4">参考文献</h2>
-      <ul className="flex flex-col gap-2">
+      <ul className="grid grid-cols-1 md:grid-cols-3 gap-2">
         {refBlock.map((ref) => (
           <li key={ref.id} className="">
             <h3 className="text-lg font-semibold">
@@ -39,7 +39,7 @@ const ReferencesSection: React.FC<ReferencesSectionProps> = ({ refBlock }) => {
             <p className="text-sm text-gray-600">
               <span className="font-semibold">参照日:</span> {ref.refered_at}
             </p>
-            {ref.caption && <p className="text-sm text-gray-500">{ref.caption}</p>}
+            {ref.caption && <p className="text-sm text-gray-700">{ref.caption}</p>}
           </li>
         ))}
       </ul>

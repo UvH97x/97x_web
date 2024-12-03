@@ -1,9 +1,10 @@
 // LinkBlock.tsx
 
-const LinkBlock: React.FC<{ content: any }> = ({ content }) => {
+const LinkBlock: React.FC<{ content: {alt: string, src: string} }> = ({ content }) => {
+  const { alt, src } = content;
   return (
-    <a href={content.href} className="text-blue-500 underline">
-      {content.content}
+    <a href={src} className="text-blue-500 underline">
+      {alt}
     </a>
   );
 };

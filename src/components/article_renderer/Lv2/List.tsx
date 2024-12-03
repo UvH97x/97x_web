@@ -4,7 +4,7 @@ import React from "react";
 
 import Renderer from "../Renderer";
 
-const List: React.FC<{ content: any; children: any[] }> = ({ content, children }) => {
+const List: React.FC<{ content: { style: "ordered" | "unordered" }; children: any[] }> = ({ content, children }) => {
   const ListTag = content.style === "ordered" ? "ol" : "ul";
 
   return (

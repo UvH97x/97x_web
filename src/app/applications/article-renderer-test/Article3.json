@@ -10,22 +10,14 @@
       "tags": ["プログラミング", "JSON", "JavaScript", "Next.js"]
     },
     "tocBlock": [
-      { "id": "section:1",   "title": "はじめに" },
-      { "id": "section:1-1", "title": "サブセクション1" },
-      { "id": "section:1-1-1", "title": "サブサブセクション1" },
-      { "id": "section:1-1-2", "title": "サブサブセクション2" },
-      { "id": "section:1-2", "title": "サブセクション2" },
-      { "id": "section:1-2-1", "title": "サブサブセクション3" },
-      { "id": "section:1-2-2", "title": "サブサブセクション4" },
-      { "id": "section:1-3", "title": "サブセクション3" },
-      { "id": "section:2",   "title": "詳細" },
-      { "id": "section:2-1", "title": "サブセクション1" },
-      { "id": "section:2-1-1", "title": "サブサブセクション1" },
-      { "id": "section:2-1-2", "title": "サブサブセクション2" },
-      { "id": "section:2-2", "title": "サブセクション2" },
-      { "id": "section:2-2-1", "title": "サブサブセクション3" },
-      { "id": "section:2-2-2", "title": "サブサブセクション4" },
-      { "id": "section:2-3", "title": "サブセクション3" }
+      { "id": "section:1",   "title": "概要" },
+      { "id": "section:2",   "title": "機能" },
+      { "id": "section:2-1", "title": "折り畳みコンテンツ" },
+      { "id": "section:2-2", "title": "枠付きコンテンツ" },
+      { "id": "section:3", "title": "機能ブロック" },
+      { "id": "section:3-1", "title": "表ブロック" },
+      { "id": "section:3-2", "title": "画像ブロック" },
+      { "id": "section:3-3", "title": "コードブロック" }
     ],
     "refBlock": [
       {
@@ -43,8 +35,370 @@
         "author": "Meta",
         "refered_at": "2024-11-24",
         "caption": "Reactに関する詳細なドキュメント2"
+      },
+      {
+        "id": "reference:3",
+        "title": "React公式ドキュメント3",
+        "src": "https://reactjs.org",
+        "author": "Meta",
+        "refered_at": "2024-11-24",
+        "caption": "Reactに関する詳細なドキュメント3"
       }
     ]
   },
-  "children": []
+  "children": [
+    {
+      "type": "section",
+      "content": {
+        "id": "section:1",
+        "title": "概要"
+      },
+      "children": [
+        {
+          "type": "paragraph",
+          "content": {},
+          "children": [
+            {
+              "type": "text",
+              "content": {
+                "expression": "このレンダラーについての解説を書きます。基本的にJSONをいじればあらゆる記事を書けますが、ある程度の制約をつけたほうが統一感や使用感もいいので、専用の編集フォームを使用して作成することを推奨しています。",
+                "style": {}
+              }
+            },
+            {
+              "type": "math",
+              "content": {
+                "id": "equation:1",
+                "expression": "e^(pi i) + 1 = 0"
+              }
+            },
+            {
+              "type": "text",
+              "content": {
+                "expression": "のような美しさを目指していますが、結構程遠い設計になってしまいました。。。"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "content": {
+        "id": "section:2",
+        "title": "機能"
+      },
+      "children": [
+        {
+          "type": "paragraph",
+          "content": {},
+          "children": [
+            {
+              "type": "text",
+              "content": {
+                "expression": "まず、すべての文書はセクションによって分割されます。セクションはサブセクションを持つことができ、サブセクションはサブサブセクションを持つことができます。これより深いネストはできません。"
+              }
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": {},
+          "children": [
+            {
+              "type": "text",
+              "content": {
+                "expression": "セクションの下には、段落・折り畳み・枠付き・箇条書きを作ることができます。これらは原則お互いをお互いが含むことができますが、ネストの深さは必要最低限であるべきです。例えば、"
+              }
+            },
+            {
+              "type": "list",
+              "content": {
+                "style": "ordered"
+              },
+              "children": [
+                {
+                  "type": "text",
+                  "content": {
+                    "expression": "折り畳み"
+                  }
+                },
+                {
+                  "type": "text",
+                  "content": {
+                    "expression": "段落"
+                  }
+                },
+                {
+                  "type": "text",
+                  "content": {
+                    "expression": "箇条書き"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "content": {
+                "expression": "のような感じです。段落はもう使用していますが、段落ごとに最初に出てくる文章の先頭を字下げします。こだわりポイントは、何か文章では内容が途中で登場してもその後段落を更新しなければ字下げが行われずに文章が続く点です。"
+              }
+            }
+          ]
+        },
+        {
+          "type": "section",
+          "content": {
+            "id": "section:2-1",
+            "title": "折り畳みコンテンツ"
+          },
+          "children": [
+            {
+              "type": "fold",
+              "content": {
+                "alt": "折り畳みコンテンツを開く"
+              },
+              "children": [
+                {
+                  "type": "paragraph",
+                  "content": {},
+                  "children": [
+                    {
+                      "type": "text",
+                      "content": {
+                        "expression": "これが折り畳みコンテンツの中身です。開閉時のにメーションはちょっとお気に入りです。また、三角形の向きが変わるのもこだわりポイントの一つです。以下で別に説明がありますが、数式、画像、表などを挿入することももちろんできます。"
+                      }
+                    },
+                    {
+                      "type": "math",
+                      "content": {
+                        "id": "equation:2",
+                        "expression": "F = m a"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "section",
+          "content": {
+            "id": "section:2-2",
+            "title": "枠付きコンテンツ"
+          },
+          "children": [
+            {
+              "type": "highlight",
+              "content": {
+                "style": "info"
+              },
+              "children": [
+                {
+                  "type": "paragraph",
+                  "content": {},
+                  "children": [
+                    {
+                      "type": "text",
+                      "content": {
+                        "expression": "枠付きコンテンツにはいくつかの種類があります。こちらは補足情報を書くためのinfoです。"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "highlight",
+              "content": {
+                "style": "warning"
+              },
+              "children": [
+                {
+                  "type": "paragraph",
+                  "content": {},
+                  "children": [
+                    {
+                      "type": "text",
+                      "content": {
+                        "expression": "！こちらが注意書きをするためのwarning！"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "highlight",
+              "content": {
+                "style": "note"
+              },
+              "children": [
+                {
+                  "type": "paragraph",
+                  "content": {},
+                  "children": [
+                    {
+                      "type": "text",
+                      "content": {
+                        "expression": "これはメモのような、大して重要ではないけれど知っているとよいような情報を書くためのnoteです。"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "highlight",
+              "content": {
+                "style": "coffee-break"
+              },
+              "children": [
+                {
+                  "type": "paragraph",
+                  "content": {},
+                  "children": [
+                    {
+                      "type": "text",
+                      "content": {
+                        "expression": "長い記事の途中に一息つけるような情報を書くならこのcoffee-breakに！"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "content": {
+                "expression": "これらは長く書けば書くほどアイコンが縮んでしまうバグが残っているので、早めに修正したいです。まあ実際これらは使う機会が限定的だと思いますが。",
+                "style": "line-through text-gray-400"
+              }
+            },
+            {
+              "type": "text",
+              "content": {
+                "expression": "打ち消し線もうまくいった。バグも修正できた！"
+              }
+            }
+          ]
+        },
+        {
+          "type": "section",
+          "content": {
+            "id": "section:3",
+            "title": "機能ブロック"
+          },
+          "children": [
+            {
+              "type": "paragraph",
+              "content": {},
+              "children": [
+                {
+                  "type": "text",
+                  "content": {
+                    "expression": "記事に必要最低限の機能を付けてみました。すべてに共通するのは、そのid表示とコピーボタンによるワンタッチコピーです。"
+                  }
+                },
+                {
+                  "type": "list",
+                  "content": {
+                    "style": "unordered"
+                  },
+                  "children": [
+                    {
+                      "type": "text",
+                      "content": {
+                        "expression": "数式ブロック"
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "content": {
+                        "expression": "画像ブロック"
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "content": {
+                        "expression": "表ブロック"
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "content": {
+                        "expression": "コードブロック"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "content": {
+                    "expression": "数式は既出ですよね。それ以外の見た目は以下のようになっています。まだ部分的にインライン表示を実装しきれていないですが、不便さが目立つようになるまでは放置しようと思います。"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "content": {
+                "id": "section:3-1",
+                "title": "表ブロック"
+              },
+              "children": [
+                {
+                  "type": "table",
+                  "content": {
+                    "id": "table:1",
+                    "caption": "例えばこんな感じの表が書けます。コピーされるのはヘッダーを含むCSV形式です。",
+                    "cells": [
+                      [ "１列目", "２列目", "３列目" ],
+                      [ "セル毎に", "スタイルを", "変えれると" ],
+                      [ "いいですが", "まあ", "すこし" ],
+                      [ "まってもらえると", "いいね", "！！！" ]
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "content": {
+                "id": "section:3-2",
+                "title": "画像ブロック"
+              },
+              "children": [
+                {
+                  "type": "image",
+                  "content": {
+                    "id": "image:1",
+                    "caption": "この画像は公開データベースへ直接アクセスしているためURLが取得可能なのであるが、サーバーサイドで通信を行ってデータベースのURLを隠すべきか悩み中。",
+                    "src": "https://jvphtaiytpzwwanoyqeh.supabase.co/storage/v1/object/public/svg-files/IMG_0963.JPEG"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "content": {
+                "id": "section:3-3",
+                "title": "コードブロック"
+              },
+              "children": [
+                {
+                  "type": "code",
+                  "content": {
+                    "id": "code1",
+                    "language": "cpp",
+                    "code": "#include <iostream> // 入出力のためのヘッダーファイル\nint main() {\n\tint a = 5, b = 3; // 整数変数aとbの定義と初期化\n\tint sum = a + b;  // 変数sumにaとbの和を代入\n\n\tstd::cout << \"Hello, World!\" << std::endl; // \"Hello, World!\"を出力\n\tstd::cout << \"3 + 5 = \" << sum << std::endl; // 計算結果を表示\n\n\treturn 0; // プログラムが正常終了したことを示す\n}"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

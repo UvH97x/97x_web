@@ -10,8 +10,11 @@ const ArticleTestPage = () => {
   const articleData = JSON.parse(jsonData);
 
   return (
-    <div className="container mx-auto">
-      <Article content={articleData.content} children={articleData.children} />
+    <div className="md:grid md:grid-cols-4 md:gap-4">
+      <span className="hidden md:border md:col-span-1 md:block" />
+      <span className="mr-4 md:col-span-3">
+        <Article content={articleData.content} children={articleData.children} />
+      </span>
     </div>
   );
 };

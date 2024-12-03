@@ -5,7 +5,7 @@ import React from "react";
 import CopyableBlock from "./CopyableBlock";
 
 const TableBlock: React.FC<{ content: any }> = ({ content }) => {
-  const { id, alt, size, content: tableData } = content;
+  const { id, alt, cells: tableData } = content;
 
   const copyContent = tableData
   .map((row: string[]) => row.join(",")) // 各行の要素をカンマで結合

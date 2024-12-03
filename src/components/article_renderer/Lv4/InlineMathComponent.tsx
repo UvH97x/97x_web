@@ -6,8 +6,9 @@ import React from "react";
 import "katex/dist/katex.min.css"; // KaTeXのスタイルをインポート
 import { InlineMath } from "react-katex";
 
-const InlineMathComponent: React.FC<{ content: any }> = ({ content }) => {
+const InlineMathComponent: React.FC<{ content: {expression: string} }> = ({ content }) => {
   const { expression } = content;
+
   return (
     <span>
       {/* KaTeXのインラインレンダリング */}

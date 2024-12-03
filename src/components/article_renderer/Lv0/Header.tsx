@@ -1,6 +1,8 @@
 // Header.tsx
 import React from "react";
 
+import TextBlock from "../Lv4/TextBlock";
+
 interface MetaData {
   title: string;
   tags: string[];
@@ -51,7 +53,9 @@ const Header: React.FC<{ meta: MetaData }> = ({ meta }) => {
       </header>
       
       {/* 概要 */}
-      <p className="m-1.5 text-black">{summary}</p>
+      <div className="m-1.5 text-black">
+        <TextBlock content={{expression: summary, style: ""}} />
+      </div>
     </>
   );
 };

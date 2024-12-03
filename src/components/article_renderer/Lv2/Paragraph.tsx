@@ -11,7 +11,7 @@ const Paragraph: React.FC<{ content: any; children: any[] }> = ({ children }) =>
   );
 
   return (
-    <div className="my-2">
+    <div className="my-1">
       {children.map((child, idx) => {
         // 最初の `text` には字下げ（インデント）を適用
         if (idx === firstTextIndex && child.type === "text") {

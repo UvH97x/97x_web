@@ -3,7 +3,7 @@
 
 import Header from "./Header";
 import TocBlock from "./TocBlock";
-import Section from "../Lv1/Section";
+import Renderer from "../Renderer";
 import ReferencesSection from "./ReferencesSection";
 
 const Article: React.FC<{ content: any; children: any[] }> = ({ content, children }) => {
@@ -14,11 +14,17 @@ const Article: React.FC<{ content: any; children: any[] }> = ({ content, childre
 
 
       {/* 目次 */}
-      <TocBlock tocBlock={content.tocBlock} />
-
+      <div className="md:grid md:grid-cols-3">
+        <span className="md:col-span-1">
+          <TocBlock tocBlock={content.tocBlock} />
+        </span>
+      </div>
+      
 
       {/* 子要素のレンダリング */}
-      {children && children.map((child, idx) => <Section key={idx} content={child.content} depth={1} children={child.children} />)}
+      {children && children.map((child, idx) => 
+        <Renderer key={idx} data={child} />
+      )}
 
 
       {/* 参考文献 */}

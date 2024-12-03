@@ -1,5 +1,8 @@
 import React from "react";
 
+// Level 1
+import Section from "./Lv1/Section";
+
 // Level 2
 import Fold from "./Lv2/Fold";
 import Highlight from "./Lv2/Highlight";
@@ -24,6 +27,8 @@ const Renderer: React.FC<{ data: any }> = ({ data }) => {
 
   // 各typeに対応するコンポーネントを分岐
   switch (type) {
+    case "section":
+      return <Section content={content} children={children} />;
     case "paragraph":
       return <Paragraph content={content} children={children} />;
     case "fold":
