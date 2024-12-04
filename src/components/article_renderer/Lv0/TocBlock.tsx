@@ -25,7 +25,7 @@ const TocBlock: React.FC<{ tocBlock: TocItem[] }> = ({ tocBlock }) => {
 
   return (
     <nav className="my-4 p-4 border rounded bg-gray-50 shadow-md w-auto">
-      <h2 className="text-lg font-semibold mb-2">目次</h2>
+      <h2 className="text-xl font-extrabold mb-2">目次</h2>
   
       <ul className="space-y-1">
         {tocBlock.map((toc) => {
@@ -35,7 +35,7 @@ const TocBlock: React.FC<{ tocBlock: TocItem[] }> = ({ tocBlock }) => {
           return (
             <li key={id}>
               <span
-                className={`ml-${(sectionDepth-1) * 2} text-blue-500 hover:underline md:hover:cursor-pointer`}
+                className={`ml-${(sectionDepth-1) * 2} hover:underline md:hover:cursor-pointer`}
                 onClick={handleClickTitle(id)}
               >
                 {`${parsedSection.join(".")}. `}

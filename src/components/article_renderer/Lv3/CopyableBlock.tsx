@@ -28,16 +28,16 @@ const CopyableBlock: React.FC<CopyableBlockProps> = ({ id, content, children, bu
   };
 
   return (
-    <div className="py-2">
+    <div className="py-1 my-1">
       <div className="rounded-md shadow flex flex-col gap-0 text-center border border-gray-300">
         {/* ヘッダー部分 */}
-        <div className="flex items-center justify-between bg-gray-200 rounded-t-md">
+        <div className="flex items-center justify-between bg-gray-600 rounded-t-md">
           {/* alt説明 */}
-          {id && <span className="px-4 text-sm text-gray-600">{id}</span>}
+          {id && <span className="px-4 text-sm text-gray-200">{id}</span>}
           {/* コピーボタン */}
           <button
           onClick={handleCopy}
-          className="rounded-tl-md rounded-tr-md text-xs bg-gray-300 hover:bg-gray-400 active:bg-gray-500 text-black px-2 py-0.5 min-w-[110px]"
+          className="rounded-tl-md rounded-tr-md text-xs bg-gray-800 hover:bg-gray-700 active:bg-gray-700 text-gray-200 px-2 py-0.5 min-w-[110px]"
         >{isCopied ? "Copied!" : buttonString}</button>
         </div>
         {/* コンテンツ部分 */}

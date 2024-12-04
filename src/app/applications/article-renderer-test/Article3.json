@@ -6,7 +6,7 @@
       "author": "UvH",
       "created_at": "2023-11-24",
       "updated_at": "2024-11-24",
-      "summary": "この記事は、JSON構造をレンダリングするReactコンポーネントのテスト用です。",
+      "summary": "　この記事は、JSON構造をレンダリングするReactコンポーネントのテスト用です。字体はNoto Serif JPを使用しています。",
       "tags": ["プログラミング", "JSON", "JavaScript", "Next.js"]
     },
     "tocBlock": [
@@ -17,7 +17,8 @@
       { "id": "section:3", "title": "機能ブロック" },
       { "id": "section:3-1", "title": "表ブロック" },
       { "id": "section:3-2", "title": "画像ブロック" },
-      { "id": "section:3-3", "title": "コードブロック" }
+      { "id": "section:3-3", "title": "コードブロック" },
+      { "id": "section:4", "title": "まとめ" }
     ],
     "refBlock": [
       {
@@ -27,22 +28,6 @@
         "author": "Meta",
         "refered_at": "2024-11-24",
         "caption": "Reactに関する詳細なドキュメント"
-      },
-      {
-        "id": "reference:2",
-        "title": "React公式ドキュメント2",
-        "src": "https://reactjs.org",
-        "author": "Meta",
-        "refered_at": "2024-11-24",
-        "caption": "Reactに関する詳細なドキュメント2"
-      },
-      {
-        "id": "reference:3",
-        "title": "React公式ドキュメント3",
-        "src": "https://reactjs.org",
-        "author": "Meta",
-        "refered_at": "2024-11-24",
-        "caption": "Reactに関する詳細なドキュメント3"
       }
     ]
   },
@@ -61,7 +46,7 @@
             {
               "type": "text",
               "content": {
-                "expression": "このレンダラーについての解説を書きます。基本的にJSONをいじればあらゆる記事を書けますが、ある程度の制約をつけたほうが統一感や使用感もいいので、専用の編集フォームを使用して作成することを推奨しています。",
+                "expression": "このレンダラーについての解説を書きます。基本的にJSONをいじればあらゆる記事を書けますが、ある程度の制約をつけたほうが統一感や使用感もいいので、専用の編集フォームを使用して作成することを推奨しています。初めてデータベースを含んだアプリケーションを作りました。最終的には、",
                 "style": {}
               }
             },
@@ -75,7 +60,7 @@
             {
               "type": "text",
               "content": {
-                "expression": "のような美しさを目指していますが、結構程遠い設計になってしまいました。。。"
+                "expression": "のような美しさを目指していますが、今後の努力がかなり必要そうです。。。"
               }
             }
           ]
@@ -152,6 +137,18 @@
             "title": "折り畳みコンテンツ"
           },
           "children": [
+            {
+              "type": "paragraph",
+              "content": {},
+              "children": [
+                {
+                  "type": "text",
+                  "content": {
+                    "expression": "以下に折り畳みコンテンツの例を書きます。見た目があんまり目立たないので、できればもう少しわかりやすい形に直したいとは思ってます。思ってる。。。"
+                  }
+                }
+              ]
+            },
             {
               "type": "fold",
               "content": {
@@ -353,12 +350,36 @@
                     "id": "table:1",
                     "caption": "例えばこんな感じの表が書けます。コピーされるのはヘッダーを含むCSV形式です。",
                     "cells": [
-                      [ "１列目", "２列目", "３列目" ],
-                      [ "セル毎に", "スタイルを", "変えれると" ],
-                      [ "いいですが", "まあ", "すこし" ],
-                      [ "まってもらえると", "いいね", "！！！" ]
+                      [ "インライン機能名", "表記例", "説明" ],
+                      [ "数式", "$\\hat{H}|\\Psi_n\\rangle=E_n|\\Psi_n\\rangle$", "KaTeXを採用しています" ],
+                      [ "コード", "```Hello World!```", "背景と文字色をちょっと変えただけ" ],
+                      [ "リンク", "___このページへのリンク|https://97x-web.vercel.app/applications/article-renderer-test___", "URLとそのカバーを設定できます" ]
                     ]
                   }
+                },
+                {
+                  "type": "paragraph",
+                  "content": {},
+                  "children": [
+                    {
+                      "type": "text",
+                      "content": {
+                        "expression": "　ついでにインライン表記に関する説明も載せてしまいました。今のところ、この数式・ソースコード・リンクが実装されています。数式ブロックではTypstのリテラルを採用していて、比較的書きやすくなっているのに対し、インライン数式ではKaTeXを採用しています。Typstは結構無理やり実装したので、インラインでsvgをサイズを気を付けながら重ねるのが難しく、KaTeXと混合する形になってしまいました。。。"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "content": {},
+                  "children": [
+                    {
+                      "type": "text",
+                      "content": {
+                        "expression": "一方で、すべてのブロック要素に対してこれらの機能は併用できます。特に、目次の部分にでも数式が採用できるのがちょっとしたこだわりポイントです。"
+                      }
+                    }
+                  ]
                 }
               ]
             },

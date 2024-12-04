@@ -5,6 +5,7 @@
 import React from "react";
 
 import Renderer from "../Renderer";
+import TextBlock from "../Lv4/TextBlock";
 
 const Section: React.FC<{ content: any; children: any[]; }> = ({ content, children }) => {
   const { id, title } = content;
@@ -12,19 +13,24 @@ const Section: React.FC<{ content: any; children: any[]; }> = ({ content, childr
 
   // スタイル変数
   let textStyle = "";
+  let sectionStyle = "";
   // parsedIdの長さに基づいてスタイリングを変更
   switch (parsedId.length) {
     case 1: // ネストの深さ1
-      textStyle = "text-2xl font-extrabold";
+      textStyle = "text-2xl font-extrabold border-b-4";
+      sectionStyle = "mb-2";
       break;
     case 2: // ネストの深さ2
-      textStyle = "text-xl font-bold";
+      textStyle = "text-xl font-bold border-b-2";
+      sectionStyle = "py-2 pl-2";
       break;
     case 3: // ネストの深さ3
-      textStyle = "text-lg font-semibold";
+      textStyle = "text-lg font-semibold border-b-0";
+      sectionStyle = "py-1 pl-3";
       break;
     default: // その他のネストの深さ
       textStyle = "text-md font-medium";
+      sectionStyle = "";
   }
 
   // ハンドラ関数を定義
@@ -37,13 +43,15 @@ const Section: React.FC<{ content: any; children: any[]; }> = ({ content, childr
     }
   };
 
+  const renderTitle = `${parsedId.join(".")}. ${title}`;
+
   return (
-    <section id={id}>
+    <section id={id} className={`${sectionStyle}`}>
       {/* 深さに基づいてタイトルのスタイルを変更 */}
       <div
-        className={`${textStyle} md:hover:text-gray-600 md:hover:cursor-pointer my-1 py-1 border-y border-black`}
+        className={`${textStyle} md:hover:text-gray-600 md:hover:cursor-pointer border-black`}
         onClick={handleClickTitle}>
-        {parsedId.join(".")}. {title}
+        <TextBlock content={{ expression: renderTitle, style: "" }} />
       </div>
       
 

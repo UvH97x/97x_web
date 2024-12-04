@@ -2,6 +2,7 @@
 
 import React from "react";
 
+import TextBlock from "../Lv4/TextBlock";
 import CopyableBlock from "./CopyableBlock";
 
 const TableBlock: React.FC<{ content: any }> = ({ content }) => {
@@ -22,13 +23,13 @@ const TableBlock: React.FC<{ content: any }> = ({ content }) => {
       <table className="table-auto border-collapse border border-gray-300 w-full text-sm">
         <thead>
           {/* ヘッダー行 (最初の行をヘッダーとして扱う例) */}
-          <tr className="bg-gray-200 text-gray-800">
+          <tr className="">
             {tableData[0]?.map((header: string, cellIndex: number) => (
               <th
-                key={cellIndex}
-                className="border border-gray-300 py-1 text-center font-serif text-lg"
+                key={`header-${cellIndex}`}
+                className="border border-gray-500 text-gray-800 text-center text-lg bg-gray-400"
               >
-                {header}
+                <TextBlock content={{expression: header, style: ""}}/>
               </th>
             ))}
           </tr>
@@ -36,15 +37,15 @@ const TableBlock: React.FC<{ content: any }> = ({ content }) => {
         <tbody>
           {tableData.slice(1).map((row: string[], rowIndex: number) => (
             <tr
-              key={rowIndex}
-              className={rowIndex % 2 === 0 ? "bg-white" : "bg-gray-50"}
+              key={`row-${rowIndex}`}
+              className={rowIndex % 2 === 0 ? "bg-white md:hover:bg-gray-50" : "bg-gray-100 md:hover:bg-gray-200"}
             >
               {row.map((cell: string, cellIndex: number) => (
                 <td
-                  key={cellIndex}
-                  className="border border-gray-300 px-4 py-2 text-center"
+                  key={`row-${rowIndex}-cell-${cellIndex}`}
+                  className="border border-gray-400 px-4 py-2 text-center"
                 >
-                  {cell}
+                  <TextBlock content={{expression: cell, style: ""}}/>
                 </td>
               ))}
             </tr>

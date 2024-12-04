@@ -8,7 +8,7 @@ const List: React.FC<{ content: { style: "ordered" | "unordered" }; children: an
   const ListTag = content.style === "ordered" ? "ol" : "ul";
 
   return (
-    <ListTag className="list-inside list-disc my-4 pl-4">
+    <ListTag className="list-inside list-disc my-1 pl-4">
       {children &&
         children.map((child, idx) => (
           <li key={idx}>

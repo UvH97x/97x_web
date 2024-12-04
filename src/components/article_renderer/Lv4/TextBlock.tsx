@@ -15,7 +15,7 @@ const TextBlock: React.FC<{ content: {expression: string, style: string} }> = ({
       {parsedContent.map((part, index) => {
         // InlineMath ($...$)
         if (part.startsWith("$") && part.endsWith("$")) {
-          part=part.slice(3, -3);
+          part=part.slice(1, -1);
           return (
             <InlineMathComponent key={index} content={{ expression: part }} />
           );
@@ -23,8 +23,9 @@ const TextBlock: React.FC<{ content: {expression: string, style: string} }> = ({
 
         // InlineCode (```...```)
         if (part.startsWith("```") && part.endsWith("```")) {
+          part = part.slice(3, -3);
           return (
-            <span className="bg-black, text-white">{part}</span>
+            <span className="bg-gray-300 px-1 rounded">{part}</span>
           );
         }
 

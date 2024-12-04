@@ -14,8 +14,7 @@ interface MathBlockProps {
 const MathBlock: React.FC<MathBlockProps> = ({ content }) => {
   const { id, expression: mathExpression } = content;
 
-  // ファイル名をIDから動的に生成
-  const fileName = `${id}.svg`;
+  const fileName = id.replace(":", "-");
 
   return (
     <CopyableBlock id={id} content={mathExpression} buttonString="Copy Typst Code">

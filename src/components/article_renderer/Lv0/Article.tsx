@@ -8,13 +8,13 @@ import ReferencesSection from "./ReferencesSection";
 
 const Article: React.FC<{ content: any; children: any[] }> = ({ content, children }) => {
   return (
-    <article>
+    <article className="custom-font">
       {/* ヘッダー */}
       <Header meta={content.meta} />
 
 
       {/* 目次 */}
-      <div className="md:grid md:grid-cols-3">
+      <div className="md:grid md:grid-cols-2">
         <span className="md:col-span-1">
           <TocBlock tocBlock={content.tocBlock} />
         </span>
