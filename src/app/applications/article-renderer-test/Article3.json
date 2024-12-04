@@ -395,7 +395,7 @@
                   "content": {
                     "id": "image:1",
                     "caption": "この画像は公開データベースへ直接アクセスしているためURLが取得可能なのであるが、サーバーサイドで通信を行ってデータベースのURLを隠すべきか悩み中。",
-                    "src": "https://jvphtaiytpzwwanoyqeh.supabase.co/storage/v1/object/public/svg-files/IMG_0963.JPEG"
+                    "src": "https://jvphtaiytpzwwanoyqeh.supabase.co/storage/v1/object/public/svg-files/IMG_0772.JPEG"
                   }
                 }
               ]
