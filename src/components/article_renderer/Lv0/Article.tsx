@@ -5,18 +5,25 @@ import Header from "./Header";
 import TocBlock from "./TocBlock";
 import Renderer from "../Renderer";
 import ReferencesSection from "./ReferencesSection";
+import { ArticleContent } from "@/src/app/applications/article-editform-test/article-edit-type";
 
-const Article: React.FC<{ content: any; children: any[] }> = ({ content, children }) => {
+interface ArticleProps {
+  article: ArticleContent;
+}
+
+const Article: React.FC<ArticleProps> = ({ article }) => {
+  const { content, children } = article;
+  const { meta, toc, ref} = content;
   return (
     <article className="custom-font">
       {/* ヘッダー */}
-      <Header meta={content.meta} />
+      <Header meta={meta} />
 
 
       {/* 目次 */}
       <div className="md:grid md:grid-cols-2">
         <span className="md:col-span-1">
-          <TocBlock tocBlock={content.tocBlock} />
+          <TocBlock tocBlock={toc} />
         </span>
       </div>
       
@@ -28,7 +35,7 @@ const Article: React.FC<{ content: any; children: any[] }> = ({ content, childre
 
 
       {/* 参考文献 */}
-      <ReferencesSection refBlock={content.refBlock} />
+      <ReferencesSection refBlock={ref} />
     </article>
   );
 };

@@ -25,7 +25,7 @@ const TextBlock: React.FC<{ content: {expression: string, style: string} }> = ({
         if (part.startsWith("```") && part.endsWith("```")) {
           part = part.slice(3, -3);
           return (
-            <span className="bg-gray-300 px-1 rounded">{part}</span>
+            <span key={index} className="bg-gray-300 px-1 rounded">{part}</span>
           );
         }
 

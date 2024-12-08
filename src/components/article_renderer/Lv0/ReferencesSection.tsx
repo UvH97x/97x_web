@@ -33,13 +33,13 @@ const ReferencesSection: React.FC<ReferencesSectionProps> = ({ refBlock }) => {
                 {ref.title}
               </a>
             </h3>
-            <p className="text-sm text-gray-600">
-              <span className="font-semibold">著者:</span> {ref.author}
-            </p>
-            <p className="text-sm text-gray-600">
+            <span className="text-sm text-gray-600">
+              <span className="font-semibold">著者:</span> {ref.author}, 
               <span className="font-semibold">参照日:</span> {ref.refered_at}
-            </p>
-            {ref.caption && <p className="text-sm text-gray-700">{ref.caption}</p>}
+            </span>
+            {ref.caption && 
+              <p className="text-sm text-gray-700">{ref.caption}</p>
+            }
           </li>
         ))}
       </ul>

@@ -18,15 +18,15 @@ const Section: React.FC<{ content: any; children: any[]; }> = ({ content, childr
   switch (parsedId.length) {
     case 1: // ネストの深さ1
       textStyle = "text-2xl font-extrabold border-b-4";
-      sectionStyle = "mb-2";
+      sectionStyle = "mb-3";
       break;
     case 2: // ネストの深さ2
       textStyle = "text-xl font-bold border-b-2";
-      sectionStyle = "py-2 pl-2";
+      sectionStyle = "mb-2";
       break;
     case 3: // ネストの深さ3
       textStyle = "text-lg font-semibold border-b-0";
-      sectionStyle = "py-1 pl-3";
+      sectionStyle = "mb-1";
       break;
     default: // その他のネストの深さ
       textStyle = "text-md font-medium";

@@ -2,17 +2,13 @@
 import React from "react";
 
 import TextBlock from "../Lv4/TextBlock";
+import { MetaContent } from "@/src/app/applications/article-editform-test/article-edit-type";
 
-interface MetaData {
-  title: string;
-  tags: string[];
-  author: string;
-  created_at: string;
-  updated_at: string;
-  summary: string;
+interface HeaderProps {
+  meta: MetaContent;
 }
 
-const Header: React.FC<{ meta: MetaData }> = ({ meta }) => {
+const Header: React.FC<{ meta: MetaContent }> = ({ meta }) => {
   const { title, author, created_at, updated_at, summary, tags } = meta;
   return (
     <>
@@ -24,7 +20,7 @@ const Header: React.FC<{ meta: MetaData }> = ({ meta }) => {
         <div className="grid grid-cols-2">
           {/* 左側: タグ */}
           <div className="col-span-1 flex flex-row flex-wrap items-center">
-            {tags.map((tag, idx) => (
+            {tags.length > 0 && tags.map((tag, idx) => (
               <span
                 key={idx}
                 className="px-2 m-1 h-6 bg-blue-50 text-blue-700 text-sm font-medium rounded-full shadow-sm"

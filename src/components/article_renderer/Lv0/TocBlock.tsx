@@ -12,6 +12,9 @@ interface TocItem {
 }
 
 const TocBlock: React.FC<{ tocBlock: TocItem[] }> = ({ tocBlock }) => {
+  if (!tocBlock || tocBlock.length === 0) {
+    return null; // 何も表示しない
+  }
 
   // ハンドラ関数を定義
   const handleClickTitle = (id: string) => (event: React.MouseEvent<HTMLSpanElement>) => {
@@ -28,7 +31,7 @@ const TocBlock: React.FC<{ tocBlock: TocItem[] }> = ({ tocBlock }) => {
       <h2 className="text-xl font-extrabold mb-2">目次</h2>
   
       <ul className="space-y-1">
-        {tocBlock.map((toc) => {
+        {tocBlock.length > 0 && tocBlock.map((toc) => {
           const { id, title } = toc;
           const parsedSection = parseSection(id);
           const sectionDepth = parsedSection.length;

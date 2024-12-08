@@ -38,7 +38,7 @@ const TableBlock: React.FC<{ content: any }> = ({ content }) => {
           {tableData.slice(1).map((row: string[], rowIndex: number) => (
             <tr
               key={`row-${rowIndex}`}
-              className={rowIndex % 2 === 0 ? "bg-white md:hover:bg-gray-50" : "bg-gray-100 md:hover:bg-gray-200"}
+              className={rowIndex % 2 === 0 ? "bg-white md:hover:bg-gray-100" : "bg-gray-100 md:hover:bg-gray-200"}
             >
               {row.map((cell: string, cellIndex: number) => (
                 <td

@@ -30,6 +30,16 @@ export default function AppHome() {
             Todo List
           </span>
         </Link>
+        <Link href="./applications/article-renderer-test">
+          <span className="text-xl text-blue-600 hover:text-blue-800 underline transition duration-300">
+            Article Renderer Test Page
+          </span>
+        </Link>
+        <Link href="./applications/article-editform-test">
+          <span className="text-xl text-blue-600 hover:text-blue-800 underline transition duration-300">
+            Article Editform Test Page
+          </span>
+        </Link>
       </div>
     </div>
   );
