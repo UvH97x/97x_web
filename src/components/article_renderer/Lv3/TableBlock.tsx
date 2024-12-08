@@ -6,7 +6,7 @@ import TextBlock from "../Lv4/TextBlock";
 import CopyableBlock from "./CopyableBlock";
 
 const TableBlock: React.FC<{ content: any }> = ({ content }) => {
-  const { id, alt, cells: tableData } = content;
+  const { id, caption, cells: tableData } = content;
 
   const copyContent = tableData
   .map((row: string[]) => row.join(",")) // 各行の要素をカンマで結合
@@ -14,9 +14,9 @@ const TableBlock: React.FC<{ content: any }> = ({ content }) => {
 
   return (
     <CopyableBlock id={id} content={copyContent} buttonString="Copy CSV">
-    {alt && (
+    {caption && (
       <p className="text-sm text-gray-700">
-        {alt}
+        {caption}
       </p>
     )}
     <div id={id} className="overflow-x-auto">
