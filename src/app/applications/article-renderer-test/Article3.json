@@ -7,9 +7,9 @@
       "created_at": "2023-11-24",
       "updated_at": "2024-12-05",
       "summary": "　この記事は、JSON構造をレンダリングするReactコンポーネントのテスト用です。字体はNoto Serif JPを使用しています。",
-      "tags": ["プログラミング", "JSON", "JavaScript", "Next.js"]
+      "tags": ["プログラミング", "JSON", "Next.js", "JavaScript"]
     },
-    "tocBlock": [
+    "toc": [
       { "id": "section:1",   "title": "概要" },
       { "id": "section:2",   "title": "機能" },
       { "id": "section:2-1", "title": "折り畳みコンテンツ" },
@@ -20,7 +20,7 @@
       { "id": "section:3-3", "title": "コードブロック" },
       { "id": "section:4", "title": "まとめ" }
     ],
-    "refBlock": [
+    "ref": [
       {
         "id": "reference:1",
         "title": "React公式ドキュメント",

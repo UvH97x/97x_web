@@ -14,16 +14,19 @@ const Header: React.FC<{ meta: MetaContent }> = ({ meta }) => {
     <>
       <header className="border-b">
         {/* タイトル */}
-        <div className="font-bold text-2xl pt-2 pb-4 border-b">{title}</div>
+        <div className="font-bold text-2xl pt-2 pb-4 border-b">
+          {title}
+        </div>
 
         {/* メタ情報 */}
-        <div className="grid grid-cols-2">
+        <div className="flex flex-col">
           {/* 左側: タグ */}
-          <div className="col-span-1 flex flex-row flex-wrap items-center">
+          <div className="flex flex-wrap gap-1 justify-start md:justify-end">
+            🏷️
             {tags.length > 0 && tags.map((tag, idx) => (
               <span
                 key={idx}
-                className="px-2 m-1 h-6 bg-blue-50 text-blue-700 text-sm font-medium rounded-full shadow-sm"
+                className="px-4 m-1 h-6 bg-blue-50 text-blue-700 text-sm font-medium rounded-full shadow-sm"
               >
                 {tag}
               </span>
@@ -31,19 +34,12 @@ const Header: React.FC<{ meta: MetaContent }> = ({ meta }) => {
           </div>
 
           {/* 右側: 著者と作成日 */}
-          <div className="flex justify-end text-gray-600">
-            <div className="grid grid-cols-2">
-              <span className="w-20 text-right">筆　者:</span>
-              <span className="ml-1">{author}</span>
-              <span className="w-20 text-right">作成日:</span>
-              <span className="ml-1">{formatDate(created_at)}</span>
-              {updated_at && (
-                <>
-                  <span className="w-20 text-right">更新日:</span>
-                  <span className="ml-1">{formatDate(updated_at)}</span>
-                </>
-              )}
-            </div>
+          <div className="flex flex-wrap gap-1 justify-end text-gray-600">
+            <span className="">✒️{formatDate(created_at)}</span>
+            {updated_at && (
+              <span className="">【{formatDate(updated_at)}更新】</span>
+            )}
+            <span className="">🧑‍💻{author}</span>
           </div>
         </div>
       </header>
