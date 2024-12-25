@@ -21,29 +21,62 @@ const ArticleEditor: React.FC<ArticleEditorProps> = ({ article, onArticleChange 
 
   // 状態管理
   const [meta, setMeta] = useState<MetaContent>(initialMeta);
-  const [toc, setToc] = useState<TocItem[]>(initialToc);
   const [ref, setRef] = useState<RefItem[]>(initialRef);
   const [children, setChildren] = useState<Section[]>(initialChildren);
 
-  // Articleが変更された際親へ通知
+  // Articleの要素が変更される度に実行
   useEffect(() => {
+    // 目次を更新
+    const newToc=generateToc(children);
+    console.log(newToc);
+
+    // 親へ通知
     onArticleChange({
       type: "article",
       content: {
         meta,
-        toc,
+        toc: newToc,
         ref,
       },
       children
     })
-  }, [meta, toc, ref, children]);
+  }, [meta, ref, children]);
 
   return (
-    <div className="border">
+    <div className="border p-4">
       <EditMeta meta={meta} onMetaChange={setMeta} />
-      <EditChildren children={children} onSectionChange={setChildren} />
+      <EditChildren children={children} onChildrenChange={setChildren} />
     </div>
   )
 }
 
 export default ArticleEditor;
+
+function generateToc(sections: Section[]): TocItem[]{
+  const toc: TocItem[] = [];
+
+  // traverse関数
+  function traverse(section: Section){
+    // 現在のセクションをtocに追加
+    toc.push({
+      id: section.content.id,
+      title: section.content.title,
+    });
+
+    // 子要素の分も追加
+    if (section.children && section.children.length > 0){
+      for (const child of section.children) {
+        if (child.type==="section") {
+          traverse(child);
+        }
+      }
+    }
+  }
+
+  // 各セクションにtraverseする
+  for (const section of sections) {
+    traverse(section);
+  }
+
+  return toc;
+}

@@ -41,7 +41,8 @@
     "remark-gfm": "^4.0.0",
     "remark-math": "^6.0.0",
     "supabase": "^1.204.3",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "uuid": "^11.0.3"
   },
   "devDependencies": {
     "@types/dompurify": "^3.0.5",

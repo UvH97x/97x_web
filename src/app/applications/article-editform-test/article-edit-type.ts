@@ -7,7 +7,7 @@ export interface Text {
     expression: string;
     style: string;
   };
-  children: [];
+  children: undefined;
 }
 
 type Lv4Block = Text;
@@ -20,7 +20,7 @@ export interface Math {
     id: string;
     expression: string;
   };
-  children: [];
+  children: undefined;
 }
 
 export interface Code {
@@ -30,7 +30,7 @@ export interface Code {
     language: string;
     code: string;
   };
-  children: [];
+  children: undefined;
 }
 
 export interface Image {
@@ -40,7 +40,7 @@ export interface Image {
     caption: string;
     src: string;
   };
-  children: [];
+  children: undefined;
 }
 
 export interface Table {
@@ -50,7 +50,7 @@ export interface Table {
     caption: string;
     cells: string[][];
   };
-  children: [];
+  children: undefined;
 }
 
 type Lv3Block = Math | Code | Image | Table | Lv4Block;
@@ -100,7 +100,7 @@ export interface Section {
   children: Lv1Block[];
 }
 
-type Lv1Block = Lv2Block | Section;
+export type Lv1Block = Lv2Block | Section;
 
 //////////////////////////////////////////////////////////////////////
 // Lv.0
