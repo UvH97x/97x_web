@@ -1,8 +1,10 @@
 // src/app/simulators/page.tsx
-// [ ]:原神のダメージシミュレーターを作る
 
 export default function SimulatorsHome() {
     return (
-        <h1>This is Simulation page.</h1>
+        <>
+            <h1>This is Simulation page.</h1>
+            <a href="/simulators/machine-learning">machine learning page</a>
+        </>
     )
 }
