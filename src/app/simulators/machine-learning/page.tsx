@@ -51,6 +51,36 @@ export default function SimulatorMain() {
     setParameters(newParams)
   }
 
+  // Mの変更に応じてwを初期化（初期化関数を実装後変更）
+  useEffect(() => {
+    const newParams = Array.from({ length: degree + 1 }, () => Math.random() * 10-5)
+    setParameters(newParams)
+
+    // 曲線更新
+    const newCurve: [number, number][] = Array.from({ length: 100 }, (_, i) => {
+      const x = -11 + (22 * i) / 99
+      const y = evaluateModel(x, newParams)
+      return [x, y]
+    })
+    setModelCurve(newCurve)
+
+    // 現在の誤差を更新
+    const loss = computeLoss(dataPoints, newParams, lossType)
+    setCurrentLoss(loss)
+  }, [degree])
+
+  // Parametersの変更に応じてグラフを更新
+  useEffect(() => {
+    if (parameters){
+    const newCurve: [number, number][] = Array.from({ length: 100 }, (_, i) => {
+      const x = -11 + (22 * i) / 99
+      const y = evaluateModel(x, parameters)
+      return [x, y]
+    })
+    setModelCurve(newCurve)
+  }
+  }, [parameters])
+
   // シミュレーションの1ステップ
   const simulateStep = () => {
     if (!parameters) return
@@ -72,38 +102,21 @@ export default function SimulatorMain() {
     setModelCurve(newCurve)
   }
 
-  // Mの変更に応じてwを初期化（初期化関数を実装後変更）
-  useEffect(() => {
-    const newParams = Array.from({ length: degree + 1 }, () => Math.random() * 10-5)
-    setParameters(newParams)
-
-    // 曲線更新
-    const newCurve: [number, number][] = Array.from({ length: 100 }, (_, i) => {
-      const x = -11 + (22 * i) / 99
-      const y = evaluateModel(x, newParams)
-      return [x, y]
-    })
-    setModelCurve(newCurve)
-
-    // 現在の誤差を更新
-    const loss = computeLoss(dataPoints, newParams, lossType)
-    setCurrentLoss(loss)
-  }, [degree])
-
   // シミュレーションのループ管理
   useEffect(() => {
     if (!isRunning) return
 
     const interval = setInterval(() => {
       simulateStep()
-    }, 33)// 約30fps
+    }, 16)// 約60fps
 
     return () => clearInterval(interval)
   }, [isRunning, parameters, dataPoints, delta, lossType])
 
   return(
     <main className="p-8 space-y-6">
-      <h1 className="text-2xl font-bold"> 多項式回帰ビジュアライザ</h1>
+      <span className="text-2xl font-bold"> 多項式回帰</span>
+      <span className="px-2 text-xl font-semibold">- 未学習・過学習・正則化を見たい -</span>
 
       {/* グラフ表示 */}
       <GraphCanvas dataPoints={dataPoints} modelCurve={modelCurve} />
@@ -118,17 +131,11 @@ export default function SimulatorMain() {
             onRegressionChange={setRegressionType}
             lossType={lossType}
             onLossTypeChange={setLossType}
+            delta={delta}
+            onDeltaChange={setDelta}
             onReset={handleReset}
             onToggle={handleToggle}
             isRunning={isRunning}
-          />
-        </div>
-
-        <div className="flex-1">
-          <LossDisplay
-            lossType={lossType}
-            currentLoss={currentLoss}
-            idealLoss={0.0012}
           />
         </div>
 
@@ -139,6 +146,14 @@ export default function SimulatorMain() {
               onParameterChange={handleParameterChange}
             />
           )}
+        </div>
+
+        <div className="flex-1">
+          <LossDisplay
+            lossType={lossType}
+            currentLoss={currentLoss}
+            idealLoss={0.0012}
+          />
         </div>
       </div>
     </main>

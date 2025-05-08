@@ -11,6 +11,8 @@ type Props = {
   onRegressionChange: (value: string) => void
   lossType: string
   onLossTypeChange: (value: string) => void
+  delta: number
+  onDeltaChange: (value: number) => void
   onReset: () => void
   onToggle: () => void
   isRunning: boolean
@@ -23,6 +25,8 @@ export const ControlPanel: FC<Props> = ({
   onRegressionChange,
   lossType,
   onLossTypeChange,
+  delta,
+  onDeltaChange,
   onReset,
   onToggle,
   isRunning,
@@ -62,6 +66,18 @@ export const ControlPanel: FC<Props> = ({
           <option value="mse">平均二乗誤差(MSE)</option>
           <option value="mae">平均絶対誤差(MAE)</option>
         </select>
+      </div>
+
+      <div>
+        <label className="block font-semibold">ステップの大きさ</label>
+        <input
+          type="range"
+          min={-5}
+          max={1}
+          step={1}
+          onChange={(e) => onDeltaChange(10 ** (Number(e.target.value)-1))}
+        />
+        <span className="ml-2">{delta}</span>
       </div>
 
       <div className="space-x-2">
