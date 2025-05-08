@@ -96,7 +96,7 @@ export default function SimulatorMain() {
 
     const interval = setInterval(() => {
       simulateStep()
-    }, 33)// 約30fps
+    }, 2)// 約30fps
 
     return () => clearInterval(interval)
   }, [isRunning, parameters, dataPoints, delta, lossType])
