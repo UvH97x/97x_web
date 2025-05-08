@@ -72,13 +72,16 @@ export default function SimulatorMain() {
   // Parametersの変更に応じてグラフを更新
   useEffect(() => {
     if (parameters){
-    const newCurve: [number, number][] = Array.from({ length: 100 }, (_, i) => {
-      const x = -11 + (22 * i) / 99
-      const y = evaluateModel(x, parameters)
-      return [x, y]
-    })
-    setModelCurve(newCurve)
-  }
+      const newCurve: [number, number][] = Array.from({ length: 100 }, (_, i) => {
+        const x = -11 + (22 * i) / 99
+        const y = evaluateModel(x, parameters)
+        // 新しい誤差計算
+        const newLoss = computeLoss(dataPoints, parameters, lossType)
+        setCurrentLoss(newLoss)
+        return [x, y]
+      })
+      setModelCurve(newCurve)
+    }
   }, [parameters])
 
   // シミュレーションの1ステップ
@@ -114,7 +117,7 @@ export default function SimulatorMain() {
   }, [isRunning, parameters, dataPoints, delta, lossType])
 
   return(
-    <main className="p-8 space-y-6">
+    <main>
       <span className="text-2xl font-bold"> 多項式回帰</span>
       <span className="px-2 text-xl font-semibold">- 未学習・過学習・正則化を見たい -</span>
 
@@ -122,7 +125,7 @@ export default function SimulatorMain() {
       <GraphCanvas dataPoints={dataPoints} modelCurve={modelCurve} />
 
       {/* 操作パネルと誤差表示 */}
-      <div className="w-full flex flex-col md:flex-row gap-6">
+      <div className="w-full flex md:flex-row gap-6">
         <div className="flex-1">
           <ControlPanel
             degree={degree}

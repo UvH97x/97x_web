@@ -17,7 +17,7 @@ export function updateParameters(
     plusWeights[i] += delta
     const lossPlus = computeLoss(data, plusWeights, lossType)
 
-    if(Math.abs(oldLoss - lossPlus) < (0.1 ** (4))){
+    if(Math.abs(oldLoss - lossPlus) < (delta)){
       newWeights[i] += 0
     } else if(lossPlus < oldLoss){
       newWeights[i] += delta
