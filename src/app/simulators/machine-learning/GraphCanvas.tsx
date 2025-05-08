@@ -43,10 +43,7 @@ export const GraphCanvas: FC<Props> = ({ dataPoints, modelCurve }) => {
     ],
   }
 
-  const xMin = Math.min(...dataPoints.map(([x]) => x))
-  const xMax = Math.max(...dataPoints.map(([x]) => x))
-  const yMin = Math.min(...dataPoints.map(([, y]) => y))
-  const yMax = Math.max(...dataPoints.map(([, y]) => y))
+  const yValues = dataPoints.map(([_, y]) => y);
 
   const options = {
     responsive: true,
@@ -56,8 +53,8 @@ export const GraphCanvas: FC<Props> = ({ dataPoints, modelCurve }) => {
         max: 11,
       },
       y: {
-        min: yMin - 5,
-        max: yMax + 5,
+        min: Math.min(...yValues)*1.3,
+        max: Math.max(...yValues)*1.3,
       },
     },
   }
