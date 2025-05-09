@@ -120,7 +120,7 @@ export default function SimulatorMain() {
       <GraphCanvas dataPoints={dataPoints} modelCurve={modelCurve} />
 
       {/* 操作パネルと誤差表示 */}
-      <div className="w-full flex flex-col md:flex-row gap-6">
+      <div className="w-full flex md:flex-row gap-6">
         <div className="flex-1">
           <ControlPanel
             degree={degree}
