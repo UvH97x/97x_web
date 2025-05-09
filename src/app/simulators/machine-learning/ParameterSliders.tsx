@@ -21,8 +21,8 @@ export const ParameterSliders: FC<Props> = ({ parameters, onParameterChange, del
           </label>
           <input
             type="range"
-            min={-20}
-            max={20}
+            min={-10}
+            max={10}
             step={0.001}
             value={w}
             onChange={(e) => onParameterChange(i, parseFloat(e.target.value))}

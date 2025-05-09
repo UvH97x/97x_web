@@ -65,8 +65,8 @@ export const ControlPanel: FC<Props> = ({
         <label className="block font-semibold">正則化項の重み</label>
         <input
           type="range"
-          min={-6}
-          max={1}
+          min={-3}
+          max={4}
           step={1}
           value={Math.log10(lambda) + 1}
           onChange={(e) => onLambdaChange(10 ** (Number(e.target.value)-1))}

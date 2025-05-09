@@ -23,9 +23,9 @@ export const LossDisplay: FC<Props> = ({
       <p>{currentLoss.toFixed(4)}</p>
       <hr className="my-2" />
       <h2 className="font-bold text-lg mb-2">現在のモデル({regType}回帰)</h2>
-      <p className="text-sm font-mono break-words">y = {formatSymbolicModel(degree)}</p>
+      <p className="text-base font-mono break-words">y = {formatSymbolicModel(degree)}</p>
       <h2 className="font-bold text-lg">誤差関数</h2>
-      <p className="font-mono text-sm">{formatLossFunction(lossType, regType)}</p>
+      <p className="font-mono text-base">{formatLossFunction(lossType, regType)}</p>
     </div>
   )
 }

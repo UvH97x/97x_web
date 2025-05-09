@@ -43,14 +43,15 @@ export const GraphCanvas: FC<Props> = ({ dataPoints, modelCurve }) => {
     ],
   }
 
+  const xValues = dataPoints.map(([x, _]) => x);
   const yValues = dataPoints.map(([_, y]) => y);
 
   const options = {
     responsive: true,
     scales: {
       x: {
-        min: - 11,
-        max: 11,
+        min: Math.min(...xValues)*1.3,
+        max: Math.max(...xValues)*1.3,
       },
       y: {
         min: Math.min(...yValues)*1.3,

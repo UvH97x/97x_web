@@ -18,7 +18,7 @@ export default function SimulatorMain() {
   const [dataPoints, setDataPoints] = useState<[number, number][]>(generateData())
   const [modelCurve, setModelCurve] = useState<[number, number][]>(
     Array.from({ length: 100 }, (_, i) => {
-      const x = -11 + (22 * i) / 99
+      const x = -6 + (12 * i) / 99
       const y = x// 仮：y=xのモデル
       return [x, y]
     })
@@ -56,7 +56,7 @@ export default function SimulatorMain() {
 
     // 曲線更新
     const newCurve: [number, number][] = Array.from({ length: 100 }, (_, i) => {
-      const x = -11 + (22 * i) / 99
+      const x = -6 + (12 * i) / 99
       const y = evaluateModel(x, newParams)
       return [x, y]
     })
@@ -71,7 +71,7 @@ export default function SimulatorMain() {
   useEffect(() => {
     if (!parameters) return
     const newCurve: [number, number][] = Array.from({ length: 100 }, (_, i) => {
-      const x = -11 + (22 * i) / 99
+      const x = -6 + (12 * i) / 99
       const y = evaluateModel(x, parameters)
       return [x, y]
     })
@@ -93,7 +93,7 @@ export default function SimulatorMain() {
 
     // モデル曲線の再生成(x: [-11, 11]の範囲)
     const newCurve: [number, number][] = Array.from({ length: 100 }, (_, i) => {
-      const x = -11 + (22 * i) / 99
+      const x = -6 + (12 * i) / 99
       const y = evaluateModel(x, newParams)
       return [x, y]
     })
@@ -106,7 +106,7 @@ export default function SimulatorMain() {
 
     const interval = setInterval(() => {
       simulateStep()
-    }, 16)// 約60fps
+    }, 33)// 約30fps
 
     return () => clearInterval(interval)
   }, [isRunning, parameters, dataPoints, delta, lossType])
