@@ -49,7 +49,7 @@ export const GraphCanvas: FC<Props> = ({ dataPoints, modelCurve }) => {
     responsive: true,
     scales: {
       x: {
-        min: -11,
+        min: - 11,
         max: 11,
       },
       y: {
