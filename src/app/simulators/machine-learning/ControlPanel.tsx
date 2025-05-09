@@ -7,12 +7,14 @@ import { FC } from "react"
 type Props = {
   degree: number
   onDegreeChange: (value: number) => void
-  regressionType: string
-  onRegressionChange: (value: string) => void
+  regType: string
+  onRegChange: (value: string) => void
   lossType: string
   onLossTypeChange: (value: string) => void
   delta: number
   onDeltaChange: (value: number) => void
+  lambda: number
+  onLambdaChange: (value: number) => void
   onReset: () => void
   onToggle: () => void
   isRunning: boolean
@@ -21,12 +23,14 @@ type Props = {
 export const ControlPanel: FC<Props> = ({
   degree,
   onDegreeChange,
-  regressionType,
-  onRegressionChange,
+  regType,
+  onRegChange,
   lossType,
   onLossTypeChange,
   delta,
   onDeltaChange,
+  lambda,
+  onLambdaChange,
   onReset,
   onToggle,
   isRunning,
@@ -48,14 +52,27 @@ export const ControlPanel: FC<Props> = ({
       <div>
         <label className="block font-semibold">回帰法</label>
         <select
-          value={regressionType}
-          onChange={(e) => onRegressionChange(e.target.value)}
+          value={regType}
+          onChange={(e) => onRegChange(e.target.value)}
         >
           <option value="normal">線形回帰</option>
           <option value="ridge">Ridge回帰</option>
           <option value="lasso">LASSO回帰</option>
         </select>
       </div>
+
+      {regType !== "normal" && (<div>
+        <label className="block font-semibold">正則化項の重み</label>
+        <input
+          type="range"
+          min={-6}
+          max={1}
+          step={1}
+          value={Math.log10(lambda) + 1}
+          onChange={(e) => onLambdaChange(10 ** (Number(e.target.value)-1))}
+        />
+        <span className="ml-2">{lambda}</span>
+      </div>)}
 
       <div>
         <label className="block font-semibold">誤差関数</label>
@@ -75,6 +92,7 @@ export const ControlPanel: FC<Props> = ({
           min={-5}
           max={1}
           step={1}
+          value={Math.log10(delta) + 1}
           onChange={(e) => onDeltaChange(10 ** (Number(e.target.value)-1))}
         />
         <span className="ml-2">{delta}</span>

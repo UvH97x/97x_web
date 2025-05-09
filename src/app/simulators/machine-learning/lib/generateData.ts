@@ -19,7 +19,7 @@ export function generateData(): [number, number][] {
 
   const data: [number, number][] = []
 
-  for (let i = 0; i < 6; i++) {
+  for (let i = 0; i < 20; i++) {
     const x = Math.random() * 20 - 10 // [-10, 10]の一様分布
     const noise = (randn() * 1) * sigma
     const y = a * x ** 3 + b * x ** 2 + c * x + d + noise

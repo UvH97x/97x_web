@@ -11,11 +11,10 @@ import { ParameterSliders } from "./ParameterSliders";
 
 import { generateData } from "./lib/generateData";
 import { updateParameters } from "./lib/optimizer";
-import { computeLoss } from "./lib/loss";
+import { computeTotalLoss } from "./lib/loss";
 import { evaluateModel } from "./lib/modelUtils";
 
 export default function SimulatorMain() {
-  // 仮のデータ点とモデル曲線
   const [dataPoints, setDataPoints] = useState<[number, number][]>(generateData())
   const [modelCurve, setModelCurve] = useState<[number, number][]>(
     Array.from({ length: 100 }, (_, i) => {
@@ -24,15 +23,14 @@ export default function SimulatorMain() {
       return [x, y]
     })
   )
-
-  // 仮のパラメータ状態
   const [degree, setDegree] = useState<number>(1) // 多項式の次数
   const [parameters, setParameters] = useState<number[] | null>(null) // 多項式回帰のパラメータ
-  const [regressionType, setRegressionType] = useState<string>("normal")  // 回帰方法
+  const [regType, setRegType] = useState<string>("normal")  // 回帰方法
   const [currentLoss, setCurrentLoss] = useState<number>(0) // 現在の誤差関数の値
   const [lossType, setLossType] = useState<string>("mse")  // 誤差関数の種類
-  const [delta, setDelta] = useState<number>(1e-2)  // ステップの大きさ（変更するスライダーは未実装）
+  const [delta, setDelta] = useState<number>(0.1)  // ステップの大きさ（変更するスライダーは未実装）
   const [isRunning, setIsRunning] = useState<boolean>(false)  // シミュレーションが動いているかどうか
+  const [lambda, setLambda] = useState<number>(0.1) // 正則化項の重み
 
   // データ点の再生成
   const handleReset = () => {
@@ -65,20 +63,20 @@ export default function SimulatorMain() {
     setModelCurve(newCurve)
 
     // 現在の誤差を更新
-    const loss = computeLoss(dataPoints, newParams, lossType)
+    const loss = computeTotalLoss(dataPoints, newParams, lossType, regType, lambda)
     setCurrentLoss(loss)
   }, [degree])
 
   // Parametersの変更に応じてグラフを更新
   useEffect(() => {
-    if (parameters){
+    if (!parameters) return
     const newCurve: [number, number][] = Array.from({ length: 100 }, (_, i) => {
       const x = -11 + (22 * i) / 99
       const y = evaluateModel(x, parameters)
       return [x, y]
     })
+    setCurrentLoss(computeTotalLoss(dataPoints, parameters, lossType, regType, lambda))
     setModelCurve(newCurve)
-  }
   }, [parameters])
 
   // シミュレーションの1ステップ
@@ -86,11 +84,11 @@ export default function SimulatorMain() {
     if (!parameters) return
 
     // パラメータ更新
-    const newParams = updateParameters(parameters, delta, dataPoints, lossType)
+    const newParams = updateParameters(parameters, delta, dataPoints, lossType, regType, lambda)
     setParameters(newParams)
 
     // 新しい誤差計算
-    const newLoss = computeLoss(dataPoints, newParams, lossType)
+    const newLoss = computeTotalLoss(dataPoints, newParams, lossType, regType, lambda)
     setCurrentLoss(newLoss)
 
     // モデル曲線の再生成(x: [-11, 11]の範囲)
@@ -114,7 +112,7 @@ export default function SimulatorMain() {
   }, [isRunning, parameters, dataPoints, delta, lossType])
 
   return(
-    <main className="p-8 space-y-6">
+    <main className="p-4 space-y-2">
       <span className="text-2xl font-bold"> 多項式回帰</span>
       <span className="px-2 text-xl font-semibold">- 未学習・過学習・正則化を見たい -</span>
 
@@ -127,12 +125,14 @@ export default function SimulatorMain() {
           <ControlPanel
             degree={degree}
             onDegreeChange={setDegree}
-            regressionType={regressionType}
-            onRegressionChange={setRegressionType}
+            regType={regType}
+            onRegChange={setRegType}
             lossType={lossType}
             onLossTypeChange={setLossType}
             delta={delta}
             onDeltaChange={setDelta}
+            lambda={lambda}
+            onLambdaChange={setLambda}
             onReset={handleReset}
             onToggle={handleToggle}
             isRunning={isRunning}
@@ -144,16 +144,21 @@ export default function SimulatorMain() {
             <ParameterSliders
               parameters={parameters}
               onParameterChange={handleParameterChange}
+              delta={delta}
             />
           )}
         </div>
 
         <div className="flex-1">
-          <LossDisplay
-            lossType={lossType}
+          {parameters && 
+          (<LossDisplay
             currentLoss={currentLoss}
-            idealLoss={0.0012}
-          />
+            degree={degree}
+            regType={regType}
+            lossType={lossType}
+          />)
+          }
+          
         </div>
       </div>
     </main>
