@@ -4,50 +4,35 @@ import React from 'react';
 
 import type { Metadata } from 'next'
 
-import { PageLink } from '../types/UvHTypes';
-import LinkBlock from '../components/LinkBlock';
+import { PageLink } from '@/src/types/UvHTypes';
+import LinkBlock from './_components/LinkBlock';
+import { Prose } from '@/src/components/ui/Prose';
+import { Container } from '../components/ui/Container';
 
-// メタデータの生成
-export const metadata: Metadata = {
-    description: "97x Top Page",
-};
+export default function PageMain() {
+  // コンテンツ
+  const title: string = "97x";
+  const description: string = "This website was created for the purpose of storing my notes on matters I struggled with in my studies, simulators I created, etc. Also, I am still in the process of learning and have never created a website before, so please forgive me for any mistakes I may have made.";
 
-function HomePage() {
+  // リンク
   const Links: PageLink[] = [
-    {
-      href: "/articles",
-      label: "Articles",
-      sublinks: [],
-      icon: "/articles.svg",
-    },
-    {
-      href: "/applications",
-      label: "Apps",
-      sublinks: [
-        { href: "/applications/todo", label: "Todo", sublinks: [] }
-      ],
-      icon: "/apps.svg",
-    },
-    {
-      href: "/simulators",
-      label: "Simulators",
-      sublinks: [],
-      icon: "/simulators.svg",
-    },
+    { href: "/articles", label: "記事", sublinks: [], icon: "/articles.svg", },
+    { href: "/simulators", label: "シミュレーター", sublinks: [], icon: "/simulators.svg", },
+    { href: "/applications", label: "アプリ", sublinks: [ { href: "/applications/todo", label: "Todo", sublinks: [] } ], icon: "/apps.svg", },
   ];
 
   return (
-    <div className="flex flex-col items-center p-0">
+    <div className="flex flex-col items-center">
       {/* タイトル */}
-      <h1 className="text-4xl font-bold mb-8 text-slate-900">
-        Welcome to 97x
+      <h1 className="text-4xl font-bold font-sans my-4 text-slate-900">
+        { title }
       </h1>
   
       {/* 説明文 */}
-      <div className="text-lg text-gray-700 mb-8">
-        <p>
-          This website was created for the purpose of storing my notes on matters I struggled with in my studies, simulators I created, etc. Also, I am still in the process of learning and have never created a website before, so please forgive me for any mistakes I may have made.
-        </p>
+      <div className="my-8">
+        <Container>
+          <Prose>{ description }</Prose>
+        </Container>
       </div>
 
       {/* ページリンク */}
@@ -60,4 +45,7 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+// メタデータの生成
+export const metadata: Metadata = {
+    description: "97x Top Page",
+};
