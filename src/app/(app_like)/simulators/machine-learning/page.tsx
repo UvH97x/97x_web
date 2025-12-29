@@ -12,6 +12,11 @@ const apps = [
     description: '勾配降下法の問題点（局所解・鞍点など）を可視化するツール。',
     href: '/simulators/machine-learning/Problems-of-gradient-descent-method',
   },
+  {
+  title: '4-3-2 部分ネット可視化（ドロップアウト用）',
+  description: '入力4・中間3のノードマスク105通りをID=1～105で切替可視化。出力層は落とさない。',
+  href: '/simulators/machine-learning/Subnetwork-visualizer-4-3-2',
+  }
 ];
 
 export default function Page() {
