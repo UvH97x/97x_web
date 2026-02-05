@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, Suspense } from "react";
 
 /** 4-3-2 ネット（出力層は常に有効） */
 const INPUT = 4;   // 入力ノード数: 4
@@ -174,7 +174,7 @@ function Graph({ inputMask, hiddenMask }: { inputMask: number; hiddenMask: numbe
 }
 
 /** ページ本体 */
-export default function Page() {
+function ClientPage() {
   const { id, setId } = useIdStateFromQuery();
   const { inputMask, hiddenMask } = useMemo(() => idToMasks(id), [id]);
 
@@ -231,5 +231,14 @@ export default function Page() {
         </ul>
       </section>
     </main>
+  );
+}
+
+
+export default function Page() {
+  return (
+    <Suspense fallback={<div className="p-6 opacity-60">loading...</div>}>
+      <ClientPage />
+    </Suspense>
   );
 }
