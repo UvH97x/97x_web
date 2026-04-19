@@ -115,6 +115,7 @@ export default function PageMain() {
     <main className="p-4 space-y-2">
       <span className="text-2xl font-bold"> 多項式回帰</span>
       <span className="px-2 text-xl font-semibold">- 未学習・過学習・正則化を見たい -</span>
+      <span className="px-2 text-xl font-semibold">※ 縦長画面でご利用ください。</span>
 
       {/* グラフ表示 */}
       <GraphCanvas dataPoints={dataPoints} modelCurve={modelCurve} />
