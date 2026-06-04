@@ -23,11 +23,12 @@
   }
   
   // メタデータの生成
-  export async function generateMetadata({ params }: { params: { genre: string, slug: string } }) {
+  export async function generateMetadata(props: { params: Promise<{ genre: string, slug: string }> }) {
+    const params = await props.params;
     const { genre, slug } = params;
     const articlePath = path.join(process.cwd(), 'src/data/articles', genre, `${slug}.md`);
     const articleData = getParsedFile(articlePath);
-  
+
     return {
       title: articleData.title,
       description: articleData.excerpt || articleData.content.slice(0, 150),
@@ -36,11 +37,12 @@
   }
   
   // ページコンポーネントでデータをフェッチします
-  export default async function PageMain({ params }: { params: { genre: string, slug: string } }) {
+  export default async function PageMain(props: { params: Promise<{ genre: string, slug: string }> }) {
+    const params = await props.params;
     const { genre, slug } = params;
     const fileName = `${genre}-${slug}`;
     const articlePath = path.join(process.cwd(), 'src/data/articles', genre, `${slug}.md`);
-  
+
     // メタデータと記事本文を取得
     const articleData: ParsedFile = getParsedFile(articlePath);
 
@@ -52,7 +54,7 @@
       // 結果を組み合わせて "YYYY年MM月DD日" のようにフォーマットする
       return `${year}年${parseInt(month)}月${parseInt(day)}日`;
     }
-  
+
     return (
       <div className="prose max-w-none flex flex-col">
         <h1 className="text-center">{articleData.title}</h1>

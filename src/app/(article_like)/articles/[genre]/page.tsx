@@ -5,7 +5,8 @@ import Link from 'next/link';
 import { fileStructure } from '@/src/data/fileStructure';
 
 // メインファンクション
-export default function PageMain({ params }: { params: { genre: string } }) {
+export default async function PageMain(props: { params: Promise<{ genre: string }> }) {
+  const params = await props.params;
   // 該当ジャンルのディレクトリ情報を取得
   const dirInfo = fileStructure.find(file => file.fileName === params.genre);
   // 該当ジャンルの.mdファイルを取得
