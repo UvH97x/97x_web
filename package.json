@@ -12,10 +12,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@mdx-js/loader": "^3.0.1",
-    "@mdx-js/mdx": "^3.0.1",
-    "@mdx-js/react": "^3.0.1",
-    "@next/mdx": "16.2.7",
     "@supabase/supabase-js": "^2.45.4",
     "@tailwindcss/typography": "^0.5.15",
     "@types/fs-extra": "^11.0.4",
@@ -29,7 +25,6 @@
     "katex": "^0.16.11",
     "lucide-react": "^0.447.0",
     "next": "16.2.7",
-    "next-mdx-remote": "^6.0.0",
     "react": "19.2.7",
     "react-chartjs-2": "^5.3.0",
     "react-dom": "19.2.7",
