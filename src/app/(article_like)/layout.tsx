@@ -1,15 +1,14 @@
-// layout.tsx
+import { SiteFooter } from '@/src/app/_components/SiteFooter'
 
-import React from 'react';
-
-type RootLayoutProps = {
-  children: React.ReactNode;
-};
-
-export default function RootLayout({ children }: RootLayoutProps) {
+export default function ArticleLikeLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div id="article_like" className="mx-8 sm:mx-10 py-8 sm:py-10">
-      {children}
-    </div>
-  );
+    <>
+      <main id="main" className="flex-1">
+        <div className="mx-8 sm:mx-10 py-8 sm:py-10">
+          {children}
+        </div>
+      </main>
+      <SiteFooter />
+    </>
+  )
 }

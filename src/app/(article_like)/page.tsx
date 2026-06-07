@@ -53,10 +53,10 @@ export default function PageMain() {
 
       {/* ヒーロー */}
       <section className="text-center max-w-3xl">
-        <h1 className="text-5xl sm:text-6xl font-bold font-serif text-slate-900">
+        <h1 className="text-5xl sm:text-6xl font-bold font-serif text-fg">
           97x
         </h1>
-        <p className="mt-4 text-lg sm:text-xl text-slate-700 leading-relaxed">
+        <p className="mt-4 text-lg sm:text-xl text-muted leading-relaxed">
           数学・物理・機械学習の学習メモとシミュレーターを公開しています。
         </p>
       </section>

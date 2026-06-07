@@ -63,7 +63,7 @@
             {articleData.tags.map((tag, index) => (
               <span
                 key={index}
-                className="bg-gray-200 text-gray-700 rounded-full px-3 py-1 text-sm font-semibold"
+                className="bg-fg/10 text-fg rounded-full px-3 py-1 text-sm font-semibold"
               >
                 {tag}
               </span>

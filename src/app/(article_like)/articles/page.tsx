@@ -13,11 +13,11 @@ export default function PageMain() {
     <div className="w-full flex flex-col items-center">
       <div className="w-full max-w-4xl prose">
         {/* タイトル */}
-        <h1 className="text-4xl font-bold mb-8 text-slate-900 text-center">
+        <h1 className="text-4xl font-bold mb-8 text-fg text-center">
           記事トップ
         </h1>
         {/* 説明文 */}
-        <p className="text-lg text-gray-700 mb-8 text-center">
+        <p className="text-lg text-muted mb-8 text-center">
           {genreDirs[0]?.description || "No description available"}
         </p>
 

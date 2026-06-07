@@ -1,7 +1,19 @@
 /* global.css */
 
+/* Semantic color tokens — space-separated RGB channels for Tailwind opacity modifier support */
 :root {
-  --accent: #3b5bdb;
+  --bg:     255 255 255;   /* #ffffff */
+  --fg:     15  23  42;    /* slate-900  #0f172a */
+  --muted:  100 116 139;   /* slate-500  #64748b */
+  --border: 226 232 240;   /* slate-200  #e2e8f0 */
+  --accent: 59  91  219;   /* #3b5bdb */
+}
+.dark {
+  --bg:     11  15  23;    /* #0b0f17 */
+  --fg:     241 245 249;   /* slate-100  #f1f5f9 */
+  --muted:  148 163 184;   /* slate-400  #94a3b8 */
+  --border: 30  41  59;    /* slate-800  #1e293b */
+  --accent: 107 138 253;   /* #6b8afd */
 }
 
 /* TailwindCSS */

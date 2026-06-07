@@ -19,12 +19,12 @@ export default async function PageMain(props: { params: Promise<{ genre: string 
     <div className="w-full flex flex-col p-0">
       <div className="flex flex-col items-center">
         {/* ジャンル名 */}
-        <h1 className="text-4xl font-bold mb-8 text-slate-900 capitalize">
+        <h1 className="text-4xl font-bold mb-8 text-fg capitalize">
           {dirInfo?.title}
         </h1>
 
         {/* ジャンル説明 */}
-        <p className="text-lg text-gray-700 mb-8">
+        <p className="text-lg text-muted mb-8">
           {genreDescription}
         </p>
 

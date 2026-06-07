@@ -1,12 +1,17 @@
-// SiteFooter.tsx
-// 常時表示のフッター(薄く・簡潔に)
-// モバイルで場所をとりすぎないよう注意
-
-export function SiteFooter(){
-  return(
-    <footer className="border-t">
-      <div className="text-center mx-auto max-w-6xl px-4 py-2 text-sm text-gray-500">
-        © {new Date().getFullYear()} 97x &mdash; <a className="underline" href="https://github.com/UvH97x" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">GitHub</a>
+export function SiteFooter() {
+  return (
+    <footer className="border-t border-border">
+      <div className="text-center mx-auto max-w-6xl px-4 py-2 text-sm text-muted">
+        © {new Date().getFullYear()} 97x &mdash;{' '}
+        <a
+          className="underline"
+          href="https://github.com/UvH97x"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub profile"
+        >
+          GitHub
+        </a>
       </div>
     </footer>
   )
