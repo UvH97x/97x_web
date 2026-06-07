@@ -31,6 +31,20 @@ const links: PageLink[] = [
     icon: '/apps_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg',
     description: '実用的な小規模 Web アプリを公開しています。',
   },
+  {
+    href: '/aboue',
+    label: 'About',
+    sublinks: [],
+    icon: '/contact_support_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg',
+    description: 'このサイトについて。'
+  },
+  {
+    href: '/data',
+    label: 'Data',
+    sublinks: [],
+    icon: 'database_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg',
+    description: '公開データ'
+  }
 ];
 
 export default function PageMain() {
@@ -55,16 +69,6 @@ export default function PageMain() {
           ))}
         </div>
       </section>
-
-      {/* 二次導線 */}
-      <nav className="flex gap-6 text-sm text-slate-500">
-        <Link href="/about" className="hover:text-accent hover:underline underline-offset-4">
-          About
-        </Link>
-        <Link href="/datas" className="hover:text-accent hover:underline underline-offset-4">
-          Data
-        </Link>
-      </nav>
 
     </div>
   );
