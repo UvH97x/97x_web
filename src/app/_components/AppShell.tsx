@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
-import { ChevronLeft, ChevronRight, Menu, X } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import { NAV_ITEMS } from '@/src/config/nav'
 import { ThemeToggle } from './ThemeToggle'
 
@@ -60,8 +60,8 @@ export function AppShell({
           aria-label={collapsed ? 'サイドバーを展開' : 'サイドバーを折り畳む'}
         >
           {collapsed
-            ? <ChevronRight className="h-5 w-5" />
-            : <ChevronLeft className="h-5 w-5" />
+            ? <Menu className="h-5 w-5" />
+            : <X className="h-5 w-5" />
           }
         </button>
         {/* ワードマーク */}
