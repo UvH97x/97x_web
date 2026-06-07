@@ -22,7 +22,7 @@ export function SiteHeader(){
           <ActiveLink href="/simulators">Simulators</ActiveLink>
           <ActiveLink href="/applications">Applications</ActiveLink>
           <ActiveLink href="/about">About</ActiveLink>
-          <ActiveLink href="/datas">Data</ActiveLink>
+          <ActiveLink href="/data">Data</ActiveLink>
         </nav>
 
         {/* モバイル：ドロワー */}
@@ -36,7 +36,7 @@ export function SiteHeader(){
               <ActiveLink href="/simulators">Simulators</ActiveLink>
               <ActiveLink href="/applications">Applications</ActiveLink>
               <ActiveLink href="/about">About</ActiveLink>
-              <ActiveLink href="/datas">Data</ActiveLink>
+              <ActiveLink href="/data">Data</ActiveLink>
             </nav>
           </div>
         </details>

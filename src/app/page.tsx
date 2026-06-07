@@ -32,7 +32,7 @@ const links: PageLink[] = [
     description: '実用的な小規模 Web アプリを公開しています。',
   },
   {
-    href: '/aboue',
+    href: '/about',
     label: 'About',
     sublinks: [],
     icon: '/contact_support_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg',
@@ -42,7 +42,7 @@ const links: PageLink[] = [
     href: '/data',
     label: 'Data',
     sublinks: [],
-    icon: 'database_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg',
+    icon: '/database_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg',
     description: '公開データ'
   }
 ];
