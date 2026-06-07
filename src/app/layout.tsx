@@ -9,27 +9,40 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import React from 'react';
 
 import { Metadata } from 'next';
+import { Noto_Serif_JP, Noto_Sans_JP } from 'next/font/google'
 
 import '@/src/app/global.css';
 
 import { SiteHeader } from './_components/SiteHeader'
 import { SiteFooter } from './_components/SiteFooter'
 
+// preload: false は必須 — 日本語フォントは subset が無く preload 不可
+const serif = Noto_Serif_JP({
+  weight: ['500', '700'],
+  display: 'swap',
+  preload: false,
+  variable: '--font-serif',
+})
+const sans = Noto_Sans_JP({
+  weight: ['400', '500', '700'],
+  display: 'swap',
+  preload: false,
+  variable: '--font-sans',
+})
+
 type RootLayoutProps = {
   children: React.ReactNode;
 };
 
-// メタデータの生成
 export const metadata: Metadata = {
-  title: "97x",
+  title: { default: '97x', template: '%s | 97x' },
+  description: '学習メモ・シミュレーター・Web アプリを公開しているサイトです。',
 };
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="ja">
-      {/* スマホ最適化 */}
-      <head><meta name="viewport" content="width=device-width, initial-scale=1" /></head>
-      <body className="min-h-dvh bg-white text-gray-900 flex flex-col">
+      <body className={`${serif.variable} ${sans.variable} min-h-dvh bg-white text-slate-900 flex flex-col font-sans`}>
         <SiteHeader />
 
         {/* 残りスペースを占める（本文が短くても押し下げが効く） */}

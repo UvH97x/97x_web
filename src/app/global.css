@@ -1,16 +1,7 @@
 /* global.css */
 
-/* Noto Serif JP */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&display=swap');
-.custom-font {
-  font-family: 'Noto Serif JP', serif;
-}
-
-/* Reset default margins and paddings */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+:root {
+  --accent: #3b5bdb;
 }
 
 /* TailwindCSS */

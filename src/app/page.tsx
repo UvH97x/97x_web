@@ -1,51 +1,71 @@
-// src/app/page.tsx
-
 import React from 'react';
-
-import type { Metadata } from 'next'
+import Link from 'next/link';
+import type { Metadata } from 'next';
 
 import { PageLink } from '@/src/types/UvHTypes';
-import LinkBlock from './_components/LinkBlock';
-import { Prose } from '@/src/components/ui/Prose';
-import { Container } from '../components/ui/Container';
+import LinkBlock from '@/src/app/_components/LinkBlock';
+
+export const metadata: Metadata = {
+  description: '数学・物理・機械学習の学習メモとシミュレーターを公開しているサイトです。',
+};
+
+const links: PageLink[] = [
+  {
+    href: '/articles',
+    label: 'Articles',
+    sublinks: [],
+    icon: '/article_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg',
+    description: '学習中につまずいた内容をまとめたメモ記事です。',
+  },
+  {
+    href: '/simulators',
+    label: 'Simulators',
+    sublinks: [],
+    icon: '/simulation_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg',
+    description: '数学・物理・ML の概念をインタラクティブに体験できます。',
+  },
+  {
+    href: '/applications',
+    label: 'Applications',
+    sublinks: [],
+    icon: '/apps_24dp_1F1F1F_FILL0_wght400_GRAD0_opsz24.svg',
+    description: '実用的な小規模 Web アプリを公開しています。',
+  },
+];
 
 export default function PageMain() {
-  // コンテンツ
-  const title: string = "97x";
-  const description: string = "This website was created for the purpose of storing my notes on matters I struggled with in my studies, simulators I created, etc. Also, I am still in the process of learning and have never created a website before, so please forgive me for any mistakes I may have made.";
-
-  // リンク
-  const Links: PageLink[] = [
-    { href: "/articles", label: "記事", sublinks: [], icon: "/articles.svg", },
-    { href: "/simulators", label: "シミュレーター", sublinks: [], icon: "/simulators.svg", },
-    { href: "/applications", label: "アプリ", sublinks: [ { href: "/applications/todo", label: "Todo", sublinks: [] } ], icon: "/apps.svg", },
-  ];
-
   return (
-    <div className="flex flex-col items-center">
-      {/* タイトル */}
-      <h1 className="text-4xl font-bold font-sans my-4 text-slate-900">
-        { title }
-      </h1>
-  
-      {/* 説明文 */}
-      <div className="my-8">
-        <Container>
-          <Prose>{ description }</Prose>
-        </Container>
-      </div>
+    <div className="flex flex-col items-center gap-16 px-4 py-12">
 
-      {/* ページリンク */}
-      <div className="flex flex-row justify-around flex-wrap gap-6">
-        {Links.map((link: PageLink) => (
-          <LinkBlock key={link.href} pageLink={link} />
-        ))}
-      </div>
+      {/* ヒーロー */}
+      <section className="text-center max-w-3xl">
+        <h1 className="text-5xl sm:text-6xl font-bold font-serif text-slate-900">
+          97x
+        </h1>
+        <p className="mt-4 text-lg sm:text-xl text-slate-700 leading-relaxed">
+          数学・物理・機械学習の学習メモとシミュレーターを公開しています。
+        </p>
+      </section>
+
+      {/* 主要カードグリッド */}
+      <section className="w-full max-w-5xl">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {links.map((link) => (
+            <LinkBlock key={link.href} pageLink={link} />
+          ))}
+        </div>
+      </section>
+
+      {/* 二次導線 */}
+      <nav className="flex gap-6 text-sm text-slate-500">
+        <Link href="/about" className="hover:text-accent hover:underline underline-offset-4">
+          About
+        </Link>
+        <Link href="/datas" className="hover:text-accent hover:underline underline-offset-4">
+          Data
+        </Link>
+      </nav>
+
     </div>
   );
 }
-
-// メタデータの生成
-export const metadata: Metadata = {
-    description: "97x Top Page",
-};

@@ -11,16 +11,16 @@ type Props = PropsWithChildren<{ href: string }>
 
 export function ActiveLink({ href, children }: Props){
   const pathname = usePathname()
-  const active = pathname === href || (href !== '/' && pathname.startsWith(href))
+  const active = pathname === href || pathname.startsWith(href + '/')
 
   return (
     <Link
       href={href}
-      aria-current={active ? 'page' : undefined} // 画面読み上げで「現在地」を伝える
+      aria-current={active ? 'page' : undefined}
       className={
         active
-          ? 'font-semibold underline underline-offset-4'
-          : 'hover:underline'
+          ? 'font-semibold text-accent underline underline-offset-4'
+          : 'hover:text-accent hover:underline'
       }
       >
         {children}

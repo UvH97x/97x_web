@@ -5,6 +5,7 @@
 export interface PageLink {
   href: string;
   label: string;
-  sublinks: PageLink[]; // サブリンクもPageLink型にする
-  icon?: string; // オプションでアイコンを追加
+  sublinks: PageLink[];
+  icon?: string;
+  description?: string;
 }

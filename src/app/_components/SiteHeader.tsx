@@ -12,17 +12,17 @@ export function SiteHeader(){
       <div className="mx-auto flex h-10 max-w-6xl items-center justify-between px-4">
         {/* 左：ロゴ/サイト名 */}
         <Link href="/" className="font-semibold">
-          <img src="/favicon.ico" width={32} height={32} />
+          <img src="/favicon.ico" alt="97x logo" width={32} height={32} />
         </Link>
 
         {/* PCナビ (sm以上で表示) */}
         <nav className="hidden sm:flex gap-4 text-sm">
           <ActiveLink href="/">Home</ActiveLink>
-          <ActiveLink href="/about">About</ActiveLink>
           <ActiveLink href="/articles">Articles</ActiveLink>
           <ActiveLink href="/simulators">Simulators</ActiveLink>
           <ActiveLink href="/applications">Applications</ActiveLink>
-          <ActiveLink href="/datas">Datas</ActiveLink>
+          <ActiveLink href="/about">About</ActiveLink>
+          <ActiveLink href="/datas">Data</ActiveLink>
         </nav>
 
         {/* モバイル：ドロワー */}
@@ -32,11 +32,11 @@ export function SiteHeader(){
           <div className="absolute right-4 mt-2 w-40 rounded-lg border bg-white p-2 shadow">
             <nav className="flex flex-col gap-2 text-sm">
               <ActiveLink href="/">Home</ActiveLink>
-              <ActiveLink href="/about">About</ActiveLink>
               <ActiveLink href="/articles">Articles</ActiveLink>
               <ActiveLink href="/simulators">Simulators</ActiveLink>
               <ActiveLink href="/applications">Applications</ActiveLink>
-              <ActiveLink href="/datas">Datas</ActiveLink>
+              <ActiveLink href="/about">About</ActiveLink>
+              <ActiveLink href="/datas">Data</ActiveLink>
             </nav>
           </div>
         </details>
