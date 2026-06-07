@@ -1,6 +1,5 @@
 import type { Config } from "tailwindcss";
 import defaultTheme from 'tailwindcss/defaultTheme';
-import colors from 'tailwindcss/colors';
 
 const config: Config = {
   content: [
@@ -20,7 +19,7 @@ const config: Config = {
         serif: ['var(--font-serif)', ...defaultTheme.fontFamily.serif],
       },
       colors: {
-        accent: { DEFAULT: colors.indigo[600] }, // indigo-600 = #4f46e5
+        accent: 'var(--accent)',
       },
     },
   },

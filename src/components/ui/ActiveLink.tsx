@@ -17,13 +17,13 @@ export function ActiveLink({ href, children }: Props){
     <Link
       href={href}
       aria-current={active ? 'page' : undefined}
-      className={
+      className={`inline-flex items-center gap-1.5 rounded px-2 py-1 transition-colors ${
         active
           ? 'font-semibold text-accent underline underline-offset-4'
-          : 'hover:text-accent hover:underline'
-      }
-      >
-        {children}
-      </Link>
+          : 'hover:bg-slate-100 hover:text-accent'
+      }`}
+    >
+      {children}
+    </Link>
   )
 }

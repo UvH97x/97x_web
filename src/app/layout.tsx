@@ -45,12 +45,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body className={`${serif.variable} ${sans.variable} min-h-dvh bg-white text-slate-900 flex flex-col font-sans`}>
         <SiteHeader />
 
-        {/* 残りスペースを占める（本文が短くても押し下げが効く） */}
-        <main id="main" className="flex-1 py-8 sm:py-10">
+        <main id="main" className="flex-1">
           {children}
         </main>
 
-        {/* 余白は上側だけ main でとる。フッターは常に最下部へ */}
+        {/* フッターは常に最下部へ */}
         <SiteFooter />
         <Analytics />
         <SpeedInsights />
