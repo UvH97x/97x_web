@@ -7,6 +7,11 @@ const apps = [
     description: '機械学習関連',
     href: '/simulators/machine-learning/',
   },
+  {
+    title: '統計',
+    description: '統計・確率関連',
+    href: '/simulators/statistics/',
+  },
 ];
 
 export default function PageMain() {
