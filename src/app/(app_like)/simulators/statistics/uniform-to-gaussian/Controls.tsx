@@ -19,29 +19,6 @@ interface Props {
   onShow: (key: ShowKey, value: boolean) => void;
 }
 
-// Shared range-input style injected once
-const rangeStyle: React.CSSProperties = {
-  WebkitAppearance: 'none',
-  appearance: 'none',
-  width: '100%',
-  height: '4px',
-  background: '#2A3346',
-  borderRadius: '3px',
-  outline: 'none',
-  cursor: 'pointer',
-};
-
-function SectionLabel({ children }: { children: React.ReactNode }) {
-  return (
-    <div style={{
-      fontSize: '11px', letterSpacing: '.8px', textTransform: 'uppercase',
-      color: '#6C7993', marginBottom: '10px', fontWeight: 600,
-    }}>
-      {children}
-    </div>
-  );
-}
-
 function SliderRow({
   label, sublabel, display, min, max, step, value, onChange,
 }: {
@@ -50,21 +27,20 @@ function SliderRow({
   onChange: (v: number) => void;
 }) {
   return (
-    <div style={{ marginBottom: '15px' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '6px' }}>
-        <span style={{ fontSize: '13px' }}>
+    <div className="mb-[15px]">
+      <div className="flex justify-between items-baseline mb-1.5">
+        <span className="text-[13px] text-fg">
           {label}{' '}
-          <span style={{ color: '#6C7993' }}>{sublabel}</span>
+          <span className="text-muted">{sublabel}</span>
         </span>
-        <span style={{ fontFamily: 'ui-monospace,"SF Mono",Menlo,monospace', fontSize: '13px', color: '#5FB3CE' }}>
-          {display}
-        </span>
+        <span className="font-mono text-[13px] text-accent">{display}</span>
       </div>
       <input
         type="range"
         min={min} max={max} step={step} value={value}
         onChange={e => onChange(Number(e.target.value))}
-        style={rangeStyle}
+        className="w-full h-[4px] rounded-[3px] outline-none cursor-pointer appearance-none"
+        style={{ background: 'rgb(var(--fg) / 0.15)' }}
       />
     </div>
   );
@@ -74,42 +50,47 @@ export function Controls({ N, onN, M, onM, binW, onBinW, seed, onSeed, show, onS
   const mLog = Math.log10(M);
 
   return (
-    <div style={{
-      background: '#1A2030', border: '1px solid #232C40', borderRadius: '10px',
-      padding: '16px 16px 18px', color: '#CAD3E2',
-    }}>
+    <div className="bg-bg border border-border rounded-[10px] p-4 text-fg">
       {/* ── Overlay toggles ── */}
-      <SectionLabel>表示する曲線</SectionLabel>
+      <div className="text-[11px] tracking-[0.8px] uppercase text-muted mb-2.5 font-semibold">
+        表示する曲線
+      </div>
       {OVERLAYS.map(({ key, label, color }) => (
         <label
           key={key}
-          style={{ display: 'flex', alignItems: 'center', gap: '9px', padding: '6px 0', cursor: 'pointer', fontSize: '13.5px' }}
+          className="flex items-center gap-[9px] py-1.5 cursor-pointer text-[13.5px]"
         >
           <input
             type="checkbox"
             checked={show[key]}
             onChange={e => onShow(key, e.target.checked)}
-            style={{ position: 'absolute', opacity: 0, width: 0, height: 0 }}
+            className="absolute opacity-0 w-0 h-0"
           />
-          {/* color swatch */}
-          <span style={{
-            width: '26px', height: '14px', borderRadius: '3px', flexShrink: 0,
-            background: color, opacity: show[key] ? 1 : 0.28,
-            border: '1px solid rgba(0,0,0,0.25)',
-            transition: 'opacity .12s',
-          }} />
-          <span style={{ flex: 1 }}>{label}</span>
+          {/* visualization color swatch — kept as-is (data encoding) */}
+          <span
+            className="shrink-0 rounded-[3px]"
+            style={{
+              width: '26px', height: '14px',
+              background: color,
+              opacity: show[key] ? 1 : 0.28,
+              border: '1px solid rgba(0,0,0,0.25)',
+              transition: 'opacity .12s',
+            }}
+          />
+          <span className="flex-1">{label}</span>
           {/* checkmark box */}
-          <span style={{
-            width: '15px', height: '15px', borderRadius: '4px', flexShrink: 0,
-            border: `1.5px solid ${show[key] ? '#5FB3CE' : '#404B61'}`,
-            background: show[key] ? '#5FB3CE' : 'transparent',
-            display: 'grid', placeItems: 'center',
-            transition: 'border-color .12s, background .12s',
-          }}>
+          <span
+            className="shrink-0 rounded-[4px] grid place-items-center"
+            style={{
+              width: '15px', height: '15px',
+              border: `1.5px solid ${show[key] ? 'rgb(var(--accent))' : 'rgb(var(--border))'}`,
+              background: show[key] ? 'rgb(var(--accent))' : 'transparent',
+              transition: 'border-color .12s, background .12s',
+            }}
+          >
             {show[key] && (
               <svg width="9" height="9" viewBox="0 0 9 9">
-                <path d="M1 4.5L3.5 7L8 1.5" stroke="#0C0F16" strokeWidth="1.8"
+                <path d="M1 4.5L3.5 7L8 1.5" stroke="rgb(var(--bg))" strokeWidth="1.8"
                   fill="none" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             )}
@@ -117,10 +98,12 @@ export function Controls({ N, onN, M, onM, binW, onBinW, seed, onSeed, show, onS
         </label>
       ))}
 
-      <hr style={{ border: 'none', borderTop: '1px solid #232C40', margin: '16px 0' }} />
+      <hr className="border-border my-4" />
 
       {/* ── Parameter sliders ── */}
-      <SectionLabel>パラメータ</SectionLabel>
+      <div className="text-[11px] tracking-[0.8px] uppercase text-muted mb-2.5 font-semibold">
+        パラメータ
+      </div>
 
       <SliderRow
         label="N" sublabel="足し合わせる個数"

@@ -7,13 +7,13 @@ import { ihDensityAt, gaussDensity } from './lib/model';
 const C = {
   bg:        '#0C0F16',
   grid:      '#222A3A',
-  muted:     '#6C7993',
-  faint:     '#404B61',
-  cHist:     '#3E5A74',
-  cHistEdge: '#6E9AC0',
+  muted:     '#A0B8CC',   // axis tick numbers — bright enough on dark bg
+  faint:     '#8899BB',   // axis label "g (σ)"
+  cHist:     '#3A7AAE',   // histogram fill — brighter blue
+  cHistEdge: '#6EC0E8',   // histogram top edge — bright sky blue
   cIh:       '#E8B84B',
   cGauss:    '#E06C75',
-  cTrunc:    '#7C8398',
+  cTrunc:    '#9AABB8',   // truncation marker — brighter
 } as const;
 
 function hexAlpha(hex: string, a: number): string {
@@ -124,7 +124,7 @@ export function PlotCanvas({ N, hist, ihD, show, R }: Props) {
           const g0 = -R + b * hist.binW;
           const x0 = X(g0), x1 = X(g0 + hist.binW);
           const y0 = Y(hist.dens[b]), yb = Y(0);
-          ctx.fillStyle   = hexAlpha(C.cHist, 0.55);
+          ctx.fillStyle   = hexAlpha(C.cHist, 0.72);
           ctx.fillRect(x0, y0, x1 - x0, yb - y0);
           ctx.strokeStyle = C.cHistEdge;
           ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x1, y0); ctx.stroke();
@@ -162,9 +162,13 @@ export function PlotCanvas({ N, hist, ihD, show, R }: Props) {
           ctx.setLineDash([]);
           ctx.fillStyle    = C.cTrunc;
           ctx.font         = '10px ui-monospace,Menlo,monospace';
-          ctx.textAlign    = 'left';
           ctx.textBaseline = 'top';
-          ctx.fillText('±√(3N)', X(t) + 4, m.t + 2);
+          // Right marker: "+√(3N)" just inside (to the left of) the line
+          ctx.textAlign = 'right';
+          ctx.fillText('+√(3N)', X(t) - 4, m.t + 2);
+          // Left marker: "−√(3N)" just inside (to the right of) the line
+          ctx.textAlign = 'left';
+          ctx.fillText('−√(3N)', X(-t) + 4, m.t + 2);
         }
       }
     }
