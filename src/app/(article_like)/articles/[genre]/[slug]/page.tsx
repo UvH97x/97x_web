@@ -5,7 +5,7 @@
   import path from 'path';
   import { ParsedFile, getParsedFile } from '@/src/lib/customParser';
   import { fileStructure } from '@/src/data/fileStructure';
-  import UvHMarkdownRenderer from './_components/UvHMarkdownRenderer';
+  import ArticleContent from './_components/ArticleContent';
   
   // 記事データを取得する関数
   const getArticleFilesByGenre = (genre: string): any[] => {
@@ -40,7 +40,6 @@
   export default async function PageMain(props: { params: Promise<{ genre: string, slug: string }> }) {
     const params = await props.params;
     const { genre, slug } = params;
-    const fileName = `${genre}-${slug}`;
     const articlePath = path.join(process.cwd(), 'src/data/articles', genre, `${slug}.md`);
 
     // メタデータと記事本文を取得
@@ -75,8 +74,7 @@
             <span>筆者: {articleData.author}</span>
           </div>
         </div>
-        <UvHMarkdownRenderer markdownContent={articleData.content} fileName={fileName} />
-        {/*<UvHArticleRenderer articleContent={articleData.content} fileName={fileName} />*/}
+        <ArticleContent content={articleData.content} />
         <div className="flex flex-col">
           {articleData.references.length > 0 && (
             <h2>参考</h2>

@@ -4,6 +4,12 @@ import Link from 'next/link';
 
 import { fileStructure } from '@/src/data/fileStructure';
 
+export function generateStaticParams() {
+  return fileStructure
+    .filter((file: any) => file.isDirectory && file.filePath.startsWith('src/data/articles/'))
+    .map((dir: any) => ({ genre: dir.fileName }));
+}
+
 // メインファンクション
 export default async function PageMain(props: { params: Promise<{ genre: string }> }) {
   const params = await props.params;
