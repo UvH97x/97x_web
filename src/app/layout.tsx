@@ -2,7 +2,6 @@ import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Metadata } from 'next'
 import { Noto_Serif_JP, Noto_Sans_JP } from 'next/font/google'
-import { cookies } from 'next/headers'
 import { AppShell } from '@/src/app/_components/AppShell'
 import '@/src/app/global.css'
 
@@ -25,8 +24,7 @@ export const metadata: Metadata = {
   description: '学習メモ・シミュレーター・Web アプリを公開しているサイトです。',
 }
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const collapsed = (await cookies()).get('sidebar:collapsed')?.value === '1'
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ja" suppressHydrationWarning>
       <body className={`${serif.variable} ${sans.variable} min-h-dvh bg-bg text-fg flex flex-col font-sans`}>
@@ -36,7 +34,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           `var d=t==='dark'||(!t&&matchMedia('(prefers-color-scheme: dark)').matches);` +
           `document.documentElement.classList.toggle('dark',d);}catch(e){}})();`
         }} />
-        <AppShell defaultCollapsed={collapsed}>
+        <AppShell>
           {children}
         </AppShell>
         <Analytics />

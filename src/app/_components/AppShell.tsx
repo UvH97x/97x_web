@@ -6,14 +6,13 @@ import { Menu, X } from 'lucide-react'
 import { NAV_ITEMS } from '@/src/config/nav'
 import { ThemeToggle } from './ThemeToggle'
 
-export function AppShell({
-  defaultCollapsed,
-  children,
-}: {
-  defaultCollapsed: boolean
-  children: React.ReactNode
-}) {
-  const [collapsed, setCollapsed] = useState(defaultCollapsed)
+export function AppShell({ children }: { children: React.ReactNode }) {
+  const [collapsed, setCollapsed] = useState(false)
+
+  useEffect(() => {
+    const match = document.cookie.match(/sidebar:collapsed=([^;]+)/)
+    if (match?.[1] === '1') setCollapsed(true)
+  }, [])
   const [mobileOpen, setMobileOpen] = useState(false)
   const pathname = usePathname()
 
