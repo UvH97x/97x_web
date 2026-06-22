@@ -1,16 +1,16 @@
 // src/articles/Breadcrumbs.tsx
 
+'use client';
+
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 import { fileStructure } from "@/src/data/fileStructure"
 
-interface BreadcrumbItem {
-  href: string;
-}
+export default function Breadcrumbs() {
 
-export default function Breadcrumbs( param: BreadcrumbItem ) {
-
-  const parsedPath = generateBreadcrumbs(param.href);
+  const pathname = usePathname();
+  const parsedPath = generateBreadcrumbs(pathname);
 
   return (
     <nav aria-label="breadcrumb">
