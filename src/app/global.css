@@ -2,6 +2,11 @@
 
 /* Semantic color tokens — space-separated RGB channels for Tailwind opacity modifier support */
 :root {
+  color-scheme: light;
+  --surface: 248 250 252;
+  --plot-hist: 58 122 174;
+  --plot-ih: 148 98 0;
+  --plot-gauss: 186 51 80;
   --bg:     255 255 255;   /* #ffffff */
   --fg:     15  23  42;    /* slate-900  #0f172a */
   --muted:  71  85  105;   /* slate-600  #475569 */
@@ -9,6 +14,11 @@
   --accent: 59  91  219;   /* #3b5bdb */
 }
 .dark {
+  color-scheme: dark;
+  --surface: 20 27 39;
+  --plot-hist: 110 192 232;
+  --plot-ih: 232 184 75;
+  --plot-gauss: 224 108 117;
   --bg:     11  15  23;    /* #0b0f17 */
   --fg:     241 245 249;   /* slate-100  #f1f5f9 */
   --muted:  148 163 184;   /* slate-400  #94a3b8 */
@@ -20,3 +30,63 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  *, ::before, ::after { border-color: rgb(var(--border)); }
+  body { @apply text-base leading-relaxed; }
+  input, select, textarea { @apply text-fg accent-accent; }
+  input:not([type=range]):not([type=checkbox]):not([type=radio]), select, textarea {
+    @apply bg-bg border border-border rounded-md px-3 py-2;
+  }
+  input::placeholder, textarea::placeholder { @apply text-muted; }
+  :is(a, button, input, select, textarea):focus-visible {
+    outline: 2px solid rgb(var(--accent));
+    outline-offset: 3px;
+  }
+  button:disabled { @apply cursor-not-allowed opacity-50; }
+}
+
+@layer components {
+  .range-input {
+    @apply w-full h-1 my-2 rounded appearance-none cursor-pointer bg-fg/15;
+  }
+  .range-input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: rgb(var(--accent));
+    border: 2px solid rgb(var(--bg));
+  }
+  .range-input::-moz-range-thumb {
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: rgb(var(--accent));
+    border: 2px solid rgb(var(--bg));
+  }
+  .prose {
+    --tw-prose-body: rgb(var(--fg));
+    --tw-prose-headings: rgb(var(--fg));
+    --tw-prose-lead: rgb(var(--muted));
+    --tw-prose-links: rgb(var(--accent));
+    --tw-prose-bold: rgb(var(--fg));
+    --tw-prose-counters: rgb(var(--muted));
+    --tw-prose-bullets: rgb(var(--muted));
+    --tw-prose-hr: rgb(var(--border));
+    --tw-prose-quotes: rgb(var(--fg));
+    --tw-prose-quote-borders: rgb(var(--border));
+    --tw-prose-captions: rgb(var(--muted));
+    --tw-prose-code: rgb(var(--fg));
+    --tw-prose-pre-code: rgb(var(--fg));
+    --tw-prose-pre-bg: rgb(var(--surface));
+    --tw-prose-th-borders: rgb(var(--border));
+    --tw-prose-td-borders: rgb(var(--border));
+    overflow-wrap: anywhere;
+  }
+  .prose .katex-display { overflow-x: auto; overflow-y: hidden; }
+  .prose pre { @apply border border-border; }
+  .hljs { color: rgb(var(--fg)); background: rgb(var(--surface)); }
+  .hljs-comment, .hljs-quote { @apply text-muted italic; }
+  .hljs-keyword, .hljs-selector-tag, .hljs-title { @apply text-accent; }
+  .hljs-string, .hljs-attribute { @apply text-emerald-700 dark:text-emerald-300; }
+  .hljs-number, .hljs-literal, .hljs-built_in { @apply text-violet-700 dark:text-violet-300; }
+}

@@ -40,6 +40,8 @@ next-env.d.ts
 
 # TODO
 TODO
+!src/app/applications/todo/
+!src/app/applications/todo/**
 
 # temp dir
 /tmp/

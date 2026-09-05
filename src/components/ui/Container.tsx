@@ -1,10 +1,8 @@
 // Container.tsx
-// 横幅・左右余白を一元管理するコンテナ
-// レイアウトの最大幅を一か所で調整できる
+// 全ページの外側余白・最大幅を一元管理。記事本文は内側で max-w-3xl に制限する。
 
 import { PropsWithChildren } from 'react'
 
 export function Container({ children }: PropsWithChildren) {
-  // モバイルは左右px-4、PCはmax-w-3xlで読みやすい幅に制限
-  return <div className="mx-auto w-full max-w-3xl px-4">{children}</div>
+  return <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">{children}</div>
 }

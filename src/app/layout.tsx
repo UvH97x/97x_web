@@ -3,6 +3,8 @@ import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Metadata } from 'next'
 import { Noto_Serif_JP, Noto_Sans_JP } from 'next/font/google'
 import { AppShell } from '@/src/app/_components/AppShell'
+import { SiteFooter } from '@/src/app/_components/SiteFooter'
+import { Container } from '@/src/components/ui/Container'
 import '@/src/app/global.css'
 
 // preload: false は必須 — 日本語フォントは subset が無く preload 不可
@@ -30,12 +32,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`${serif.variable} ${sans.variable} min-h-dvh bg-bg text-fg flex flex-col font-sans`}>
         {/* FOUC 防止: ペイント前に dark クラスを付与 */}
         <script dangerouslySetInnerHTML={{ __html:
-          `(function(){try{var t=localStorage.getItem('theme');` +
-          `var d=t==='dark'||(!t&&matchMedia('(prefers-color-scheme: dark)').matches);` +
-          `document.documentElement.classList.toggle('dark',d);}catch(e){}})();`
+          `(function(){var t;try{t=localStorage.getItem('theme');}catch(e){}` +
+          `var d=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches);` +
+          `document.documentElement.classList.toggle('dark',d);})();`
         }} />
         <AppShell>
-          {children}
+          <main id="main" className="flex-1 min-w-0">
+            <Container>{children}</Container>
+          </main>
+          <SiteFooter />
         </AppShell>
         <Analytics />
         <SpeedInsights />

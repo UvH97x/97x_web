@@ -6,14 +6,35 @@ export function ThemeToggle() {
   const [dark, setDark] = useState(false)
 
   useEffect(() => {
-    setDark(document.documentElement.classList.contains('dark'))
+    const root = document.documentElement
+    const sync = () => setDark(root.classList.contains('dark'))
+    const media = matchMedia('(prefers-color-scheme: dark)')
+    const applyPreference = () => {
+      let saved: string | null = null
+      try { saved = localStorage.getItem('theme') } catch {}
+      root.classList.toggle('dark', saved === 'dark' || (saved !== 'light' && media.matches))
+      sync()
+    }
+    const onStorage = (event: StorageEvent) => {
+      if (event.key === 'theme' || event.key === null) applyPreference()
+    }
+    applyPreference()
+    const observer = new MutationObserver(sync)
+    observer.observe(root, { attributes: true, attributeFilter: ['class'] })
+    media.addEventListener('change', applyPreference)
+    window.addEventListener('storage', onStorage)
+    return () => {
+      observer.disconnect()
+      media.removeEventListener('change', applyPreference)
+      window.removeEventListener('storage', onStorage)
+    }
   }, [])
 
   function toggle() {
-    const next = !dark
+    const next = !document.documentElement.classList.contains('dark')
     setDark(next)
     document.documentElement.classList.toggle('dark', next)
-    localStorage.setItem('theme', next ? 'dark' : 'light')
+    try { localStorage.setItem('theme', next ? 'dark' : 'light') } catch {}
   }
 
   return (

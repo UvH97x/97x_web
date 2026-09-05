@@ -20,6 +20,7 @@ const config: Config = {
         serif: ['var(--font-serif)', ...defaultTheme.fontFamily.serif],
       },
       colors: {
+        surface: 'rgb(var(--surface) / <alpha-value>)',
         accent: 'rgb(var(--accent) / <alpha-value>)',
         bg:     'rgb(var(--bg)     / <alpha-value>)',
         fg:     'rgb(var(--fg)     / <alpha-value>)',

@@ -6,7 +6,7 @@ import { PropsWithChildren } from "react";
 
 export function Prose({ children }: PropsWithChildren){
   return (
-    <article className="prose max-w-none text-slate-900">
+    <article className="prose max-w-none">
       {children}
     </article>
   )

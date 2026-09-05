@@ -13,7 +13,7 @@ type Props = Omit<ComponentProps<'input'>, 'type' | 'value' | 'onChange'> & {
 
 /** Values use the native range scale; callers own unit/log conversions and formatting. */
 export function RangeField({
-  label, sublabel, display, value, onValueChange, layout = 'inline', id, ...inputProps
+  label, sublabel, display, value, onValueChange, layout = 'inline', id, className, ...inputProps
 }: Props) {
   const generatedId = useId();
   const inputId = id ?? generatedId;
@@ -34,6 +34,7 @@ export function RangeField({
       )}
       <input
         {...inputProps}
+        className={['range-input', className].filter(Boolean).join(' ')}
         id={inputId}
         type="range"
         value={value}
