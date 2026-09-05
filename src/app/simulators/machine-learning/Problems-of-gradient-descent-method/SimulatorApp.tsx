@@ -12,7 +12,7 @@ import ParameterHistoryTimeline from './ParameterHistoryTimeline';
 import React, { useReducer } from 'react';
 import { ErrorFunctionType, OptimizerType, SimulationState } from './utils/types';
 import { generateInitialState } from './utils/initialState';
-import { optimizerStep } from './utils/optimizerStep';
+import { DIVERGENCE_LIMIT, optimizerStep } from './utils/optimizerStep';
 type Action =
   | { type: 'RESET'; errorFunction: ErrorFunctionType; optimizer: OptimizerType }
   | { type: 'SET_ERROR_FUNCTION'; errorFunction: ErrorFunctionType }
@@ -37,7 +37,16 @@ function reducer(state: SimulationState, action: Action): SimulationState {
       return { ...state, hyperParameters: { ...state.hyperParameters, ...action.hyperParameters } };
     case 'STEP': {
       const newStep = optimizerStep(state);
-      return { ...state, step: state.step + 1, steps: [...state.steps, newStep] };
+      // 数値が壊れたら履歴に積まない（再生中なら止める）
+      if (!Number.isFinite(newStep.w) || !Number.isFinite(newStep.error)) {
+        return state.running ? { ...state, running: false } : state;
+      }
+      return {
+        ...state,
+        step: state.step + 1,
+        steps: [...state.steps, newStep],
+        running: state.running && Math.abs(newStep.w) <= DIVERGENCE_LIMIT,
+      };
     }
     case 'BACK': {
       if (state.step === 0) return state;
@@ -69,16 +78,15 @@ export default function SimulatorApp() {
     <div>
       <TitleSection />
 
-      {/* 2カラムレイアウト */}
-      <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,1fr)_340px] gap-6">
-        {/* 左カラム（グラフ2枚、縦並び） */}
-        <div className="min-w-0 flex flex-col justify-start">
+      {/* 2カラムレイアウト（左: 誤差曲線と勾配曲線を重ねた1枚のグラフ / 右: 操作と履歴） */}
+      <div className="grid grid-cols-1 gap-4 xl:grid-cols-[minmax(0,1fr)_320px]">
+        <div className="min-w-0">
           <MainCanvas state={state} />
         </div>
 
-        {/* 右カラム（コントロール＋履歴、下端揃え＆履歴はスクロール） */}
-        <div className="min-w-0 flex flex-col">
-          <div>
+        {/* 右カラム: 高さをグラフに揃え、あふれる履歴だけを内部スクロールさせる */}
+        <div className="flex min-w-0 flex-col gap-3 xl:h-[clamp(340px,62vh,620px)]">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-1">
             <ErrorFunctionSelector
               selected={state.errorFunction}
               onChange={(value) => dispatch({ type: 'SET_ERROR_FUNCTION', errorFunction: value })}
@@ -87,12 +95,10 @@ export default function SimulatorApp() {
               selected={state.optimizer}
               onChange={(value) => dispatch({ type: 'SET_OPTIMIZER', optimizer: value })}
             />
-            <HyperParameterInputs state={state} dispatch={dispatch} />
-            <SimulationControls state={state} dispatch={dispatch} />
           </div>
-          <div className="flex-1 overflow-y-auto mt-2 max-h-[440px] min-h-[220px] border rounded bg-bg shadow">
-            <ParameterHistoryTimeline state={state} dispatch={dispatch} />
-          </div>
+          <HyperParameterInputs state={state} dispatch={dispatch} />
+          <SimulationControls state={state} dispatch={dispatch} />
+          <ParameterHistoryTimeline state={state} dispatch={dispatch} />
         </div>
       </div>
     </div>

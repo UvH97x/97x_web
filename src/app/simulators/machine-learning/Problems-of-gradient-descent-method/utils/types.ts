@@ -28,6 +28,14 @@ export type SimulationStep = {
   error: number;
   grad: number;
   deltaW: number;
+  /** AdaGrad: 勾配二乗和 */
+  gradSum2?: number;
+  /** RMSprop / AdaDelta / Adam: 勾配二乗の移動平均 */
+  v?: number;
+  /** AdaDelta: Δw 二乗の移動平均 */
+  u?: number;
+  /** Adam: 勾配の移動平均 */
+  m?: number;
 };
 
 /** シミュレーション全体の状態 */

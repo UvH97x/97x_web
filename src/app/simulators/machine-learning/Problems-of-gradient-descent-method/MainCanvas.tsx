@@ -1,125 +1,160 @@
 'use client';
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useThemeColors } from '@/src/components/ui/useThemeColors';
 import { SimulationState } from './utils/types';
-import { plotDataGenerator } from './utils/plotDataGenerator';
+import { plotCurves, plotDomain } from './utils/plotDataGenerator';
 import {
   Chart as ChartJS,
   LineElement,
   PointElement,
   LinearScale,
   Title,
-  CategoryScale,
   Legend,
   Tooltip,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 
-ChartJS.register(LineElement, PointElement, LinearScale, Title, CategoryScale, Legend, Tooltip);
+ChartJS.register(LineElement, PointElement, LinearScale, Title, Legend, Tooltip);
 
 type Props = { state: SimulationState };
 
+/** useThemeColors は `rgb(r g b)` を返すので、CSS Color 4 のスラッシュ記法で透明度を足す。 */
+const fade = (color: string, alpha: number) => color.replace(/\)$/, ` / ${alpha})`);
+
 export default function MainCanvas({ state }: Props) {
   const colors = useThemeColors();
-  const axis = { ticks: { color: colors.muted }, grid: { color: colors.border }, border: { color: colors.border } };
-  const { errorCurve, gradCurve } = plotDataGenerator(state);
+  const { xMin, xMax } = plotDomain(state);
+
+  // 曲線は誤差関数と描画範囲にしか依存しない。1ステップごとに作り直すと重いのでメモ化する
+  const { errorCurve, gradCurve, eMin, eMax } = useMemo(() => {
+    const curves = plotCurves(state.errorFunction, xMin, xMax);
+    const errorValues = curves.errorCurve.map((p) => p.y);
+    // 現在の w を示す縦線は E 軸の描画範囲いっぱいに引く
+    return { ...curves, eMin: Math.min(...errorValues), eMax: Math.max(...errorValues) };
+  }, [state.errorFunction, xMin, xMax]);
 
   // 現在位置（補間なし、ただの最新値）
   const currentStep = state.steps[state.step] ?? state.steps[state.steps.length - 1];
-  const currentW = currentStep.w;
-  const currentE = currentStep.error;
-  const currentGrad = currentStep.grad;
+  const { w: currentW, error: currentE, grad: currentGrad } = currentStep;
 
-  // 誤差関数グラフ
-  const errorData = {
-    labels: errorCurve.map((p) => p.x.toFixed(2)),
+  const data = {
     datasets: [
       {
-        label: '誤差関数 E(w)',
-        data: errorCurve.map((p) => p.y),
-        borderColor: 'rgba(59,130,246,1)',
+        label: '誤差 E(w)',
+        data: errorCurve,
+        yAxisID: 'yE',
+        borderColor: colors.hist,
         borderWidth: 2,
         pointRadius: 0,
         fill: false,
-        tension: 0.18,
+        tension: 0,
       },
-      {
-        label: '現在のパラメータ位置',
-        data: errorCurve.map((p) =>
-          Math.abs(p.x - currentW) < 0.025 ? currentE : null
-        ),
-        pointBackgroundColor: 'rgba(220,38,38,1)',
-        borderColor: 'rgba(0,0,0,0)',
-        borderWidth: 0,
-        pointRadius: 7,
-        type: 'line' as const,
-      },
-    ],
-  };
-
-  // 勾配曲線グラフ
-  const gradData = {
-    labels: gradCurve.map((p) => p.x.toFixed(2)),
-    datasets: [
       {
         label: '勾配 dE/dw',
-        data: gradCurve.map((p) => p.y),
-        borderColor: 'rgba(34,197,94,1)',
+        data: gradCurve,
+        yAxisID: 'yG',
+        borderColor: colors.ih,
         borderWidth: 2,
+        borderDash: [6, 4],
         pointRadius: 0,
         fill: false,
-        tension: 0.18,
+        tension: 0,
+      },
+      {
+        // 凡例から除くため label は空
+        label: '',
+        data: [
+          { x: currentW, y: eMin },
+          { x: currentW, y: eMax },
+        ],
+        yAxisID: 'yE',
+        borderColor: fade(colors.gauss, 0.45),
+        borderWidth: 1,
+        borderDash: [3, 3],
+        pointRadius: 0,
       },
       {
         label: '現在位置',
-        data: gradCurve.map((p) =>
-          Math.abs(p.x - currentW) < 0.025 ? currentGrad : null
-        ),
-        pointBackgroundColor: 'rgba(220,38,38,1)',
+        data: [{ x: currentW, y: currentE }],
+        yAxisID: 'yE',
         borderColor: 'rgba(0,0,0,0)',
-        borderWidth: 0,
+        backgroundColor: colors.gauss,
+        pointBackgroundColor: colors.gauss,
         pointRadius: 7,
-        type: 'line' as const,
+        pointHoverRadius: 8,
+      },
+      {
+        label: '',
+        data: [{ x: currentW, y: currentGrad }],
+        yAxisID: 'yG',
+        borderColor: 'rgba(0,0,0,0)',
+        backgroundColor: colors.gauss,
+        pointBackgroundColor: colors.gauss,
+        pointStyle: 'triangle' as const,
+        pointRadius: 8,
+        pointHoverRadius: 9,
       },
     ],
   };
 
-  // オプション類
-  const errorOptions = {
+  const options = {
     responsive: true,
+    maintainAspectRatio: false,
+    animation: { duration: 0 } as const,
+    interaction: { mode: 'nearest' as const, intersect: false },
     plugins: {
-      legend: { display: false },
+      legend: {
+        display: true,
+        position: 'top' as const,
+        align: 'end' as const,
+        labels: {
+          color: colors.fg,
+          boxWidth: 18,
+          padding: 12,
+          filter: (item: { text?: string }) => Boolean(item.text),
+        },
+      },
+      tooltip: {
+        callbacks: {
+          title: (items: { parsed: { x: number | null } }[]) =>
+            `w = ${(items[0]?.parsed.x ?? 0).toFixed(3)}`,
+        },
+      },
     },
     scales: {
-      x: { ...axis },
-      y: { ...axis, title: { display: true, text: 'E(w)', color: colors.fg } },
-    },
-    animation: {
-      duration: 0,
-    },
-  };
-  const gradOptions = {
-    responsive: true,
-    plugins: {
-      legend: { display: false },
-    },
-    scales: {
-      x: { ...axis, title: { display: true, text: 'パラメータ w', color: colors.fg } },
-      y: { ...axis, title: { display: true, text: 'dE/dw', color: colors.fg } },
-    },
-    animation: {
-      duration: 0
+      x: {
+        type: 'linear' as const,
+        min: xMin,
+        max: xMax,
+        ticks: { color: colors.muted, maxTicksLimit: 11 },
+        grid: { color: fade(colors.border, 0.8) },
+        border: { color: colors.border },
+        title: { display: true, text: 'パラメータ w', color: colors.fg },
+      },
+      yE: {
+        type: 'linear' as const,
+        position: 'left' as const,
+        ticks: { color: colors.hist },
+        grid: { color: fade(colors.border, 0.8) },
+        border: { color: colors.border },
+        title: { display: true, text: '誤差 E(w)', color: colors.hist },
+      },
+      yG: {
+        type: 'linear' as const,
+        position: 'right' as const,
+        ticks: { color: colors.ih },
+        grid: { drawOnChartArea: false },
+        border: { color: colors.border },
+        title: { display: true, text: '勾配 dE/dw', color: colors.ih },
+      },
     },
   };
 
   return (
-    <div className="flex flex-col gap-2 mt-2">
-      <div className="bg-bg rounded-xl shadow p-2">
-        <Line data={errorData} options={errorOptions} height={200} />
-      </div>
-      <div className="bg-bg rounded-xl shadow p-2">
-        <Line data={gradData} options={gradOptions} height={200} />
+    <div className="rounded-xl bg-bg p-2 shadow">
+      <div className="h-[clamp(300px,56vh,560px)]">
+        <Line data={data} options={options} />
       </div>
     </div>
   );

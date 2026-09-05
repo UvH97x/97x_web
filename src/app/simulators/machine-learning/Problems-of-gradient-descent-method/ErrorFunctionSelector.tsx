@@ -1,6 +1,7 @@
 // app/simulators/machine-learning/Problems-of-gradient-descent-method/ErrorFunctionSelector.tsx
 
 import React from 'react';
+import { SelectField } from '@/src/components/ui/SelectField';
 import { ErrorFunctionType } from './utils/types';
 import { getErrorFunctionList } from './utils/errorFunctions';
 
@@ -12,26 +13,12 @@ type Props = {
 export default function ErrorFunctionSelector({ selected, onChange }: Props) {
   const list = getErrorFunctionList();
   return (
-    <div className="mb-2">
-      <div className="font-semibold mb-1">誤差関数の選択</div>
-      <div className="flex flex-wrap gap-4">
-        {list.map((item) => (
-          <label key={item.type} className="flex items-center gap-1 cursor-pointer">
-            <input
-              type="radio"
-              name="error-function"
-              value={item.type}
-              checked={selected === item.type}
-              onChange={() => onChange(item.type)}
-              className="accent-blue-500"
-            />
-            <span>{item.name}</span>
-          </label>
-        ))}
-      </div>
-      <div className="text-xs text-muted mt-1">
-        {list.find((i) => i.type === selected)?.description}
-      </div>
-    </div>
+    <SelectField
+      label="誤差関数"
+      value={selected}
+      options={list.map((item) => ({ value: item.type, label: item.name }))}
+      onValueChange={onChange}
+      hint={list.find((item) => item.type === selected)?.description}
+    />
   );
 }

@@ -33,24 +33,22 @@ export default function HyperParameterInputs({ state, dispatch }: Props) {
   };
 
   return (
-    <div className="mb-4">
-      <label className="block font-semibold mb-1">ハイパーパラメータ設定</label>
-      <div className="flex flex-wrap gap-4">
+    <div>
+      <div className="text-[13px] font-semibold">ハイパーパラメータ</div>
+      <div className="mt-1 grid grid-cols-2 gap-2">
         {Object.keys(defaultParams).map(key => (
-          <div key={key} className="flex flex-col gap-1">
-            <label className="text-sm">
-              {hyperParamLabels[key] || key}
-            </label>
+          <label key={key} className="flex flex-col gap-0.5">
+            <span className="text-xs text-muted">{hyperParamLabels[key] || key}</span>
             <input
               type="number"
               step="any"
               min={key === 'eta' || key === 'g0' || key === 'eps' ? '0' : undefined}
               max={key.startsWith('rho') || key === 'mu' ? '1' : undefined}
-              className="rounded border px-2 py-1 w-28"
+              className="w-full px-2 py-1 text-sm"
               value={params[key] ?? ''}
               onChange={e => handleChange(key, e.target.value)}
             />
-          </div>
+          </label>
         ))}
       </div>
     </div>

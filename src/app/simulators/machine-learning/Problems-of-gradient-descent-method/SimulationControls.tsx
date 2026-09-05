@@ -2,6 +2,7 @@
 
 import React, { useRef, useEffect } from 'react';
 import { SimulationState } from './utils/types';
+import { DIVERGENCE_LIMIT } from './utils/optimizerStep';
 
 type Props = {
   state: SimulationState;
@@ -51,33 +52,41 @@ export default function SimulationControls({ state, dispatch }: Props) {
     };
   }, [state.running, dispatch]);
 
+  const currentW = state.steps[state.steps.length - 1]?.w ?? 0;
+  const diverged = !Number.isFinite(currentW) || Math.abs(currentW) > DIVERGENCE_LIMIT;
+
   return (
-    <div className="flex flex-wrap gap-3 mb-6 items-center">
+    <div className="flex flex-wrap items-center gap-2">
       <button
-        className="px-4 py-2 rounded bg-blue-700 text-white shadow hover:bg-blue-800"
+        className="rounded bg-blue-700 px-3 py-1.5 text-sm text-white shadow hover:bg-blue-800"
         onClick={handleStep}
       >次へ</button>
       <button
-        className="px-4 py-2 rounded bg-fg/10 text-fg hover:bg-fg/15"
+        className="rounded bg-fg/10 px-3 py-1.5 text-sm text-fg hover:bg-fg/15"
         onClick={handleBack}
         disabled={state.step === 0}
       >戻る</button>
       {state.running ? (
         <button
-          className="px-4 py-2 rounded bg-red-700 text-white hover:bg-red-800"
+          className="rounded bg-red-700 px-3 py-1.5 text-sm text-white hover:bg-red-800"
           onClick={handlePause}
         >停止</button>
       ) : (
         <button
-          className="px-4 py-2 rounded bg-green-700 text-white hover:bg-green-800"
+          className="rounded bg-green-700 px-3 py-1.5 text-sm text-white hover:bg-green-800"
           onClick={handlePlay}
         >再生</button>
       )}
       <button
-        className="px-4 py-2 rounded bg-slate-600 text-white hover:bg-slate-600"
+        className="rounded bg-slate-600 px-3 py-1.5 text-sm text-white hover:bg-slate-700"
         onClick={handleReset}
       >リセット</button>
-      <span className="ml-2 text-muted text-sm">Step: {state.step}</span>
+      <span className="ml-auto text-sm text-muted">Step: {state.step}</span>
+      {diverged && (
+        <p className="w-full text-xs text-red-600 dark:text-red-400">
+          w が発散したため自動再生を停止しました。学習率を下げるかリセットしてください。
+        </p>
+      )}
     </div>
   );
 }
