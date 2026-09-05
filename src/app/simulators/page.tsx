@@ -12,6 +12,11 @@ const apps = [
     description: '統計・確率関連',
     href: '/simulators/statistics/',
   },
+  {
+    title: '測度論',
+    description: '測度論・ルベーグ積分関連',
+    href: '/simulators/measure-theory/',
+  },
 ];
 
 export default function PageMain() {
