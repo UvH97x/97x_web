@@ -3,6 +3,7 @@
 "use client";
 
 import { FC } from "react"
+import { RangeField } from '@/src/components/ui/RangeField'
 
 type Props = {
   degree: number
@@ -37,17 +38,14 @@ export const ControlPanel: FC<Props> = ({
 }) => {
   return (
     <div className="p-4 space-y-4 border rounded-lg">
-      <div>
-        <label className="block font-semibold">多項式の次数(M)</label>
-        <input
-          type="range"
-          min={1}
-          max={6}
-          value={degree}
-          onChange={(e) => onDegreeChange(Number(e.target.value))}
-        />
-        <span className="ml-2">{degree}</span>
-      </div>
+      <RangeField
+        label="多項式の次数(M)"
+        min={1}
+        max={6}
+        value={degree}
+        onValueChange={onDegreeChange}
+        display={degree}
+      />
 
       <div>
         <label className="block font-semibold">回帰法</label>
@@ -61,18 +59,17 @@ export const ControlPanel: FC<Props> = ({
         </select>
       </div>
 
-      {regType !== "normal" && (<div>
-        <label className="block font-semibold">正則化項の重み</label>
-        <input
-          type="range"
+      {regType !== "normal" && (
+        <RangeField
+          label="正則化項の重み"
           min={-3}
           max={4}
           step={1}
           value={Math.log10(lambda) + 1}
-          onChange={(e) => onLambdaChange(10 ** (Number(e.target.value)-1))}
+          onValueChange={value => onLambdaChange(10 ** (value - 1))}
+          display={lambda}
         />
-        <span className="ml-2">{lambda}</span>
-      </div>)}
+      )}
 
       <div>
         <label className="block font-semibold">誤差関数</label>
@@ -85,18 +82,15 @@ export const ControlPanel: FC<Props> = ({
         </select>
       </div>
 
-      <div>
-        <label className="block font-semibold">ステップの大きさ</label>
-        <input
-          type="range"
-          min={-5}
-          max={1}
-          step={1}
-          value={Math.log10(delta) + 1}
-          onChange={(e) => onDeltaChange(10 ** (Number(e.target.value)-1))}
-        />
-        <span className="ml-2">{delta}</span>
-      </div>
+      <RangeField
+        label="ステップの大きさ"
+        min={-5}
+        max={1}
+        step={1}
+        value={Math.log10(delta) + 1}
+        onValueChange={value => onDeltaChange(10 ** (value - 1))}
+        display={delta}
+      />
 
       <div className="space-x-2">
         <button onClick={onReset} className="bg-gray-200 p-2 rounded">

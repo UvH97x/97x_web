@@ -3,6 +3,7 @@
 "use client";
 
 import { FC } from "react"
+import { RangeField } from '@/src/components/ui/RangeField'
 
 type Props = {
   parameters: number[]
@@ -15,20 +16,17 @@ export const ParameterSliders: FC<Props> = ({ parameters, onParameterChange, del
     <div className="p-4 border rounded-lg space-y-4">
       <h2 className="text-lg font-bold">モデルパラメータ(w)</h2>
       {parameters.map((w, i) => (
-        <div key={i}>
-          <label className="block font-semibold">
-            w<sub>{i}</sub>: {w.toFixed(-Math.log10(delta))}
-          </label>
-          <input
-            type="range"
-            min={-10}
-            max={10}
-            step={0.001}
-            value={w}
-            onChange={(e) => onParameterChange(i, parseFloat(e.target.value))}
-            className="w-full"
-          />
-        </div>
+        <RangeField
+          key={i}
+          layout="stacked"
+          label={<>w<sub>{i}</sub>: {w.toFixed(-Math.log10(delta))}</>}
+          min={-10}
+          max={10}
+          step={0.001}
+          value={w}
+          onValueChange={value => onParameterChange(i, value)}
+          className="w-full"
+        />
       ))}
     </div>
   )

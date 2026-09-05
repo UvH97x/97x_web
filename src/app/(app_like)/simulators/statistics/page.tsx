@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { SimulatorCatalog } from '@/src/app/(app_like)/simulators/_components/SimulatorCatalog';
 
 const simulators = [
   {
@@ -12,19 +12,10 @@ const simulators = [
 
 export default function Page() {
   return (
-    <main className="p-6 space-y-6">
-      <h1 className="text-2xl font-bold">統計</h1>
-      <p className="text-gray-600">統計・確率に関するシミュレーターの一覧です。</p>
-      <ul className="grid gap-4">
-        {simulators.map(s => (
-          <li key={s.href} className="p-4 border rounded-lg shadow hover:shadow-md transition">
-            <Link href={s.href} className="block">
-              <h2 className="text-xl font-semibold text-blue-600 hover:underline">{s.title}</h2>
-              <p className="text-gray-500 mt-1">{s.description}</p>
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </main>
+    <SimulatorCatalog
+      title="統計"
+      description="統計・確率に関するシミュレーターの一覧です。"
+      items={simulators}
+    />
   );
 }

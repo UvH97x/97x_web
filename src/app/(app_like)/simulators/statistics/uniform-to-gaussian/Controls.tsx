@@ -1,6 +1,7 @@
 'use client';
 
 import type { ShowState } from './lib/types';
+import { RangeField } from '@/src/components/ui/RangeField';
 
 type ShowKey = keyof ShowState;
 
@@ -27,22 +28,14 @@ function SliderRow({
   onChange: (v: number) => void;
 }) {
   return (
-    <div className="mb-[15px]">
-      <div className="flex justify-between items-baseline mb-1.5">
-        <span className="text-[13px] text-fg">
-          {label}{' '}
-          <span className="text-muted">{sublabel}</span>
-        </span>
-        <span className="font-mono text-[13px] text-accent">{display}</span>
-      </div>
-      <input
-        type="range"
-        min={min} max={max} step={step} value={value}
-        onChange={e => onChange(Number(e.target.value))}
-        className="w-full h-[4px] rounded-[3px] outline-none cursor-pointer appearance-none"
-        style={{ background: 'rgb(var(--fg) / 0.15)' }}
-      />
-    </div>
+    <RangeField
+      layout="detailed"
+      label={label} sublabel={sublabel} display={display}
+      min={min} max={max} step={step} value={value}
+      onValueChange={onChange}
+      className="w-full h-[4px] rounded-[3px] outline-none cursor-pointer appearance-none"
+      style={{ background: 'rgb(var(--fg) / 0.15)' }}
+    />
   );
 }
 
