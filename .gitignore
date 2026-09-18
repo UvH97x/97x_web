@@ -46,6 +46,9 @@ TODO
 # temp dir
 /tmp/
 
+# local Codex settings
+/.codex/
+
 # note
 note
 
