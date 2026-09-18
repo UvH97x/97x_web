@@ -2,6 +2,13 @@ import { SimulatorCatalog } from '@/src/app/simulators/_components/SimulatorCata
 
 const simulators = [
   {
+    title: '（非心）χ² 分布',
+    description:
+      '自由度 ν と非心度 λ を操作し、非心 χ² 分布の理論密度と乱数ヒストグラムを可視化。' +
+      'λ = 0 の中心 χ² 分布との違いも比較できる。',
+    href: '/simulators/statistics/chi-square',
+  },
+  {
     title: '一様乱数からのガウス生成器',
     description:
       'N 個の U(0,1) 乱数の和を標準化して N(0,1) を近似する方法を可視化。' +
