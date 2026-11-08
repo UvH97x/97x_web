@@ -1,152 +1,102 @@
 // src/app/applications/todo/EditForm.tsx
+'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
-import { Todo } from './types';
+import { useEffect, useRef, useState, type FormEvent } from 'react';
+import { Modal, buttonClass, inputClass, prefersAutoFocus } from './Modal';
+import { flatten } from './tree';
+import type { Category, Todo } from './types';
+
+export type TodoInput = Omit<Todo, 'id' | 'completed'>;
 
 interface EditFormProps {
+  /** null なら新規作成。 */
   todo: Todo | null;
-  onSave: (todo: Todo) => void;
-  onClose: () => void;
+  defaultCategoryId: string | null;
+  categories: Category[];
+  onSave: (input: TodoInput) => void;
   onDelete: (todo: Todo) => void;
+  onClose: () => void;
 }
 
-const EditForm: React.FC<EditFormProps> = ({ todo, onSave, onClose, onDelete }) => {
-  const [text, setText] = useState<string>(todo?.todoName || '');
-  const [dueDate, setDueDate] = useState<string>(todo?.dueDate ? new Date(todo.dueDate).toISOString().split('T')[0] : '');
-  const [tags, setTags] = useState<string>(todo?.tags?.join(',') || '');
+export default function EditForm({ todo, defaultCategoryId, categories, onSave, onDelete, onClose }: EditFormProps) {
+  const [name, setName] = useState(todo?.todoName ?? '');
+  const [categoryId, setCategoryId] = useState<string>(todo ? todo.categoryId ?? '' : defaultCategoryId ?? '');
+  const [dueDate, setDueDate] = useState(todo?.dueDate ?? '');
+  const [tags, setTags] = useState(todo?.tags.join(', ') ?? '');
+  const [note, setNote] = useState(todo?.note ?? '');
+  const nameRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    setText(todo?.todoName || '');
-    setDueDate(todo?.dueDate ? new Date(todo.dueDate).toISOString().split('T')[0] : '');
-    setTags(todo?.tags?.join(',') || '');
+    if (prefersAutoFocus()) nameRef.current?.focus();
+  }, []);
 
-    // PCかどうかを判定
-    const isPC = () => {
-      return !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    };
-
-    if (isPC() && inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, [todo]);
-
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    if (!text.trim()) return;
+    if (!name.trim()) return;
     onSave({
-      id: todo?.id || Date.now(),
-      todoName: text.trim(),
-      completed: todo?.completed || false,
-      dueDate: dueDate ? new Date(dueDate) : null,
-      tags: tags?.split(',').map(tag => tag.trim()).filter(tag => tag),
+      todoName: name.trim(),
+      categoryId: categoryId || null,
+      dueDate: dueDate || null,
+      tags: tags.split(/[,、]/).map(t => t.trim()).filter(Boolean),
+      note: note.trim(),
     });
-    onClose();
   };
 
   const handleDelete = () => {
-    if (todo && !todo?.completed) {
-      const taskName = todo?.todoName || 'このタスク';
-      const confirmDelete = confirm(`本当に「${taskName}」を削除しますか？`); // [ ]確認用フォームを自分で作る
+    if (!todo) return;
+    if (todo.completed || confirm(`「${todo.todoName}」を削除しますか？`)) onDelete(todo);
+  };
 
-      if (confirmDelete) {
-        // タスクを削除する処理をここに記述
-        onDelete(todo);
-      } else {
-        onClose();
-      }
-    } else if (todo) {
-      onDelete(todo);
-    }
-  }
-
-  // Add Formの場合、Delete Buttonが出ないようにする
   return (
-    <div className="modal">
-      <div className="modal-content bg-bg p-6 rounded-lg shadow-lg">
-        {/* タイトル */}
-        <h2 className="text-2xl font-semibold mb-4">
-          {todo?.todoName ? '編集' : '新規'}
-        </h2>
+    <Modal title={todo ? 'タスクを編集' : 'タスクを追加'} onClose={onClose}>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <label className="flex flex-col gap-1 text-sm">
+          <span className="font-medium">名前</span>
+          <input ref={nameRef} value={name} onChange={e => setName(e.target.value)} placeholder="例: 1.1節を読む" className={inputClass} />
+        </label>
 
-        {/* フォーム */}
-        <form onSubmit={handleSubmit} className="space-y-4 flex flex-col gap-1">
-          {/* タスク名 */}
-          <span className='flex flex-col gap-0'>
-            <label>名前: </label>
-            <input
-              type="text"
-              value={text}
-              ref={inputRef}
-              onChange={(e) => setText(e.target.value)}
-              placeholder="タスク名"
-              className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-accent"
-            />
-          </span>
+        <label className="flex flex-col gap-1 text-sm">
+          <span className="font-medium">クラス</span>
+          <select value={categoryId} onChange={e => setCategoryId(e.target.value)} className={inputClass}>
+            <option value="">未分類</option>
+            {flatten(categories).map(({ category, depth }) => (
+              <option key={category.id} value={category.id}>
+                {'　'.repeat(depth)}{depth > 0 ? '└ ' : ''}{category.name}
+              </option>
+            ))}
+          </select>
+        </label>
 
-          {/* 期限日 */}
-          <span className='flex flex-col gap-0'>
-            <label>期限: </label>
-            <input
-              type="date"
-              value={dueDate}
-              onChange={(e) => setDueDate(e.target.value)}
-              placeholder="期限"
-              className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-accent"
-            />
-          </span>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <label className="flex flex-col gap-1 text-sm">
+            <span className="font-medium">期限</span>
+            <input type="date" value={dueDate} onChange={e => setDueDate(e.target.value)} className={inputClass} />
+          </label>
+          <label className="flex flex-col gap-1 text-sm">
+            <span className="font-medium">タグ</span>
+            <input value={tags} onChange={e => setTags(e.target.value)} placeholder="カンマ区切りで複数" className={inputClass} />
+          </label>
+        </div>
 
-          {/* タグ入力 */}
-          <span className='flex flex-col gap-0'>
-            <label>タグ: </label>
-            <input
-              type="text"
-              value={tags}
-              onChange={(e) => setTags(e.target.value)}
-              placeholder='タグ ("," で分ければ複数設定できます)'
-              className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-accent"
-            />
-          </span>
+        <label className="flex flex-col gap-1 text-sm">
+          <span className="font-medium">メモ</span>
+          <textarea value={note} onChange={e => setNote(e.target.value)} rows={3} className={`${inputClass} resize-y`} />
+        </label>
 
-          {/* ボタン群 */}
-          <div className="flex flex-wrap md:flex-row-reverse flex-col gap-2 md:space-x-2">
-            {/* 追加/更新ボタン */}
-            <button
-              type="submit"
-              className="flex-1 px-4 py-2 bg-green-700 text-white rounded md:hover:bg-green-700 transition-colors duration-300"
-            >
-              {todo?.todoName ? '更新' : '追加'}
+        <div className="flex flex-col-reverse gap-2 pt-1 sm:flex-row sm:items-center">
+          {todo && (
+            <button type="button" onClick={handleDelete} className={`${buttonClass.danger} sm:mr-auto`}>
+              削除
             </button>
-
-            {/* キャンセルボタン */}
-            <button
-              type="button"
-              onClick={onClose}
-              className="flex-1 px-4 py-2 bg-slate-600 text-white rounded md:hover:bg-slate-700 transition-colors duration-300"
-            >
-              キャンセル
-            </button>
-
-            {todo?.todoName ? (
-              <>
-                {/* 削除ボタン */}
-                <button
-                  type="button"
-                  onClick={handleDelete}
-                  className="flex-1 px-4 py-2 bg-red-700 text-white rounded md:hover:bg-red-700 transition-colors duration-300"
-                >
-                  削除
-                </button>
-              </>
-            ) : ''}
-
-
-          </div>
-        </form>
-      </div>
-    </div>
+          )}
+          <button type="button" onClick={onClose} className={`${buttonClass.secondary} ${todo ? '' : 'sm:ml-auto'}`}>
+            キャンセル
+          </button>
+          <button type="submit" disabled={!name.trim()} className={`${buttonClass.primary} disabled:opacity-50`}>
+            {todo ? '保存' : '追加'}
+          </button>
+        </div>
+      </form>
+    </Modal>
   );
-};
-
-export default EditForm;
+}
