@@ -1,6 +1,6 @@
 'use client';
 
-import { Tex } from './Tex';
+import { Tex } from '@/src/components/ui/Tex';
 
 /** §12 of the spec: the properties the picture is meant to make obvious. */
 export function TheoryNotes({ n }: { n: number }) {

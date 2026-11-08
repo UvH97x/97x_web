@@ -3,7 +3,7 @@
 import { RangeField } from '@/src/components/ui/RangeField';
 import { SelectField } from '@/src/components/ui/SelectField';
 import { PRESETS } from './lib/model';
-import { Tex } from './Tex';
+import { Tex } from '@/src/components/ui/Tex';
 import type { Preset, PresetId, ShowState } from './lib/types';
 
 type ShowKey = keyof ShowState;

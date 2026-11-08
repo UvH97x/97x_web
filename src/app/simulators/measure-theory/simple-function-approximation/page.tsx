@@ -6,7 +6,7 @@ import { Controls } from './Controls';
 import { PlotCanvas } from './PlotCanvas';
 import { PointReadout } from './PointReadout';
 import { TheoryNotes } from './TheoryNotes';
-import { Tex } from './Tex';
+import { Tex } from '@/src/components/ui/Tex';
 import { maxValue, presetById } from './lib/model';
 import type { PresetId, ShowState } from './lib/types';
 

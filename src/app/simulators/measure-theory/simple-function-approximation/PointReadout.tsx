@@ -1,7 +1,7 @@
 'use client';
 
 import { fracTex, fracText, pointInfo } from './lib/model';
-import { Tex } from './Tex';
+import { Tex } from '@/src/components/ui/Tex';
 
 interface Props {
   x: number | null;
