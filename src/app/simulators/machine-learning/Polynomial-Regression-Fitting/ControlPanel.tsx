@@ -12,8 +12,6 @@ type Props = {
   onRegChange: (value: string) => void
   lossType: string
   onLossTypeChange: (value: string) => void
-  delta: number
-  onDeltaChange: (value: number) => void
   lambda: number
   onLambdaChange: (value: number) => void
   onReset: () => void
@@ -28,8 +26,6 @@ export const ControlPanel: FC<Props> = ({
   onRegChange,
   lossType,
   onLossTypeChange,
-  delta,
-  onDeltaChange,
   lambda,
   onLambdaChange,
   onReset,
@@ -82,21 +78,16 @@ export const ControlPanel: FC<Props> = ({
         </select>
       </div>
 
-      <RangeField
-        label="ステップの大きさ"
-        min={-5}
-        max={1}
-        step={1}
-        value={Math.log10(delta) + 1}
-        onValueChange={value => onDeltaChange(10 ** (value - 1))}
-        display={delta}
-      />
-
       <div className="space-x-2">
-        <button onClick={onReset} className="bg-fg/10 p-2 rounded">
+        <button onClick={onReset} className="rounded bg-fg/10 px-3 py-2 text-fg hover:bg-fg/15">
           リセット
         </button>
-        <button onClick={onToggle} className="bg-accent/50 text-white p-2 rounded">
+        <button
+          onClick={onToggle}
+          className={`rounded px-3 py-2 text-white shadow ${
+            isRunning ? "bg-red-700 hover:bg-red-800" : "bg-blue-700 hover:bg-blue-800"
+          }`}
+        >
           {isRunning ? "ストップ" : "スタート"}
         </button>
       </div>

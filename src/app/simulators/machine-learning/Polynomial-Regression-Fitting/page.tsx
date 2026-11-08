@@ -29,7 +29,6 @@ export default function PageMain() {
   const [regType, setRegType] = useState<string>("normal")  // 回帰方法
   const [currentLoss, setCurrentLoss] = useState<number>(0) // 現在の誤差関数の値
   const [lossType, setLossType] = useState<string>("mse")  // 誤差関数の種類
-  const [delta, setDelta] = useState<number>(0.1)  // ステップの大きさ（変更するスライダーは未実装）
   const [isRunning, setIsRunning] = useState<boolean>(false)  // シミュレーションが動いているかどうか
   const [lambda, setLambda] = useState<number>(0.1) // 正則化項の重み
 
@@ -78,27 +77,15 @@ export default function PageMain() {
     })
     setCurrentLoss(computeTotalLoss(dataPoints, parameters, lossType, regType, lambda))
     setModelCurve(newCurve)
-  }, [parameters])
+  }, [parameters, dataPoints, lossType, regType, lambda])
 
   // シミュレーションの1ステップ
   const simulateStep = () => {
     if (!parameters) return
 
-    // パラメータ更新
-    const newParams = updateParameters(parameters, delta, dataPoints, lossType, regType, lambda)
-    setParameters(newParams)
-
-    // 新しい誤差計算
-    const newLoss = computeTotalLoss(dataPoints, newParams, lossType, regType, lambda)
-    setCurrentLoss(newLoss)
-
-    // モデル曲線の再生成(x: [-11, 11]の範囲)
-    const newCurve: [number, number][] = Array.from({ length: 100 }, (_, i) => {
-      const x = -6 + (12 * i) / 99
-      const y = evaluateModel(x, newParams)
-      return [x, y]
-    })
-    setModelCurve(newCurve)
+    // パラメータ更新（収束後は状態を更新せず再描画を止める。誤差と曲線は parameters の effect で更新される）
+    const { weights, converged } = updateParameters(parameters, dataPoints, lossType, regType, lambda)
+    if (!converged) setParameters(weights)
   }
 
   // シミュレーションのループ管理
@@ -110,7 +97,7 @@ export default function PageMain() {
     }, 33)// 約30fps
 
     return () => clearInterval(interval)
-  }, [isRunning, parameters, dataPoints, delta, lossType])
+  }, [isRunning, parameters, dataPoints, lossType, regType, lambda])
 
   return(
     <div>
@@ -129,8 +116,6 @@ export default function PageMain() {
             onRegChange={setRegType}
             lossType={lossType}
             onLossTypeChange={setLossType}
-            delta={delta}
-            onDeltaChange={setDelta}
             lambda={lambda}
             onLambdaChange={setLambda}
             onReset={handleReset}
@@ -144,7 +129,6 @@ export default function PageMain() {
             <ParameterSliders
               parameters={parameters}
               onParameterChange={handleParameterChange}
-              delta={delta}
             />
           )}
         </div>
@@ -156,6 +140,7 @@ export default function PageMain() {
             degree={degree}
             regType={regType}
             lossType={lossType}
+            dataCount={dataPoints.length}
           />)
           }
           

@@ -8,10 +8,9 @@ import { RangeField } from '@/src/components/ui/RangeField'
 type Props = {
   parameters: number[]
   onParameterChange: (index: number, value: number) => void
-  delta: number
 }
 
-export const ParameterSliders: FC<Props> = ({ parameters, onParameterChange, delta }) => {
+export const ParameterSliders: FC<Props> = ({ parameters, onParameterChange }) => {
   return(
     <div className="p-4 border rounded-lg space-y-4">
       <h2 className="text-lg font-bold">モデルパラメータ(w)</h2>
@@ -19,7 +18,7 @@ export const ParameterSliders: FC<Props> = ({ parameters, onParameterChange, del
         <RangeField
           key={i}
           layout="stacked"
-          label={<>w<sub>{i}</sub>: {w.toFixed(-Math.log10(delta))}</>}
+          label={<>w<sub>{i}</sub>: {w.toFixed(3)}</>}
           min={-10}
           max={10}
           step={0.001}
