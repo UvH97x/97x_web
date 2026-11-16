@@ -1,5 +1,5 @@
 import { DISTRIBUTIONS, getDistribution, initialParams } from './distributions';
-import type { ExplorerState, ParamSpec, ShowState, View } from './types';
+import type { DistributionDef, ExplorerState, Params, ParamSpec, ShowState, View } from './types';
 
 // Query keys. Distribution parameter keys (ParamSpec.key) share this namespace
 // and must not collide with: dist, samples, bins, seed, view, show, from, to.
@@ -33,13 +33,29 @@ function readNumber(raw: string | null): number | null {
   return Number.isFinite(value) ? value : null;
 }
 
+/** Upper limit of a parameter, which may depend on the parameters declared before it. */
+export function paramMax(spec: ParamSpec, params: Params): number {
+  return typeof spec.max === 'function' ? spec.max(params) : spec.max;
+}
+
 /**
  * Clamps a parameter to its range. Values need not lie on the slider grid (they
  * can be typed in), but integer-valued parameters stay integers.
  */
-export function clampParam(value: number, spec: ParamSpec): number {
-  const clamped = Math.min(spec.max, Math.max(spec.min, value));
+export function clampParam(value: number, spec: ParamSpec, params: Params): number {
+  const clamped = Math.min(paramMax(spec, params), Math.max(spec.min, value));
   return spec.digits === 0 ? Math.round(clamped) : Number(clamped.toFixed(6));
+}
+
+/**
+ * Clamps every parameter to its range, in declaration order, so that a limit
+ * that depends on an earlier parameter sees that parameter's final value.
+ * Lowering N therefore pulls K down with it; raising N again does not restore K.
+ */
+export function constrainParams(def: DistributionDef, params: Params): Params {
+  const result = { ...params };
+  for (const spec of def.params) result[spec.key] = clampParam(result[spec.key], spec, result);
+  return result;
 }
 
 function readInt(raw: string | null, { min, max, init }: { min: number; max: number; init: number }): number {
@@ -53,8 +69,10 @@ export function parseState(query: { get(key: string): string | null }): Explorer
   const def = getDistribution(state.distId);
   for (const spec of def.params) {
     const value = readNumber(query.get(spec.key));
-    if (value !== null) state.params[spec.key] = clampParam(value, spec);
+    if (value !== null) state.params[spec.key] = value;
   }
+  // Also clamps the defaults of absent parameters against the ones that were given.
+  state.params = constrainParams(def, state.params);
   state.count = readInt(query.get('samples'), LIMITS.count);
   state.bins = readInt(query.get('bins'), LIMITS.bins);
   state.seed = readInt(query.get('seed'), LIMITS.seed);

@@ -3,7 +3,7 @@
 import { useState, type ReactNode } from 'react';
 import { RangeField } from '@/src/components/ui/RangeField';
 import { formatValue, niceStep, stepDigits } from './lib/model';
-import { LIMITS } from './lib/urlState';
+import { LIMITS, paramMax } from './lib/urlState';
 import type { DistributionDef, ExplorerState, Interval, PlotRange, ShowState } from './lib/types';
 
 type ShowKey = keyof ShowState;
@@ -122,7 +122,8 @@ export function Controls({ def, state, range, interval, onParam, onPatch, onShow
       <SectionTitle>パラメータ</SectionTitle>
       {def.params.map(spec => (
         <SliderRow key={`${def.id}:${spec.key}`} label={spec.label} sublabel={spec.sublabel}
-          text={formatValue(state.params[spec.key], spec.digits)} min={spec.min} max={spec.max} step={spec.step}
+          text={formatValue(state.params[spec.key], spec.digits)}
+          min={spec.min} max={paramMax(spec, state.params)} step={spec.step}
           integer={spec.digits === 0} value={state.params[spec.key]} onChange={value => onParam(spec.key, value)} />
       ))}
 

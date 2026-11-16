@@ -69,8 +69,10 @@ export function PlotCanvas({ def, params, view, range, hist, sorted, show, quant
 
       const fn = isCdf ? def.cdf : def.pdf;
       const theory = discrete ? ks.map(k => fn(k, params)) : Array.from(xs, x => fn(x, params));
+      // A discrete reference is evaluated at the integers only, like the distribution itself.
+      const referenceDiscrete = discrete && def.reference?.kind === 'discrete';
       const reference = def.reference && show.reference
-        ? Array.from(xs, x => (isCdf ? def.reference!.cdf(x, params) : def.reference!.pdf(x, params)))
+        ? Array.from(referenceDiscrete ? ks : xs, x => (isCdf ? def.reference!.cdf(x, params) : def.reference!.pdf(x, params)))
         : null;
 
       // --- Vertical scale -----------------------------------------------
@@ -196,14 +198,14 @@ export function PlotCanvas({ def, params, view, range, hist, sorted, show, quant
           ctx.globalAlpha = 1;
         }
 
-        if (reference) polyline(reference, colors.gauss, 1.6);
+        if (reference && !referenceDiscrete) polyline(reference, colors.gauss, 1.6);
 
+        const radius = Math.max(1.5, Math.min(3.5, (X(1) - X(0)) * 0.28));
         if (show.theory) {
           if (discrete) {
             ctx.strokeStyle = colors.ih;
             ctx.fillStyle = colors.ih;
             ctx.lineWidth = 2;
-            const radius = Math.max(1.5, Math.min(3.5, (X(1) - X(0)) * 0.28));
             ks.forEach((k, j) => {
               const px = X(k);
               const py = Y(theory[j]);
@@ -213,6 +215,16 @@ export function PlotCanvas({ def, params, view, range, hist, sorted, show, quant
           } else {
             polyline(theory, colors.ih, 2.2);
           }
+        }
+
+        // Rings drawn over the theory's dots: where the two distributions agree,
+        // a ring encloses its dot; where they differ, the two come apart.
+        if (reference && referenceDiscrete) {
+          ctx.strokeStyle = colors.gauss;
+          ctx.lineWidth = 1.6;
+          ks.forEach((k, j) => {
+            ctx.beginPath(); ctx.arc(X(k), Y(reference[j]), radius + 1.8, 0, 2 * Math.PI); ctx.stroke();
+          });
         }
       } else {
         // --- CDF ---------------------------------------------------------
@@ -256,7 +268,10 @@ export function PlotCanvas({ def, params, view, range, hist, sorted, show, quant
           }
         }
 
-        if (reference) polyline(reference, colors.gauss, 1.6);
+        if (reference) {
+          if (referenceDiscrete) steps(def.reference!.cdf(ks[0] - 1, params), reference, colors.gauss, 1.6, false);
+          else polyline(reference, colors.gauss, 1.6);
+        }
 
         if (show.theory) {
           if (discrete) {

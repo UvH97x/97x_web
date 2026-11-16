@@ -2,11 +2,22 @@ import { binomialSampler } from '../random';
 import { logGamma, normalCdf, normalPdf } from '../special';
 import type { DistributionDef } from '../types';
 
-function pmf(k: number, n: number, p: number): number {
+/** Binomial mass function; also valid at p = 0 and p = 1, where all mass sits on one point. */
+export function binomialPmf(k: number, n: number, p: number): number {
   if (k < 0 || k > n || !Number.isInteger(k)) return 0;
+  if (p <= 0) return k === 0 ? 1 : 0;
+  if (p >= 1) return k === n ? 1 : 0;
   return Math.exp(
     logGamma(n + 1) - logGamma(k + 1) - logGamma(n - k + 1) + k * Math.log(p) + (n - k) * Math.log(1 - p),
   );
+}
+
+export function binomialCdf(x: number, n: number, p: number): number {
+  if (x < 0) return 0;
+  if (x >= n) return 1;
+  let sum = 0;
+  for (let k = 0; k <= Math.floor(x); k++) sum += binomialPmf(k, n, p);
+  return Math.min(1, sum);
 }
 
 export const binomial: DistributionDef = {
@@ -21,14 +32,8 @@ export const binomial: DistributionDef = {
   moments: String.raw`E[X] = np,\quad \mathrm{Var}[X] = np(1-p)`,
   note: 'n が大きく p が極端でないとき、正規近似がよく合います。',
   support: ({ n }) => [0, n],
-  pdf: (x, { n, p }) => pmf(x, n, p),
-  cdf: (x, { n, p }) => {
-    if (x < 0) return 0;
-    if (x >= n) return 1;
-    let sum = 0;
-    for (let k = 0; k <= Math.floor(x); k++) sum += pmf(k, n, p);
-    return Math.min(1, sum);
-  },
+  pdf: (x, { n, p }) => binomialPmf(x, n, p),
+  cdf: (x, { n, p }) => binomialCdf(x, n, p),
   sampler: ({ n, p }) => binomialSampler(n, p),
   mean: ({ n, p }) => n * p,
   variance: ({ n, p }) => n * p * (1 - p),

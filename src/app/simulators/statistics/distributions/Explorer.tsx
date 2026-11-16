@@ -13,7 +13,7 @@ import {
   distributionQuantiles, generate, histogram, intervalProbability, plotRange, resolveInterval,
   sampleIntervalProportion, sampleStats,
 } from './lib/model';
-import { defaultState, parseState, serializeState } from './lib/urlState';
+import { constrainParams, defaultState, parseState, serializeState } from './lib/urlState';
 import type { ExplorerState, ShowState, View } from './lib/types';
 
 export function Explorer() {
@@ -33,8 +33,11 @@ export function Explorer() {
   }, [state]);
 
   const patch = useCallback((change: Partial<ExplorerState>) => setState(previous => ({ ...previous, ...change })), []);
-  const setParam = useCallback((key: string, value: number) =>
-    setState(previous => ({ ...previous, params: { ...previous.params, [key]: value } })), []);
+  // Re-clamps all parameters: the limits of some depend on the one that changed.
+  const setParam = useCallback((key: string, value: number) => setState(previous => ({
+    ...previous,
+    params: constrainParams(getDistribution(previous.distId), { ...previous.params, [key]: value }),
+  })), []);
   const setShow = useCallback((key: keyof ShowState, value: boolean) =>
     setState(previous => ({ ...previous, show: { ...previous.show, [key]: value } })), []);
   // Parameters and the interval belong to a distribution; display and sampling settings carry over.

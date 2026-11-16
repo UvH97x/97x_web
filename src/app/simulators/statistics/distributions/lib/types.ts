@@ -7,16 +7,25 @@ export interface ParamSpec {
   label: string;
   sublabel: string;
   min: number;
-  max: number;
+  /**
+   * 上限。他のパラメータに依存する場合は関数で与える（例: K ≤ N）。
+   * 関数が参照してよいのは、params 配列で自分より前に宣言したパラメータのみ。
+   */
+  max: number | ((params: Params) => number);
   step: number;
   init: number;
   /** 表示時の小数桁数。 */
   digits: number;
 }
 
-/** 比較用に重ねる連続曲線（例: 正規近似）。 */
+/** 比較用に重ねる分布（例: 正規近似）。 */
 export interface ReferenceCurve {
   label: string;
+  /**
+   * 既定は 'continuous'（連続曲線として描く）。'discrete' は離散分布どうしの比較用で、
+   * 整数点でのみ評価し、PMF は点、CDF は階段で描く。
+   */
+  kind?: 'continuous' | 'discrete';
   pdf(x: number, params: Params): number;
   cdf(x: number, params: Params): number;
 }

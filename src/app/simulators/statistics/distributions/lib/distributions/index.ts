@@ -9,6 +9,7 @@ import { exponential } from './exponential';
 import { fisherF } from './fisherF';
 import { gamma } from './gamma';
 import { geometric } from './geometric';
+import { hypergeometric } from './hypergeometric';
 import { laplace } from './laplace';
 import { logistic } from './logistic';
 import { logNormal } from './logNormal';
@@ -27,7 +28,7 @@ import { weibull } from './weibull';
 export const DISTRIBUTIONS: readonly DistributionDef[] = [
   normal, uniform, exponential, gamma, beta, chiSquare, studentT, fisherF, logNormal, weibull, laplace, logistic,
   cauchy, pareto,
-  bernoulli, binomial, geometric, negativeBinomial, poisson, discreteUniform,
+  bernoulli, binomial, geometric, negativeBinomial, hypergeometric, poisson, discreteUniform,
 ];
 
 export function getDistribution(id: string): DistributionDef {

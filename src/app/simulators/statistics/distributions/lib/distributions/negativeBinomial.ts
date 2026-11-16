@@ -1,5 +1,5 @@
 import { gammaSample, poissonSampler } from '../random';
-import { logGamma, normalCdf, normalPdf } from '../special';
+import { logGamma, regularizedGammaP } from '../special';
 import type { DistributionDef } from '../types';
 
 const mean = (r: number, p: number) => (r * (1 - p)) / p;
@@ -17,7 +17,7 @@ export const negativeBinomial: DistributionDef = {
   ],
   formula: String.raw`\mathrm{NB}(X = k;\, r, p) = \frac{\Gamma(k+r)}{k!\, \Gamma(r)}\, p^r (1-p)^k \quad (k = 0, 1, 2, \dots)`,
   moments: String.raw`E[X] = \frac{r(1-p)}{p},\quad \mathrm{Var}[X] = \frac{r(1-p)}{p^2}`,
-  note: 'r 回成功するまでの失敗回数です。r = 1 で幾何分布に一致し、r は整数でなくても定義できます。',
+  note: 'r 回成功するまでの失敗回数です。r = 1 で幾何分布に一致し、r は整数でなくても定義できます。分散は平均の 1/p 倍で、同じ平均の Poisson 分布より広がります（過分散）。',
   support: () => [0, Number.POSITIVE_INFINITY],
   pdf: (x, { r, p }) => {
     if (x < 0 || !Number.isInteger(x)) return 0;
@@ -42,9 +42,16 @@ export const negativeBinomial: DistributionDef = {
   },
   mean: ({ r, p }) => mean(r, p),
   variance: ({ r, p }) => sd(r, p) ** 2,
+  // The Poisson distribution with the same mean: its variance equals the mean,
+  // so the comparison shows the overdispersion by the factor 1 / p.
   reference: {
-    label: '正規近似 N(r(1−p)/p, r(1−p)/p²)',
-    pdf: (x, { r, p }) => normalPdf((x - mean(r, p)) / sd(r, p)) / sd(r, p),
-    cdf: (x, { r, p }) => normalCdf((x - mean(r, p)) / sd(r, p)),
+    label: '同じ平均の Poisson(r(1−p)/p)',
+    kind: 'discrete',
+    pdf: (x, { r, p }) => {
+      if (x < 0 || !Number.isInteger(x)) return 0;
+      const lambda = mean(r, p);
+      return Math.exp(x * Math.log(lambda) - lambda - logGamma(x + 1));
+    },
+    cdf: (x, { r, p }) => (x < 0 ? 0 : 1 - regularizedGammaP(Math.floor(x) + 1, mean(r, p))),
   },
 };
