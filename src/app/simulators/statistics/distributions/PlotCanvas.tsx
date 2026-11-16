@@ -159,6 +159,20 @@ export function PlotCanvas({ def, params, view, range, hist, sorted, show, quant
         ctx.stroke();
       }
 
+      // Straight segments through the integer points (k, values[j]) of a mass function.
+      // They only guide the eye: the function is defined at the integers alone.
+      function connect(values: ArrayLike<number>, color: string, lineWidth: number) {
+        if (!ctx) return;
+        ctx.strokeStyle = color;
+        ctx.lineWidth = lineWidth;
+        ctx.lineJoin = 'round';
+        ctx.globalAlpha = 0.7;
+        ctx.beginPath();
+        ks.forEach((k, j) => { if (j === 0) ctx.moveTo(X(k), Y(values[j])); else ctx.lineTo(X(k), Y(values[j])); });
+        ctx.stroke();
+        ctx.globalAlpha = 1;
+      }
+
       if (!isCdf) {
         // --- PDF / PMF ---------------------------------------------------
         if (show.hist && hist) {
@@ -206,11 +220,9 @@ export function PlotCanvas({ def, params, view, range, hist, sorted, show, quant
             ctx.strokeStyle = colors.ih;
             ctx.fillStyle = colors.ih;
             ctx.lineWidth = 2;
+            connect(theory, colors.ih, 1.6);
             ks.forEach((k, j) => {
-              const px = X(k);
-              const py = Y(theory[j]);
-              ctx.beginPath(); ctx.moveTo(px, Y(0)); ctx.lineTo(px, py); ctx.stroke();
-              ctx.beginPath(); ctx.arc(px, py, radius, 0, 2 * Math.PI); ctx.fill();
+              ctx.beginPath(); ctx.arc(X(k), Y(theory[j]), radius, 0, 2 * Math.PI); ctx.fill();
             });
           } else {
             polyline(theory, colors.ih, 2.2);
@@ -220,6 +232,7 @@ export function PlotCanvas({ def, params, view, range, hist, sorted, show, quant
         // Rings drawn over the theory's dots: where the two distributions agree,
         // a ring encloses its dot; where they differ, the two come apart.
         if (reference && referenceDiscrete) {
+          connect(reference, colors.gauss, 1.2);
           ctx.strokeStyle = colors.gauss;
           ctx.lineWidth = 1.6;
           ks.forEach((k, j) => {
