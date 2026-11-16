@@ -2,6 +2,7 @@ import type { DistributionDef, Params } from '../types';
 import { bernoulli } from './bernoulli';
 import { beta } from './beta';
 import { binomial } from './binomial';
+import { cauchy } from './cauchy';
 import { chiSquare } from './chiSquare';
 import { discreteUniform } from './discreteUniform';
 import { exponential } from './exponential';
@@ -13,6 +14,7 @@ import { logistic } from './logistic';
 import { logNormal } from './logNormal';
 import { negativeBinomial } from './negativeBinomial';
 import { normal } from './normal';
+import { pareto } from './pareto';
 import { poisson } from './poisson';
 import { studentT } from './studentT';
 import { uniform } from './uniform';
@@ -24,6 +26,7 @@ import { weibull } from './weibull';
  */
 export const DISTRIBUTIONS: readonly DistributionDef[] = [
   normal, uniform, exponential, gamma, beta, chiSquare, studentT, fisherF, logNormal, weibull, laplace, logistic,
+  cauchy, pareto,
   bernoulli, binomial, geometric, negativeBinomial, poisson, discreteUniform,
 ];
 

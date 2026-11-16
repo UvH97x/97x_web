@@ -290,6 +290,8 @@ export function PlotCanvas({ def, params, view, range, hist, sorted, show, quant
         ctx.textAlign = 'center';
         ctx.textBaseline = 'top';
         quantiles.forEach(({ probability, value }, index) => {
+          // Heavy tails are cut from the plot, and their outer quantiles with them.
+          if (value < xMin || value > xMax) return;
           const px = X(value);
           ctx.beginPath(); ctx.moveTo(px, margin.t); ctx.lineTo(px, margin.t + height); ctx.stroke();
           ctx.fillText(`${Math.round(probability * 100)}%`, px, margin.t + 3 + (index % 2) * 13);

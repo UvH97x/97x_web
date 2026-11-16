@@ -63,14 +63,30 @@ export function distributionQuantiles(def: DistributionDef, params: Params): Qua
 }
 
 /**
+ * How far beyond the quartiles a continuous plot may reach, in interquartile
+ * ranges. Light tails end well inside this fence (normal: 1.9, exponential: 5.7),
+ * so it only cuts heavy ones (Cauchy: 318), whose extreme quantiles would
+ * otherwise squeeze the bulk of the distribution into a sliver.
+ */
+const TAIL_FENCE = 6;
+
+/**
  * Plot range from the 0.05% and 99.95% quantiles rather than mean ± k·sd,
- * so that it also works for distributions without moments.
+ * so that it also works for distributions without moments. Heavy tails of
+ * continuous distributions are cut at the fence above.
  */
 export function plotRange(def: DistributionDef, params: Params): PlotRange {
   const [sLo, sHi] = def.support(params);
-  const qLo = quantile(def, params, 0.0005);
-  const qHi = quantile(def, params, 0.9995);
+  let qLo = quantile(def, params, 0.0005);
+  let qHi = quantile(def, params, 0.9995);
   const anchor = def.plotAnchor?.(params);
+
+  if (def.kind === 'continuous') {
+    const q25 = quantile(def, params, 0.25);
+    const q75 = quantile(def, params, 0.75);
+    qLo = Math.max(qLo, q25 - TAIL_FENCE * (q75 - q25));
+    qHi = Math.min(qHi, q75 + TAIL_FENCE * (q75 - q25));
+  }
 
   if (def.kind === 'discrete') {
     let lo = Math.max(sLo, qLo - 1);

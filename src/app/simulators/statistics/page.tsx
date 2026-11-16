@@ -4,7 +4,7 @@ const simulators = [
   {
     title: '確率分布エクスプローラ',
     description:
-      '正規・Gamma・（非心）χ²・二項・Poisson など 18 種類の分布の密度関数／確率質量関数と累積分布関数を、乱数標本と重ねて可視化。' +
+      '正規・Gamma・（非心）χ²・二項・Poisson など 20 種類の分布の密度関数／確率質量関数と累積分布関数を、乱数標本と重ねて可視化。' +
       '分位点や区間確率も確認でき、状態は URL で共有できる。',
     href: '/simulators/statistics/distributions',
   },
