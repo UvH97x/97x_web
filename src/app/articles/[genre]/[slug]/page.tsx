@@ -75,7 +75,7 @@ import { PageHeader } from '@/src/components/ui/PageHeader';
             <span>筆者: {articleData.author}</span>
           </div>
         </div>
-        <ArticleContent content={articleData.content} />
+        <ArticleContent content={articleData.content} math={articleData.math} />
         <div className="prose mt-8">
           {articleData.references.length > 0 && (
             <h2>参考</h2>

@@ -60,5 +60,11 @@ export const fileStructure = [
     "filePath": "src/data/articles/something-else/typst-install.md",
     "isDirectory": false,
     "title": "Rustを用いたWindowsへのTypstインストール"
+  },
+  {
+    "fileName": "typst-math-sample.md",
+    "filePath": "src/data/articles/something-else/typst-math-sample.md",
+    "isDirectory": false,
+    "title": "Typst 記法の数式サンプル"
   }
 ];

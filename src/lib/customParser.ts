@@ -14,8 +14,12 @@ export interface ParsedFile {
   references: string[]; // 参考文献
   tags: string[];       // タグ
   excerpt?: string;     // 概要
+  math: MathSyntax;     // 数式の記法（フロントマターの math。既定は tex）
   content: string;      // 本文
 }
+
+// 数式の記法。tex は KaTeX、typst は Typlet で描画する。
+export type MathSyntax = 'tex' | 'typst';
 
 // パスを指定して、記事のあらゆる情報を解析して返す。
 export function getParsedFile(filePath: string): ParsedFile {
@@ -39,6 +43,7 @@ export function getParsedFile(filePath: string): ParsedFile {
     references: data.references || [],
     tags: data.tags || [],
     excerpt,  // 概要を追加
+    math: data.math === 'typst' ? 'typst' : 'tex',
     content: content.trim(),
   };
 }

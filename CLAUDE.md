@@ -28,7 +28,7 @@ Next.js 16（App Router）、React 19、TypeScript、Tailwind CSS 3 で構築し
 
 ### 記事
 
-記事は `src/data/articles/<genre>/<slug>.md` に置く Markdown ファイルで、YAML フロントマター（`title`、`author`、`created_at`、`updated_at`、`references`、`tags`、`excerpt`）を持つ。[src/lib/customParser.ts](src/lib/customParser.ts)（gray-matter）が解析し、`ArticleContent`（react-markdown に remark-math / rehype-katex、GFM、highlight.js を組み合わせたもの）が描画する。数式は Typst 記法ではなく TeX 記法で書く。
+記事は `src/data/articles/<genre>/<slug>.md` に置く Markdown ファイルで、YAML フロントマター（`title`、`author`、`created_at`、`updated_at`、`references`、`tags`、`excerpt`、省略可の `math`）を持つ。[src/lib/customParser.ts](src/lib/customParser.ts)（gray-matter）が解析し、`ArticleContent`（react-markdown に remark-math / rehype-katex、GFM、highlight.js を組み合わせたもの）が描画する。数式は既定では TeX 記法で書き、KaTeX が描画する。フロントマターに `math: typst` を書いた記事だけは Typst 記法で書き、Typlet（`rehype-typlet`）が描画する。どちらの記法でも区切り記号は `$...$`（行内）と `$$...$$`（ディスプレイ）である。Typlet が対応する構文は Typst の一部で、`show` ルールのほとんど、ループ、`context` などは使えない。数式中の CJK 文字はブラウザのフォントで近似して描画される。
 
 記事・ジャンルの一覧、静的パラメータ、パンくずリストは、ディレクトリの走査ではなく**手作業で管理する**索引 [src/data/fileStructure.ts](src/data/fileStructure.ts) に基づく。記事を追加するときは、`.md` ファイルに加えてこのファイルへの登録も必要である（新しいジャンルならディレクトリの項目も追加する）。[next.config.mjs](next.config.mjs) は `.md` ファイルを出力トレースに含め、Vercel 上の実行時に読み込めるようにしている。
 

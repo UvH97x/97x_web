@@ -82,7 +82,8 @@
     --tw-prose-td-borders: rgb(var(--border));
     overflow-wrap: anywhere;
   }
-  .prose .katex-display { overflow-x: auto; overflow-y: hidden; }
+  .prose .katex-display,
+  .prose .typlet-display { overflow-x: auto; overflow-y: hidden; }
   .prose pre { @apply border border-border; }
   .hljs { color: rgb(var(--fg)); background: rgb(var(--surface)); }
   .hljs-comment, .hljs-quote { @apply text-muted italic; }
