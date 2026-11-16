@@ -53,6 +53,49 @@ export function regularizedGammaP(a: number, x: number): number {
   return Math.max(0, Math.min(1, 1 - q));
 }
 
+/** log B(a, b). */
+export function logBeta(a: number, b: number): number {
+  return logGamma(a) + logGamma(b) - logGamma(a + b);
+}
+
+// Continued fraction for the incomplete beta function, by the modified Lentz method.
+function betaContinuedFraction(x: number, a: number, b: number): number {
+  const epsilon = 1e-14;
+  const tiny = 1e-300;
+  const guard = (value: number) => (Math.abs(value) < tiny ? tiny : value);
+
+  let c = 1;
+  let d = 1 / guard(1 - ((a + b) * x) / (a + 1));
+  let h = d;
+  for (let m = 1; m <= 1000; m++) {
+    const even = (m * (b - m) * x) / ((a + 2 * m - 1) * (a + 2 * m));
+    d = 1 / guard(1 + even * d);
+    c = guard(1 + even / c);
+    h *= d * c;
+
+    const odd = (-(a + m) * (a + b + m) * x) / ((a + 2 * m) * (a + 2 * m + 1));
+    d = 1 / guard(1 + odd * d);
+    c = guard(1 + odd / c);
+    const delta = d * c;
+    h *= delta;
+    if (Math.abs(delta - 1) < epsilon) break;
+  }
+  return h;
+}
+
+// Regularized incomplete beta I_x(a, b). The continued fraction converges fast
+// below the mean-like point (a + 1) / (a + b + 2); above it, use the symmetry
+// I_x(a, b) = 1 - I_{1-x}(b, a).
+export function regularizedBeta(x: number, a: number, b: number): number {
+  if (x <= 0) return 0;
+  if (x >= 1) return 1;
+  const front = Math.exp(a * Math.log(x) + b * Math.log1p(-x) - logBeta(a, b));
+  const value = x < (a + 1) / (a + b + 2)
+    ? (front * betaContinuedFraction(x, a, b)) / a
+    : 1 - (front * betaContinuedFraction(1 - x, b, a)) / b;
+  return Math.max(0, Math.min(1, value));
+}
+
 export function normalPdf(z: number): number {
   return Math.exp(-0.5 * z * z) / Math.sqrt(2 * Math.PI);
 }

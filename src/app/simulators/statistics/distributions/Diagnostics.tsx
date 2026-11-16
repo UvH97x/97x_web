@@ -18,6 +18,12 @@ function intervalLabel({ a, b }: Interval, digits: number): string {
   return 'P(−∞ < X < ∞)';
 }
 
+/** A theoretical moment: null when it does not exist, possibly infinite. */
+function moment(value: number | null): string {
+  if (value === null) return '未定義';
+  return Number.isFinite(value) ? value.toFixed(4) : value > 0 ? '∞' : '−∞';
+}
+
 interface Props {
   def: DistributionDef;
   params: Params;
@@ -35,8 +41,8 @@ export function Diagnostics({ def, params, stats, quantiles, interval }: Props) 
     <div className="bg-bg border border-border rounded-[10px] p-4 mt-3 text-fg">
       <div className="text-[11px] tracking-[0.8px] uppercase text-muted mb-2.5 font-semibold">診断（標本 / 理論）</div>
       <div className="font-mono text-[12px]">
-        <Row label="平均" sample={stats.mean.toFixed(4)} theory={mean === null ? '未定義' : mean.toFixed(4)} />
-        <Row label="分散" sample={stats.variance.toFixed(4)} theory={variance === null ? '未定義' : variance.toFixed(4)} />
+        <Row label="平均" sample={stats.mean.toFixed(4)} theory={moment(mean)} />
+        <Row label="分散" sample={stats.variance.toFixed(4)} theory={moment(variance)} />
         {interval && (
           <Row label={intervalLabel(interval.range, discrete ? 0 : 2)}
             sample={interval.sample.toFixed(4)} theory={interval.theory.toFixed(4)} />

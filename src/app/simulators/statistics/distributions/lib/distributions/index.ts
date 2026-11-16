@@ -1,9 +1,11 @@
 import type { DistributionDef, Params } from '../types';
 import { bernoulli } from './bernoulli';
+import { beta } from './beta';
 import { binomial } from './binomial';
 import { chiSquare } from './chiSquare';
 import { discreteUniform } from './discreteUniform';
 import { exponential } from './exponential';
+import { fisherF } from './fisherF';
 import { gamma } from './gamma';
 import { geometric } from './geometric';
 import { laplace } from './laplace';
@@ -12,6 +14,7 @@ import { logNormal } from './logNormal';
 import { negativeBinomial } from './negativeBinomial';
 import { normal } from './normal';
 import { poisson } from './poisson';
+import { studentT } from './studentT';
 import { uniform } from './uniform';
 import { weibull } from './weibull';
 
@@ -20,7 +23,7 @@ import { weibull } from './weibull';
  * 選択リストでは連続・離散に分けて、それぞれこの並び順で表示される。
  */
 export const DISTRIBUTIONS: readonly DistributionDef[] = [
-  normal, uniform, exponential, gamma, chiSquare, logNormal, weibull, laplace, logistic,
+  normal, uniform, exponential, gamma, beta, chiSquare, studentT, fisherF, logNormal, weibull, laplace, logistic,
   bernoulli, binomial, geometric, negativeBinomial, poisson, discreteUniform,
 ];
 

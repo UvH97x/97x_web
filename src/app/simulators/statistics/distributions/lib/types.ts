@@ -42,7 +42,7 @@ export interface DistributionDef {
   cdf(x: number, params: Params): number;
   /** パラメータ依存の前計算を済ませたサンプラーを返す。 */
   sampler(params: Params): (rng: Rng) => number;
-  /** 存在しない場合は null。 */
+  /** 存在しない場合は null。発散する場合は ±Infinity。 */
   mean(params: Params): number | null;
   variance(params: Params): number | null;
   /**
