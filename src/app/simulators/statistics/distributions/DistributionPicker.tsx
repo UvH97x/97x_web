@@ -1,6 +1,6 @@
 'use client';
 
-import { useId, useState, type KeyboardEvent } from 'react';
+import { useEffect, useId, useState, type KeyboardEvent } from 'react';
 import { DISTRIBUTIONS } from './lib/distributions';
 import type { DistributionDef } from './lib/types';
 
@@ -10,6 +10,17 @@ const KIND = {
   continuous: { label: '連続', hue: '#0d9488' },
   discrete: { label: '離散', hue: '#7c3aed' },
 } as const;
+
+// The list is grouped by kind. `start` is the group's offset into OPTIONS, the
+// flat order that keyboard navigation and option ids follow.
+const GROUPS = (Object.keys(KIND) as DistributionDef['kind'][])
+  .map(kind => ({ kind, items: DISTRIBUTIONS.filter(def => def.kind === kind) }))
+  .filter(group => group.items.length > 0)
+  .map((group, index, groups) => ({
+    ...group,
+    start: groups.slice(0, index).reduce((count, earlier) => count + earlier.items.length, 0),
+  }));
+const OPTIONS = GROUPS.flatMap(group => group.items);
 
 export function KindTag({ kind }: { kind: DistributionDef['kind'] }) {
   const { label, hue } = KIND[kind];
@@ -29,13 +40,19 @@ export function KindTag({ kind }: { kind: DistributionDef['kind'] }) {
 export function DistributionPicker({ value, onChange }: { value: string; onChange: (id: string) => void }) {
   const baseId = useId();
   const [open, setOpen] = useState(false);
-  const selectedIndex = Math.max(0, DISTRIBUTIONS.findIndex(def => def.id === value));
+  const selectedIndex = Math.max(0, OPTIONS.findIndex(def => def.id === value));
   const [active, setActive] = useState(selectedIndex);
-  const selected = DISTRIBUTIONS[selectedIndex];
-  const last = DISTRIBUTIONS.length - 1;
+  const selected = OPTIONS[selectedIndex];
+  const last = OPTIONS.length - 1;
 
   const show = () => { setActive(selectedIndex); setOpen(true); };
-  const choose = (index: number) => { onChange(DISTRIBUTIONS[index].id); setOpen(false); };
+  const choose = (index: number) => { onChange(OPTIONS[index].id); setOpen(false); };
+
+  // The list is taller than its box: keep the active option in view, both when
+  // it opens on the current selection and during keyboard navigation.
+  useEffect(() => {
+    if (open) document.getElementById(`${baseId}-${active}`)?.scrollIntoView({ block: 'nearest' });
+  }, [open, active, baseId]);
 
   function onKeyDown(event: KeyboardEvent) {
     const moves: Record<string, number> = {
@@ -68,20 +85,32 @@ export function DistributionPicker({ value, onChange }: { value: string; onChang
         </svg>
       </button>
       {open && (
-        <ul id={`${baseId}-list`} role="listbox" aria-labelledby={`${baseId}-label`}
-          className="absolute z-20 mt-1 w-full max-h-72 overflow-y-auto rounded-md border border-border bg-bg py-1 shadow-lg list-none m-0 pl-0">
-          {DISTRIBUTIONS.map((def, index) => (
-            <li key={def.id} id={`${baseId}-${index}`} role="option" aria-selected={index === selectedIndex}
-              // Keep focus on the button so that its blur handler does not close the list before the click lands.
-              onPointerDown={event => event.preventDefault()}
-              onPointerEnter={() => setActive(index)} onClick={() => choose(index)}
-              className={`flex items-center gap-2 px-2.5 py-1.5 text-sm cursor-pointer ${index === active ? 'bg-fg/10' : ''} ${
-                index === selectedIndex ? 'font-semibold' : ''}`}>
-              <KindTag kind={def.kind} />
-              <span className="flex-1 truncate">{def.name}</span>
-            </li>
+        <div id={`${baseId}-list`} role="listbox" aria-labelledby={`${baseId}-label`}
+          // Keep focus on the button so that its blur handler does not close the list before a click lands.
+          onPointerDown={event => event.preventDefault()}
+          className="absolute z-20 mt-1 w-full max-h-80 overflow-y-auto rounded-md border border-border bg-bg pb-1 shadow-lg">
+          {GROUPS.map(group => (
+            <div key={group.kind} role="group" aria-labelledby={`${baseId}-group-${group.kind}`}>
+              <div id={`${baseId}-group-${group.kind}`}
+                className="flex items-center gap-2 px-2.5 pt-2.5 pb-1 text-[11px] font-semibold text-muted">
+                <KindTag kind={group.kind} />
+                <span>分布</span>
+                <span className="ml-auto font-normal tabular-nums">{group.items.length}</span>
+              </div>
+              {group.items.map((def, offset) => {
+                const index = group.start + offset;
+                return (
+                  <div key={def.id} id={`${baseId}-${index}`} role="option" aria-selected={index === selectedIndex}
+                    onPointerEnter={() => setActive(index)} onClick={() => choose(index)}
+                    className={`px-2.5 py-1.5 pl-4 text-sm truncate cursor-pointer ${index === active ? 'bg-fg/10' : ''} ${
+                      index === selectedIndex ? 'font-semibold' : ''}`}>
+                    {def.name}
+                  </div>
+                );
+              })}
+            </div>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );
