@@ -2,11 +2,11 @@ import { SimulatorCatalog } from '@/src/app/simulators/_components/SimulatorCata
 
 const simulators = [
   {
-    title: '（非心）χ² 分布',
+    title: '確率分布エクスプローラ',
     description:
-      '自由度 ν と非心度 λ を操作し、非心 χ² 分布の理論密度と乱数ヒストグラムを可視化。' +
-      'λ = 0 の中心 χ² 分布との違いも比較できる。',
-    href: '/simulators/statistics/chi-square',
+      '正規・（非心）χ²・二項・Poisson 分布の密度関数／確率質量関数と累積分布関数を、乱数標本と重ねて可視化。' +
+      '分位点や区間確率も確認でき、状態は URL で共有できる。',
+    href: '/simulators/statistics/distributions',
   },
   {
     title: '一様乱数からのガウス生成器',
