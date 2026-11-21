@@ -16,7 +16,12 @@ const apps = [
   title: '4-3-2 部分ネット可視化（ドロップアウト用）',
   description: '入力4・中間3のノードマスク105通りをID=1～105で切替可視化。出力層は落とさない。',
   href: '/simulators/machine-learning/Subnetwork-visualizer-4-3-2',
-  }
+  },
+  {
+    title: '正規化フロー: 要素別変換',
+    description: '要素別フローの非線形関数 g と逆関数・導関数、変数変換後の密度を可視化。スプラインはドラッグで編集可能。',
+    href: '/simulators/machine-learning/Elementwise-Flows',
+  },
 ];
 
 export default function Page() {

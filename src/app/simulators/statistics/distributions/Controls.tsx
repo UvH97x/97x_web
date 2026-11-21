@@ -8,7 +8,7 @@ import type { DistributionDef, ExplorerState, Interval, PlotRange, ShowState } f
 
 type ShowKey = keyof ShowState;
 
-function SectionTitle({ children }: { children: ReactNode }) {
+export function SectionTitle({ children }: { children: ReactNode }) {
   return <div className="text-[11px] tracking-[0.8px] uppercase text-muted mb-2.5 font-semibold">{children}</div>;
 }
 
@@ -53,7 +53,7 @@ function NumberInput({ label, text, min, max, integer, onCommit }: {
  * A slider with a typed entry. The entry may use a different scale and range
  * than the slider (e.g. a logarithmic slider with a linear entry).
  */
-function SliderRow({ label, sublabel, text, min, max, step, value, onChange, integer = false, entry }: {
+export function SliderRow({ label, sublabel, text, min, max, step, value, onChange, integer = false, entry }: {
   label: string; sublabel: string; text: string;
   min: number; max: number; step: number; value: number;
   onChange: (value: number) => void;
